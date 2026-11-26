@@ -97,6 +97,70 @@
     a:hover { text-decoration: underline; }
     ul { margin: 6px 0; padding-left: 18px; }
     li { margin-bottom: 4px; }
+    /* News & Social Radar Tab */
+    .tab-btn-news {
+      background: linear-gradient(135deg, rgba(245,158,11,0.16), rgba(56,189,248,0.12));
+      border: 1px solid rgba(245,158,11,0.38);
+      border-bottom: 2px solid transparent;
+      border-radius: 8px 8px 0 0;
+      color: #fde68a;
+    }
+    .tab-btn-news.active {
+      background: linear-gradient(135deg, rgba(245,158,11,0.28), rgba(56,189,248,0.2));
+      color: #fff;
+      border-bottom-color: var(--gold);
+    }
+    .brief-hero {
+      background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(15,23,42,0.98) 55%, rgba(56,189,248,0.1));
+      border: 1px solid rgba(245,158,11,0.45);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .brief-list { list-style: none; padding: 0; margin: 10px 0 12px; display: grid; gap: 8px; }
+    .brief-list li {
+      background: rgba(15,23,42,0.75); border: 1px solid rgba(148,163,184,0.18);
+      border-radius: 8px; padding: 10px 12px; color: #f8fafc; font-size: 13.5px; margin: 0;
+    }
+    .impact-box {
+      background: rgba(15,23,42,0.85); border-left: 3px solid var(--primary);
+      border-radius: 6px; padding: 10px 12px; font-size: 12.5px; color: #e2e8f0;
+    }
+    .impact-box.gold { border-left-color: var(--gold); }
+    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 16px; }
+    @media (max-width: 900px) { .social-grid { grid-template-columns: 1fr; } }
+    .news-item {
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .news-title { font-size: 13.5px; font-weight: 700; color: #f1f5f9; display: inline-block; line-height: 1.45; }
+    .news-meta { font-size: 11px; color: var(--muted); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .news-summary { font-size: 12px; color: #cbd5e1; margin-top: 4px; }
+    .tag-gold {
+      background: rgba(245,158,11,0.18); color: #fbbf24;
+      border: 1px solid rgba(245,158,11,0.45); font-weight: 700;
+    }
+    .push-badge {
+      display: inline-block; min-width: 34px; text-align: center;
+      padding: 2px 6px; border-radius: 5px; font-weight: 800; font-size: 11.5px;
+      font-family: ui-monospace, monospace; background: #1e293b; color: #facc15;
+    }
+    .push-badge.hot { background: rgba(239,68,68,0.25); color: #f87171; border: 1px solid rgba(239,68,68,0.5); }
+    .sentiment-meter {
+      background: #0b1220; border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; margin-bottom: 10px;
+    }
+    .meter-track { height: 8px; background: #1e293b; border-radius: 99px; overflow: hidden; margin-top: 6px; }
+    .meter-fill { height: 100%; background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444); }
+    .reddit-row {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 8px 10px; border-radius: 7px; background: var(--card2); border: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
+    @media (max-width: 600px) {
+      .tab-btn { padding: 9px 10px; font-size: 12.5px; }
+      .tabs { gap: 4px; }
+    }
   </style>
 </head>
 <body>
@@ -125,6 +189,7 @@
       <button class="tab-btn active" data-tab="holdings">🎯 分析結果 vs 預期目標 vs 實際績效</button>
       <button class="tab-btn" data-tab="daily">📅 每日投資結果報告 (Daily Reports)</button>
       <button class="tab-btn" data-tab="research">🏛️ 二部總經・供應鏈・風控研報摘要</button>
+      <button class="tab-btn tab-btn-news" data-tab="news">📰 大 Boss 情報早報 ＆ 社群輿情站</button>
     </div>
 
     <!-- Tab 1: Holdings & Expected vs Actual -->
@@ -207,6 +272,67 @@
             <li><strong>Vera Rubin 液冷與高速互連</strong>：<code>3017.TW 奇鋐</code>（<code>2,795</code>）同時守穩年線與月線且正乖離僅 +3.8%；<code>3665.TW 貿聯-KY</code> 掛單等拉回修正乖離。</li>
             <li><strong>投信季底作帳 752 億主導</strong>：鎖定帶 1.24x 攻擊量剛站上月線之高投本比股 <code>8299.TWO 群聯</code>（<code>1,630</code>，盈虧比高達 <code>4.12x</code>）及美股 3M 唯一正報酬巨頭 <code>META</code>（<code>US$609.89</code>）。</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 4: Boss News Brief & Social Sentiment Radar -->
+    <section id="tab-news" class="hidden">
+      <div id="news-brief-box" class="brief-hero">
+        <div class="card-title"><span>👑 大 Boss 3 分鐘專屬情報早報</span><span class="tag">載入中...</span></div>
+      </div>
+
+      <div class="social-grid">
+        <div class="card" style="margin-bottom:0;">
+          <div class="card-title">
+            <span>💬 PTT Stock 股版爆文榜 ＋ 散戶情緒溫度計</span>
+            <span id="ptt-badge" class="tag">實時抓取</span>
+          </div>
+          <div id="ptt-sentiment-box"></div>
+          <div id="ptt-posts-box"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:0;">
+          <div class="card-title">
+            <span>👽 Reddit 美股熱議榜 (WSB / r/stocks / r/investing)</span>
+            <span class="tag">24h 討論動能</span>
+          </div>
+          <div id="reddit-box"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:0;">
+          <div class="card-title">
+            <span>⚡ Hacker News 矽谷科技創投熱榜</span>
+            <span class="tag">AI 工具 / 獨立開發靈感</span>
+          </div>
+          <div id="hn-box"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:0;">
+          <div class="card-title">
+            <span>🐦 X / Threads 熱門財經科技焦點</span>
+            <span class="tag">跨平台社群熱議</span>
+          </div>
+          <div id="xthreads-box"></div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span>📈 台美股財經 ＆ AI 半導體供應鏈</span><span class="tag">持股聯動追蹤</span></div>
+          <div id="news-market-box"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>🌐 國際政經局勢 ＆ 關稅政策</span><span class="tag">宏觀與政策風險</span></div>
+          <div id="news-macro-box"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>🤖 AI 最新工具 ＆ 變現商機</span><span class="tag">同步回饋金流一部</span></div>
+          <div id="news-ai-box"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>🇹🇼 台灣熱門時事 ＆ 加密／原物料</span><span class="tag">多維情報雷達</span></div>
+          <div id="news-twcrypto-box"></div>
         </div>
       </div>
     </section>
@@ -348,15 +474,161 @@
       `).join("");
     }
 
+    let NEWS = null;
+
+    function escHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function renderTags(tags) {
+      return (tags || []).map(t => `<span class="tag tag-gold">🎯 ${escHtml(t)}</span>`).join(" ");
+    }
+
+    function renderNewsList(containerId, items) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      if (!items || !items.length) {
+        el.innerHTML = `<div style="color:var(--muted);">暫無最新資料</div>`;
+        return;
+      }
+      el.innerHTML = items.map(item => `
+        <div class="news-item">
+          <a class="news-title" href="${escHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escHtml(item.title)} ↗</a>
+          <div class="news-meta">
+            <span class="tag">${escHtml(item.source || "新聞")}</span>
+            ${item.time ? `<span>🕒 ${escHtml(item.time)}</span>` : ""}
+            ${renderTags(item.tags)}
+          </div>
+          ${item.summary ? `<div class="news-summary">${escHtml(item.summary)}</div>` : ""}
+        </div>
+      `).join("");
+    }
+
+    async function loadNewsData() {
+      try {
+        let res = await fetch(
+          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/news_feed.json?ref=main",
+          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
+        );
+        if (!res.ok) {
+          res = await fetch("./news_feed.json?t=" + Date.now(), { cache: "no-store" });
+        }
+        NEWS = await res.json();
+        renderNewsAll();
+      } catch (e) {
+        const box = document.getElementById("news-brief-box");
+        if (box) box.innerHTML = `<div style="color:#f87171;">情報載入失敗：${escHtml(e.message)}</div>`;
+      }
+    }
+
+    function renderNewsAll() {
+      if (!NEWS) return;
+      const brief = NEWS.executiveBrief || {};
+      const takeaways = brief.boss3MinTakeaways || [];
+      document.getElementById("news-brief-box").innerHTML = `
+        <div class="card-title">
+          <span style="font-size:15px; color:#fde68a;">👑 大 Boss 3 分鐘專屬情報早報</span>
+          <span class="tag tag-gold">更新時間：${escHtml(brief.updatedAt || NEWS.lastUpdated)}</span>
+        </div>
+        <ul class="brief-list">
+          ${takeaways.map(t => `<li>${escHtml(t)}</li>`).join("")}
+        </ul>
+        <div class="grid-2">
+          <div class="impact-box">
+            <strong style="color:var(--primary);">📊 股市二部持股與條件單影響提示</strong><br/>
+            <span>${escHtml(brief.div2StockImpact || "")}</span>
+          </div>
+          <div class="impact-box gold">
+            <strong style="color:var(--gold);">💰 金流一部商機靈感（AI / SaaS 變現）</strong><br/>
+            <span>${escHtml(brief.div1CashflowIdea || "")}</span>
+          </div>
+        </div>
+      `;
+
+      // PTT Stock
+      const ptt = (NEWS.social && NEWS.social.pttStock) || {};
+      const bullPct = Number(ptt.sentimentBullPct ?? 50);
+      document.getElementById("ptt-badge").textContent = `偏多指標 ${bullPct}%`;
+      document.getElementById("ptt-sentiment-box").innerHTML = `
+        <div class="sentiment-meter">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+            <strong>${escHtml(ptt.sentimentLabel || "散戶情緒監測中")}</strong>
+            <span style="font-family:monospace; color:var(--muted);">偏多 ${bullPct}% / 偏空 ${100 - bullPct}%</span>
+          </div>
+          <div class="meter-track"><div class="meter-fill" style="width:${Math.max(4, Math.min(100, bullPct))}%"></div></div>
+        </div>
+      `;
+      document.getElementById("ptt-posts-box").innerHTML = (ptt.hotPosts || []).map(p => {
+        const isHot = p.push === "爆" || Number(p.score) >= 50;
+        return `
+          <div class="news-item" style="display:flex; gap:8px; align-items:flex-start;">
+            <span class="push-badge ${isHot ? 'hot' : ''}">${escHtml(p.push)}</span>
+            <div style="flex:1; min-width:0;">
+              <a class="news-title" href="${escHtml(p.url)}" target="_blank" rel="noopener noreferrer">${escHtml(p.title)}</a>
+              <div class="news-meta">
+                <span>📅 ${escHtml(p.date)}</span>
+                ${renderTags(p.tags)}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Reddit Hot Tickers
+      const reddit = (NEWS.social && NEWS.social.redditHotTickers) || [];
+      document.getElementById("reddit-box").innerHTML = reddit.map(r => {
+        const m = Number(r.momentum24hPct || 0);
+        const mCls = m >= 0 ? "pos" : "neg";
+        return `
+          <div class="reddit-row">
+            <div>
+              <span class="tag" style="margin-right:6px;">#${escHtml(r.rank)}</span>
+              <a href="${escHtml(r.url)}" target="_blank" rel="noopener noreferrer"><strong>$${escHtml(r.ticker)}</strong></a>
+              <span style="color:var(--muted); font-size:12px; margin-left:6px;">${escHtml(r.name)}</span>
+            </div>
+            <div style="text-align:right; font-family:ui-monospace, monospace; white-space:nowrap;">
+              <strong>${Number(r.mentions || 0).toLocaleString()}</strong> 討論
+              <span class="${mCls}" style="margin-left:6px; font-size:11.5px;">(24h ${m >= 0 ? '+' : ''}${m}%)</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Hacker News
+      const hn = (NEWS.social && NEWS.social.hackerNews) || [];
+      document.getElementById("hn-box").innerHTML = hn.map((h, idx) => `
+        <div class="news-item">
+          <a class="news-title" href="${escHtml(h.url)}" target="_blank" rel="noopener noreferrer">${idx + 1}. ${escHtml(h.title)} ↗</a>
+          <div class="news-meta">
+            <span class="tag">▲ ${Number(h.points || 0)} pts</span>
+            <a href="${escHtml(h.hnCommentsUrl)}" target="_blank" rel="noopener noreferrer">💬 ${Number(h.comments || 0)} 則討論</a>
+          </div>
+        </div>
+      `).join("");
+
+      // X / Threads + 4 Core Sections
+      const sec = NEWS.sections || {};
+      renderNewsList("xthreads-box", sec.xThreadsBuzz);
+      renderNewsList("news-market-box", sec.marketAndAi);
+      renderNewsList("news-macro-box", sec.globalMacroTariff);
+      renderNewsList("news-ai-box", sec.aiToolsCashflow);
+      renderNewsList("news-twcrypto-box", sec.twTrendingCrypto);
+    }
+
     document.querySelectorAll(".tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const target = btn.dataset.tab;
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
-        ["holdings", "daily", "research"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
+        ["holdings", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
       });
     });
 
     loadData();
+    loadNewsData();
   </script>
 </body>
 </html>

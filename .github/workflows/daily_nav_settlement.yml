@@ -2,6 +2,8 @@ name: Daily NT$1M Paper Fund NAV Settlement
 
 on:
   schedule:
+    # Weekdays 08:15 Taiwan Time (00:15 UTC) — Morning Boss Brief & News/Social Radar
+    - cron: '15 0 * * 1-5'
     # Weekdays 14:30 Taiwan Time (06:30 UTC) — after TWSE close
     - cron: '30 6 * * 1-5'
     # Weekdays 05:30 Taiwan Time (21:30 UTC) — after US Market close
@@ -26,12 +28,15 @@ jobs:
       - name: Run daily mark-to-market & rule settlement
         run: python3 scripts/daily_settle.py
 
+      - name: Fetch news & social sentiment radar
+        run: python3 scripts/fetch_news_social.py
+
       - name: Commit and push daily investment report
         run: |
           git config user.name "Alpha Paper Fund Bot"
           git config user.email "alpha-bot@project-lifeblood.local"
-          git add portfolio.json daily-reports/
+          git add portfolio.json news_feed.json daily-reports/
           if ! git diff --cached --quiet; then
-            git commit -m "📊 Daily NAV settlement $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "📊 Daily NAV settlement & news radar $(date -u +'%Y-%m-%d %H:%M UTC')"
             git push origin main
           fi

@@ -1,0 +1,651 @@
+{
+  "lastUpdated": "2026-11-27 06:46:41 (台灣時間)",
+  "executiveBrief": {
+    "updatedAt": "2026-11-27 06:50:00 (台灣時間)",
+    "boss3MinTakeaways": [
+      "🏦 利率警報再起：美國 10 月核心通膨年增 3.3% 令 Fed 主席華許陷政策兩難、12 月仍有升息壓力，華南金亦示警台美央行年底前不排除升息，緊盯美債殖利率反彈風險。",
+      "💾 AI 記憶體缺貨燒到 2028 年：AI 資料中心搶爆 DRAM／儲存產能（部分晶片年漲 10 倍），強勢利多群聯與 AI 材料鏈；但荷蘭阻擋 ASML 對中出口、BIS 卡關輝達交期與美國 301 關稅（台擬議最高 15%）讓硬體震盪加劇。",
+      "🥶 社群情緒反指標：PTT 股版偏多度急凍至 0%（連 20 年老手都喊「這兩週最刺激」、信用統計衝上爆文），屬短線清洗浮額低點訊號；Reddit 美股散戶長假縮手，3 倍半導體 $SOXL 熱度暴跌 80%、資金討論轉向全球 ETF $VT (+25%)。",
+      "🤖 矽谷 AI 風向轉向控管成本：HN 熱議 OpenAI 進入「成本控管模式」與 OpenRouter 替代品 Moat，同時 Anthropic 破發與 OpenAI IPO 賣壓浮現，開發者從無腦燒錢轉向精算推論成本。",
+      "🔐 資安與台美時事焦點：1Password 驚傳後端遭入侵（源碼與客戶資料被盜）、2026 Web3 駭客頻傳；美眾議院推進戰略比特幣儲備法案（20 年不得出售 BTC），台灣週末急凍探 12°C 迎九合一投票日。"
+    ],
+    "div2StockImpact": "🔴 一級警戒 TLT ($82.24)：通膨 3.3% 與年底升息預期威脅債市，跌破 US$80.1 立即機械停損。🟢 正向催化 8299.TWO 群聯 & 3661.TW 世芯-KY：記憶體缺貨至 2028 支撐儲存族群，BIS 交期延長倒逼 CSP 加速自研 ASIC；3017.TW 奇鋐與 7 檔右側掛單（PLTR / 1560 / 3711 / 3665 / 2454 / ANET / 6223）嚴守收盤突破＋匯率／VIX 濾網。",
+    "div1CashflowIdea": "① 開發「自託管 LLM API 路由與防爆成本閘道器」（切中 HN 熱榜 Moat + OpenAI Cost Control Mode + Minipg 單檔打包痛點，賣 $29~$79 買斷 / B2B 訂閱）；②「台廠 301 關稅 (15%) × BIS 合規試算＋DevSecOps 金鑰外洩雷達」輕量 SaaS（對應 1Password 入侵與台企導入 OpenAI 資安痛點）。",
+    "livePulse": {
+      "topMarketHeadline": "〈台股盤前要聞〉富邦006208分割投票開跑、華南金前10月獲利284億元超過去年",
+      "pttSentiment": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
+      "topPttPost": "[心得] 投資股票快20年，這二週最刺激",
+      "topRedditTicker": "$NVDA (207 則討論 / 24h -64%)"
+    }
+  },
+  "sections": {
+    "marketAndAi": [
+      {
+        "title": "〈台股盤前要聞〉富邦006208分割投票開跑、華南金前10月獲利284億元超過去年",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673295",
+        "source": "鉅亨網",
+        "time": "11-27 04:10",
+        "tags": []
+      },
+      {
+        "title": "外資連4賣仍大漲7% 南亞受惠高階AI材料攀升、法人持續調高目標價",
+        "summary": "南亞今漲7.73%收244元站回5日線，外資連4賣下仍走強。 法人看好高階電子材料比重提升、AI伺服器需求擴大，營收與營益率續增。 預估2026年稅後純益有望逾一個股本，2027年獲利再優於今年。",
+        "url": "https://news.cnyes.com/news/id/6673237",
+        "source": "鉅亨網",
+        "time": "11-26 20:55",
+        "tags": []
+      },
+      {
+        "title": "國科會「創新創業計畫」累計民間投資達135億元 已培養600家新創公司",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673221",
+        "source": "鉅亨網",
+        "time": "11-26 20:22",
+        "tags": []
+      },
+      {
+        "title": "〈華南金法說〉央行不排除年底前升息！蕭玉美看AI與出口支撐動能 台幣震盪偏升",
+        "summary": "華南金估明年台灣經濟成長率5.82%，受AI產業、出口與投資需求續強帶動。 蕭玉美指美國聯準會今年底至明年第1季仍有升息空間，台灣央行年底前亦不排除升息。 台幣料區間震盪偏升；華南銀台債3600億、外債4600億，利率風險可控。",
+        "url": "https://news.cnyes.com/news/id/6673210",
+        "source": "鉅亨網",
+        "time": "11-26 20:21",
+        "tags": [
+          "TLT"
+        ]
+      },
+      {
+        "title": "從半導體研究到產業創新 陽明交大頒授鈺創董事長盧超群名譽博士",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673207",
+        "source": "鉅亨網",
+        "time": "11-26 20:10",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳還無可取代？耶魯學者：輝達面臨的考題已經變了",
+        "summary": "黃仁勳重掌輝達後，市場聚焦他是否「無可取代」，《彭博》作者認為其33年貢獻難取代，但情境已變。 輝達正面臨出口管制、法遵與公司治理考驗，包括先進晶片流入中國調查、黃仁勳將赴國會作證。 作者指出，輝達仍需要黃仁勳式創新膽識，但未來也可能更需要像停出H200那樣的審慎領導。",
+        "url": "https://news.cnyes.com/news/id/6671844",
+        "source": "鉅亨網",
+        "time": "11-26 23:00",
+        "tags": []
+      },
+      {
+        "title": "別指望聯準會出手救市？Fed傳聲筒：AI股暴跌拉高升息門檻 華許陷政策兩難",
+        "summary": "AI股暴跌後，Fed主席華許陷入兩難：續升息抗通膨，或視股市下跌已替政策降溫 美國10月核心通膨年增3.3%，Fed官員憂AI推升需求與價格壓力，12月8至9日會議料再升息 若股市持續下跌或失序崩跌，將影響家庭支出、企業融資與信貸市場，但官員仍關注通膨為先",
+        "url": "https://news.cnyes.com/news/id/6671886",
+        "source": "鉅亨網",
+        "time": "11-26 22:00",
+        "tags": [
+          "TLT"
+        ]
+      },
+      {
+        "title": "AI吸乾全球記憶體產能 缺貨至少到2028年！馬斯克搶貨也碰壁 晶片貴如「金條」引竊賊覬覦",
+        "summary": "AI資料中心擴張引爆全球記憶體晶片缺貨，部分價格一年漲至10倍 三星、SK海力士、美光供不應求，DRAM產能料至2028年才明顯緩解 企業搶貨轉向灰市、簽長約與預付成本，供應緊張推升終端產品售價",
+        "url": "https://news.cnyes.com/news/id/6672128",
+        "source": "鉅亨網",
+        "time": "11-26 21:00",
+        "tags": []
+      },
+      {
+        "title": "《巴隆》點名這5檔科技股避開AI風暴 蘋果抗跌、這兩檔飆逾30%",
+        "summary": "科技股自10月6日高點回落，納指至今跌約16%，資金轉向股息穩定、AI曝險較低個股。 蘋果自10月6日以來漲4.4%，因AI支出低於同業，改採與Google、OpenAI合作。 Gen Digital漲31%、AppLovin漲30%。Take-Two因GTA VI首日銷售38億",
+        "url": "https://news.cnyes.com/news/id/6671884",
+        "source": "鉅亨網",
+        "time": "11-26 20:00",
+        "tags": []
+      },
+      {
+        "title": "策略師樂觀看待美股後市 標普2027年底上攻1萬點",
+        "summary": "Federated Hermes投資長Chiavarone估標普500 2027年底可達1萬點，較現水準高40%。 他稱2027、2028年EPS估425、490美元近市場共識，且本益比若回升至20倍可支撐1萬點。 他看好AI支出者與小型股、金融股，認為晶片股漲勢或近尾聲；VIX",
+        "url": "https://news.cnyes.com/news/id/6671879",
+        "source": "鉅亨網",
+        "time": "11-26 19:00",
+        "tags": [
+          "TLT"
+        ]
+      }
+    ],
+    "globalMacroTariff": [
+      {
+        "title": "萬寶路母公司評估現金收購英國帝國菸草帝國股價一度飆近18%",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673306",
+        "source": "鉅亨網",
+        "time": "11-26 23:30",
+        "tags": []
+      },
+      {
+        "title": "稀土回收｜Cyclic Materials敲定德國首座拆解廠目標2028年投產",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673299",
+        "source": "鉅亨網",
+        "time": "11-26 23:01",
+        "tags": []
+      },
+      {
+        "title": "歐洲央行10月為何沒升息？會議紀要揭官員顧慮",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673258",
+        "source": "鉅亨網",
+        "time": "11-26 22:00",
+        "tags": []
+      },
+      {
+        "title": "亞洲汽油裂解價差翻負台塑化煉油獲利還要看柴油",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673225",
+        "source": "鉅亨網",
+        "time": "11-26 20:30",
+        "tags": []
+      },
+      {
+        "title": "法商2CRSi在手訂單逾4.6億美元美國BIS新規恐拉長輝達AI伺服器交期",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673186",
+        "source": "鉅亨網",
+        "time": "11-26 20:00",
+        "tags": []
+      },
+      {
+        "title": "南韓KT Cloud租下Keppel 60MW資料中心安山自建加租賃拚110MW",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673134",
+        "source": "鉅亨網",
+        "time": "11-26 19:30",
+        "tags": []
+      },
+      {
+        "title": "法國伺服器廠2CRSi在手訂單逾4.6億美元北美、歐洲客戶仍須過合規審查",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673133",
+        "source": "鉅亨網",
+        "time": "11-26 19:30",
+        "tags": []
+      },
+      {
+        "title": "南韓KT Cloud租下凱德60MW資料中心安山自建加租賃拚110MW",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673123",
+        "source": "鉅亨網",
+        "time": "11-26 19:00",
+        "tags": []
+      }
+    ],
+    "aiToolsCashflow": [
+      {
+        "title": "AI帝國：從理想到夢魘——OpenAI崛起背後的權力、資本與人類代價",
+        "summary": "OpenAI以「確保人工智慧造福全人類」為初衷，卻逐漸捲入資本、商業競爭與權力角逐。 科技記者郝珂靈歷時5年、訪問260位相關人士，透過超過300場訪談，重建OpenAI從創立、ChatGPT問世到董事會風暴的發展歷程。 她也走訪全球各地，揭露AI背後隱形的勞",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d559da423d8250ecc9cf4534c0&url=https%3a%2f%2fwww.cna.com.tw%2fproj_goodbook%2fsocial-science%2f4592&c=1151822844788915715&mkt=zh-tw",
+        "source": "AI 科技商機",
+        "time": "Thu, 26 Nov 2026 02:00",
+        "tags": []
+      },
+      {
+        "title": "OpenAI傳打造AI原生智慧型手機 最快2027上半年量產",
+        "summary": "圖／示意圖商傳媒｜責任編輯／綜合外電報導人工智慧巨頭OpenAI傳出將跨足硬體市場，自主開發一款以人工智慧為核心的全新智慧型手機，最快預計於2027年上半年進入量產，正面挑戰蘋果與三星長期主導的行動裝置版圖。 根據外媒報導，這款正在研發中的手機與現行主流產品最",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d559da423d8250ecc9cf4534c0&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2fopenai%25E5%2582%25B3%25E6%2589%2593%25E9%2580%25A0ai%25E5%258E%259F%25E7%2594%259F%25E6%2599%25BA%25E6%2585%25A7%25E5%259E%258B%25E6%2589%258B%25E6%25A9%259F-%25E6%259C%2580%25E5%25BF%25AB2027%25E4%25B8%258A%25E5%258D%258A%25E5%25B9%25B4%25E9%2587%258F%25E7%2594%25A2-081246442.html&c=12735539556201611182&mkt=zh-tw",
+        "source": "AI 科技商機",
+        "time": "Sat, 21 Nov 2026 00:12",
+        "tags": []
+      },
+      {
+        "title": "臺灣人工網路智慧公司取得OpenAI夥伴資格 攜手推動台灣企業 AI 轉型新時代",
+        "summary": "隨著生成式人工智慧快速改變全球產業競爭格局，臺灣人工網路智慧有限公司宣布，已正式完成 OpenAI Partner Network 相關程序，取得 OpenAI Partner Network 夥伴資格，為公司推動企業人工智慧應用與數位轉型寫下重要里程碑。 此",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d559da423d8250ecc9cf4534c0&url=https%3a%2f%2fwww.yesmedia.com.tw%2f%25e8%2587%25ba%25e7%2581%25a3%25e4%25ba%25ba%25e5%25b7%25a5%25e7%25b6%25b2%25e8%25b7%25af%25e6%2599%25ba%25e6%2585%25a7%25e5%2585%25ac%25e5%258f%25b8%25e5%258f%2596%25e5%25be%2597openai%25e5%25a4%25a5%25e4%25bc%25b4%25e8%25b3%2587%25e6%25a0%25bc-%25e6%2594%259c%25e6%2589%258b%25e6%258e%25a8%25e5%258b%2595%25e5%258f%25b0%2f&c=7097124846241906821&mkt=zh-tw",
+        "source": "AI 科技商機",
+        "time": "Thu, 19 Nov 2026 00:32",
+        "tags": []
+      },
+      {
+        "title": "臺灣人工網路智慧公司正式取得 OpenAI Partner Network 夥伴資格 攜手推動台灣企業 AI 轉型新時代",
+        "summary": "隨著生成式人工智慧快速改變全球產業競爭格局，臺灣人工網路智慧有限公司宣布，已正式完成 OpenAI Partner Network 相關程序，取得 OpenAI Partner Network 夥伴資格，為公司推動企業人工智慧應用與數位轉型寫下重要里程碑。 此",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d559da423d8250ecc9cf4534c0&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5635%2f9888914&c=13435440731432310396&mkt=zh-tw",
+        "source": "AI 科技商機",
+        "time": "Thu, 19 Nov 2026 08:02",
+        "tags": []
+      },
+      {
+        "title": "填補 MeV 能段觀測缺口，費米太空望遠鏡 14 年資料建立新伽瑪射線星表",
+        "summary": "伽瑪射線是電磁波中能量最高的輻射形式，主要來自黑洞、脈衝星及高能粒子加速等極端天文環境。然而，在數十至數百百萬 […]",
+        "url": "https://technews.tw/2026/11/26/fgst-survey-helps-fill-the-mev-gap/",
+        "source": "科技新報 TechNews",
+        "time": "Thu, 26 Nov 2026 14:20",
+        "tags": []
+      },
+      {
+        "title": "三年砸 3 億元攻智慧醫療，鴻海攜北榮秀 AI 機器人成果",
+        "summary": "鴻海加速拓展 AI 與機器人在醫療領域的應用，今日宣布與台北榮民總醫院合作打造的化療自動化智慧場域正式亮相，整 […]",
+        "url": "https://finance.technews.tw/2026/11/26/foxconn-smart-medicine/",
+        "source": "科技新報 TechNews",
+        "time": "Thu, 26 Nov 2026 11:42",
+        "tags": []
+      },
+      {
+        "title": "美國 301 關稅調查，電源供應器呢？台達、光寶這樣看",
+        "summary": "美國貿易代表署（USTR）25 日公布「結構性產能過剩」301 條款調查結果，台灣擬議關稅最高為 15%，泰國 […]",
+        "url": "https://technews.tw/2026/11/26/us-section-301-investigation-delta-lite-on-power-supplies/",
+        "source": "科技新報 TechNews",
+        "time": "Thu, 26 Nov 2026 11:00",
+        "tags": []
+      },
+      {
+        "title": "境外拜票來電恐有詐，打詐中心：不接聽、打 165",
+        "summary": "近期境外號碼拜票來電頻傳，行政院打詐中心今天提醒，凡接到顯示為境外門號的不明來電，皆潛藏個資外洩與詐騙風險，接 […]",
+        "url": "https://infosecu.technews.tw/2026/11/26/overseas-vote-soliciting-calls-scam-warning-165/",
+        "source": "科技新報 TechNews",
+        "time": "Thu, 26 Nov 2026 09:50",
+        "tags": []
+      }
+    ],
+    "twTrendingCrypto": [
+      {
+        "title": "沈伯洋突取消選前之夜 前警所長：基層警休假與尊嚴說改就改？ - UDN",
+        "summary": "沈伯洋突取消選前之夜 前警所長：基層警休假與尊嚴說改就改？ UDN 取消選前市民之夜，沈伯洋這次真的開大招了！ TNL The News Lens 關鍵評論網 自由廣場》說讓路就能讓？請公布法源！ 自由評論網 九合一選前反轉：沈伯洋破天荒取消台北「選前之夜」，",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5tcWVxSjRHM3h4X093TEpwUzB2azlHS1JGSFNvaG1fZndCZG5ERld3UFRwYVdBV1NUWDYzY0NNWTc2bERGeFZxYy1XdUFyNFpJeEUw0gFYQVVfeXFMTWhmYXlwNGl1X3JlNk14S1F4Ry1uSjcwVFdEcmZiOF93Qjh2dEk4cUEzcnpEbWdBZWJoSS1VemV0UWNOQmlxTENGcnNKcmx4ekluc3J4bHppcw?oc=5",
+        "source": "UDN",
+        "time": "Thu, 26 Nov 2026 05:44",
+        "tags": []
+      },
+      {
+        "title": "蔡英文鐵口直斷「你應該會當選」 見沈伯洋嚇歪改口：在危險邊緣要投票 - 三立新聞",
+        "summary": "蔡英文鐵口直斷「你應該會當選」 見沈伯洋嚇歪改口：在危險邊緣要投票 三立新聞 沈伯洋合體蔡英文公布27日白天赴多地與市民聊天、晚間線上直播| 政治 中央社 CNA 選前之夜實體活動喊卡！沈伯洋直播創27.5萬人觀看高峰，11/27最後衝刺計畫曝光 城市學 台北",
+        "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBkZE5neXBUcFU2OGN6REk2UVo5eGpGQk16WXhYYUE4TFVsTTdreWl0WThBSWZmaGVwcVJPWDkteFh1QktNRjF1MNIBTEFVX3lxTE9VOHhjdEgtWDlTNThic3BCaWJNOTFTdGY1TVNkbDNkekJNZWdGLUE0TnF5eVdlS1VfRHpwM0ZjbEljd1RFNHUtOWpQNjE?oc=5",
+        "source": "三立新聞",
+        "time": "Thu, 26 Nov 2026 13:17",
+        "tags": []
+      },
+      {
+        "title": "投票日各地晴朗！這天「全台有雨」週末急凍跌剩12度⭣ - Yahoo新聞",
+        "summary": "投票日各地晴朗！這天「全台有雨」週末急凍跌剩12度⭣ Yahoo新聞 投票注意保暖！周六東北季風增強「清晨探15度」 下周一路晴到這天 UDN 20261126 公視AI手語天氣報導 ｜華南雲雨區影響 各地降雨機率高 ｜ 公視新聞 PNN 公視新聞 今明偶飄雨",
+        "url": "https://news.google.com/rss/articles/CBMiygJBVV95cUxORVU5b1NKUk50NWV2WUJlWkZNZkNwczRNeWhzeFJnNHFHWDJSNktIZkFWS2V3WmlBelRFQmUtZXR2NHZQTGVqS1JMNDRQX1U2Nmc1VG1ObXZqX2FSZldRU3BBZXAxLXQzekNuQmNHUThBRnN3bktVQXZZNHUxSldhYW1uMmlXUG04cXBHWVNYZDNmWHlGQS0zbENaQ09vNXEzVWJDNGF4VnUxMWJuRUNacWRiS1h1R1hoR2x2OGFIeUNqenhfaWVuemgyX3NneXhXZ0hlSDkxak0yLW90MzduWElyNktBc0ctQnJwRHRMVUJQZG9iYkk3SjVleWx5YWtzWUMyV3E2MUwtWXVHY1NNc0loOHNlUVpOS0VBRS1pN1RjeHl3NlREN24wa3NETHBzb2o2M0RhV00teWRfSWNNWFVYUS0ta21XN3c?oc=5",
+        "source": "Yahoo新聞",
+        "time": "Thu, 26 Nov 2026 03:03",
+        "tags": []
+      },
+      {
+        "title": "小水滴站出來！沈伯洋選前最終車掃、6區肥皂箱開講路線曝光 - 自由時報",
+        "summary": "小水滴站出來！沈伯洋選前最終車掃、6區肥皂箱開講路線曝光 自由時報 取消選前之夜…沈伯洋車掃遇「多名倒讚民眾」！他竟爆出1句 反轉畫面：被收服了 Yahoo新聞 台北市長選戰／直播空戰升溫 蔣萬安分享車掃收穫 沈伯洋預告神秘嘉賓 Rti 中央廣播電臺 藍綠到北",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1wSC1kSE5rNm5kb1JneE9JQjFaaV90Uk1QcFRsNXBSTC1HaVAzczE0NWduMkNpLTczYXhCMWdCUURjUDlvcnBJUFJPeVVIWVU2MHh1SU0tOTBtYjdqMWlEUy03bVRoOFl1RFHSAW9BVV95cUxQY292amJxRWVhQ3JaaWQ2S0NiSE9JanA1U1UzbHRTRzA3QVYzdkthSXB1LVFtaEFseU9XaVFfQ1NpdGE5VHZIcm1vZ1FZUEo2Um5XUFFWMk5TVHRub2tPbjh0OEl4U3ZWTEJDVzh4LW8?oc=5",
+        "source": "自由時報",
+        "time": "Thu, 26 Nov 2026 15:06",
+        "tags": []
+      },
+      {
+        "title": "發錢了！今入帳最高10萬元月底前還有10筆津貼 - 東森新聞",
+        "summary": "發錢了！今入帳最高10萬元月底前還有10筆津貼 東森新聞 沒繳勞保國保也有退休金！滿65歲長輩「每月領8110元到身故」，入帳時間、 資格金額一次看 風傳媒 明天刷存摺！勞保局4項給付同日入帳 勞保年金能領多少、勞退為何按季發？ 工商時報 月底領錢了！媽媽補助",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5qSW1NX011NkFBanp0bWxSNjExT25mRndDRHg5LUFXRXVwbndvNkhZRGk1NmdiQjBWOW1nWUpVc1VkUUtKRTUyTUl2SV92TmxGb3Vkag?oc=5",
+        "source": "東森新聞",
+        "time": "Thu, 26 Nov 2026 03:47",
+        "tags": []
+      },
+      {
+        "title": "專訪BitMEX創始人：AI巨頭終將被國有化 我為何押注比特幣和AI支付新公鏈？",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673301",
+        "source": "鉅亨網",
+        "time": "11-26 23:01",
+        "tags": []
+      },
+      {
+        "title": "GCSA洞察：1Password 後端遭入侵、私有源碼和客戶資料被盜",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673298",
+        "source": "鉅亨網",
+        "time": "11-26 23:01",
+        "tags": []
+      },
+      {
+        "title": "金色Web3.0日報 | 美眾議院推進戰略比特幣儲備法案 政府20年內或不得出售BTC",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673290",
+        "source": "鉅亨網",
+        "time": "11-26 22:30",
+        "tags": []
+      },
+      {
+        "title": "2026年：Web3公司被駭客打成了篩子？",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673289",
+        "source": "鉅亨網",
+        "time": "11-26 22:30",
+        "tags": []
+      }
+    ],
+    "xThreadsBuzz": [
+      {
+        "title": "黃仁勳面子裡子全贏，身家單日暴增1兆，馬斯克也1兆！「莊家」川普擁37萬股輝達增值4.7億…要被調查？",
+        "summary": "輝達董事會於台灣時間23日22時左右恢復黃仁勳的執行長職務，消息一出立即為科技股注入強心針，不僅費半指數漲14.03%，輝達更是暴漲31.48%，創下2003年以來的最大單日漲幅，而美國總統川普也成為這次美股反彈的最大受益者之一。 據《金融時報》推算，川普可能",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fwww.businesstoday.com.tw%2farticle%2fcategory%2f183025%2fpost%2f202611240007%2f&c=14052861229249600327&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Tue, 24 Nov 2026 02:46",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳復職給員工分發三明治，他身家一夜暴漲超2400億元，輝達市值暴增6.3兆元，馬斯克發聲、川普P圖慶祝",
+        "summary": "輝達CEO黃仁勳在辭職11天後閃電復職，引發全球市場劇烈震盪。11月23日輝達股價單日飆升31.5%，市值重回4兆美元大關，黃仁勳個人財富暴增366億美元。董事會表示復職符合股東與客戶最佳利益，並已與美國政府高層確認無國家安全風險。此次回歸不僅獲得員工、馬斯克",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279975&c=16540720914132352277&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Mon, 23 Nov 2026 21:36",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳還有3關卡 「川普、馬斯克力挺」各界反應一次看",
+        "summary": "輝達（NVIDIA）創辦人黃仁勳回鍋執行長，包括美國總統川普、特斯拉執行長馬斯克都力挺，《ETtoday新聞雲》整理各界反應。外媒報導，黃接下來仍面臨3個關鍵考驗，包括預定12月赴國會聽證、股東集體訴訟仍在進行，以及美國司法部已接手調查Megaspeed晶片走",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fwww.ettoday.net%2fnews%2f20261124%2f3277433.htm&c=13295095200031620015&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Tue, 24 Nov 2026 02:53",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳回鍋川普賺翻！輝達股價飆逾30％ 狂賺近5億",
+        "summary": "美國總統川普力挺輝達創辦人黃仁勳重掌公司，沒想到這場人事風波也讓他的投資部位迎來一波大漲。《金融時報》（Financial Times）分析川普最新財務申報資料指出，川普截至9月底可能持有最多37萬股輝達股票，隨著黃仁勳昨（23）日確定回任，輝達股價單日飆漲逾",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2ftw.news.yahoo.com%2f%25E9%25BB%2583%25E4%25BB%2581%25E5%258B%25B3%25E5%259B%259E%25E9%258D%258B%25E5%25B7%259D%25E6%2599%25AE%25E8%25B3%25BA%25E7%25BF%25BB-%25E8%25BC%259D%25E9%2581%2594%25E8%2582%25A1%25E5%2583%25B9%25E9%25A3%2586%25E9%2580%25BE30-%25E7%258B%2582%25E8%25B3%25BA%25E8%25BF%25915%25E5%2584%2584-083000756.html&c=11222395919673186362&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Tue, 24 Nov 2026 00:31",
+        "tags": []
+      },
+      {
+        "title": "患難見真情！馬斯克攜子現身輝達挺黃仁勳",
+        "summary": "輝達執行長黃仁勳歷經風波後重返工作崗位，不僅獲得特斯拉執行長馬斯克親自現身總部相挺，美國副總統范斯也公開澄清其未受調查。然而，儘管有政商大咖的雙重背書，華爾街投資人信心仍未完全恢復，美股25日科技類股普遍走弱，輝達股價下跌近4%。市場專家分析指出，這顯示單靠執",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fwww.setn.com%2fnews%2f1945257&c=14483021031263775162&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Thu, 26 Nov 2026 05:37",
+        "tags": []
+      },
+      {
+        "title": "馬斯克談輝達人事案，證實曾與川普交談，稱美國孩童可獲兩股SPCX",
+        "summary": "【財訊快報／陳孟朔】外電報導，全球首富暨特斯拉(TSLA)與SpaceX(SPCX)執行長馬斯克(Elon Musk)在社群平台X上，對一則指他在黃仁勳(Jensen Huang)重返輝達執行長職位前曾與美國總統川普交談的貼文，回覆「沒錯」。原貼文稱，馬斯克曾",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2f%25E9%25A6%25AC%25E6%2596%25AF%25E5%2585%258B%25E8%25AB%2587%25E8%25BC%259D%25E9%2581%2594%25E4%25BA%25BA%25E4%25BA%258B%25E6%25A1%2588-%25E8%25AD%2589%25E5%25AF%25A6%25E6%259B%25BE%25E8%2588%2587%25E5%25B7%259D%25E6%2599%25AE%25E4%25BA%25A4%25E8%25AB%2587-%25E7%25A8%25B1%25E7%25BE%258E%25E5%259C%258B%25E5%25AD%25A9%25E7%25AB%25A5%25E5%258F%25AF%25E7%258D%25B2%25E5%2585%25A9%25E8%2582%25A1spcx-043139548.html&c=538175893106169582&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Wed, 25 Nov 2026 16:00",
+        "tags": []
+      },
+      {
+        "title": "川普力促黃仁勳復職、范斯介入給出保證，輝達董事會「周日提前告知白宮」",
+        "summary": "美國總統川普深度介入並促成輝達 CEO 黃仁勳復職。報導指出，川普透過指派副總統范斯協調，並由司法部保證黃仁勳無違法行為，以消除董事會對國家安全風險的顧慮。此次復職背後動機在於保護美國 AI 領先地位、支持開放權重模型以避免封閉模型壟斷，且受到馬斯克等矽谷人士",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279899&c=379520055276677867&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Mon, 23 Nov 2026 16:52",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳當「川普雙面諜」反滲透黃樂？聯手美司法部「查中企」復職日成晶片斷供日！【關鍵時刻】張炤和 @ebcCTime",
+        "summary": "川普怕黃仁勳「跳槽華為」急協助回鍋！ 開盤前宣布回任「3兆美金」拯救全球股市！？「沒國安問題」火速回鍋？ 美司法部曝「黃仁勳已與美國政府合作數個月追查中企」！黃仁勳當「川普雙面諜」反滲透黃樂？ 聯手美司法部「查中企」復職日成晶片斷供日！黃仁勳無預警回歸華爾街交",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08b6d580be4ccab2770bfe05f0d94d&url=https%3a%2f%2fwww.msn.com%2fzh-tw%2fmoney%2f%25E7%25A7%2591%25E6%258A%2580%2f%25E9%25BB%2583%25E4%25BB%2581%25E5%258B%25B3%25E7%2595%25B6-%25E5%25B7%259D%25E6%2599%25AE%25E9%259B%2599%25E9%259D%25A2%25E8%25AB%259C-%25E5%258F%258D%25E6%25BB%25B2%25E9%2580%258F%25E9%25BB%2583%25E6%25A8%2582-%25E8%2581%25AF%25E6%2589%258B%25E7%25BE%258E%25E5%258F%25B8%25E6%25B3%2595%25E9%2583%25A8-%25E6%259F%25A5%25E4%25B8%25AD%25E4%25BC%2581-%25E5%25BE%25A9%25E8%2581%25B7%25E6%2597%25A5%25E6%2588%2590%25E6%2599%25B6%25E7%2589%2587%25E6%2596%25B7%25E4%25BE%259B%25E6%2597%25A5-%25E9%2597%259C%25E9%258D%25B5%25E6%2599%2582%25E5%2588%25BB-%25E5%25BC%25B5%25E7%2582%25A4%25E5%2592%258C-ebcctime%2fvi-AA2ialCZ&c=683070967641638941&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Tue, 24 Nov 2026 17:46",
+        "tags": []
+      }
+    ]
+  },
+  "social": {
+    "pttStock": {
+      "sentimentBullPct": 0,
+      "sentimentLabel": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
+      "hotPosts": [
+        {
+          "push": "爆",
+          "score": 100,
+          "title": "[心得] 投資股票快20年，這二週最刺激",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795694303.A.E34.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "爆",
+          "score": 100,
+          "title": "[情報] 115年11月26日信用交易統計",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795698346.A.700.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "爆",
+          "score": 100,
+          "title": "[新聞] 槓上美國！荷蘭將阻擋 ASML 對中出口進一",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795703300.A.D67.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "32",
+          "score": 32,
+          "title": "[新聞] 華為新型HBM要來了？接腳密度達三星、SK",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795690973.A.3FD.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "27",
+          "score": 27,
+          "title": "[情報] 11/26 主動ETF買賣超",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795691062.A.3E8.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "21",
+          "score": 21,
+          "title": "[新聞] 三星半導體廠拚無人化 機器人團隊成軍、2",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795703464.A.9B2.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "20",
+          "score": 20,
+          "title": "[新聞] Anthropic破發、科技股賣壓 OpenAI IPO",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795698247.A.00F.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "16",
+          "score": 16,
+          "title": "Re: [新聞] 華為新型HBM要來了？接腳密度達三星、SK",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795701173.A.239.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "12",
+          "score": 12,
+          "title": "[新聞] 南航訂購50架波音客機 近十年最大中國訂",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795706498.A.2DA.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "9",
+          "score": 9,
+          "title": "[請益] 外資買ETF操作過程",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795712948.A.354.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "4",
+          "score": 4,
+          "title": "[情報] 1126 上市櫃股票週轉率排行",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795690693.A.1BC.html",
+          "date": "11/26",
+          "tags": []
+        },
+        {
+          "push": "2",
+          "score": 2,
+          "title": "[情報] 主動ETF/外資共同買賣超排行 (11/26)",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795699495.A.719.html",
+          "date": "11/26",
+          "tags": []
+        }
+      ]
+    },
+    "redditHotTickers": [
+      {
+        "rank": 1,
+        "ticker": "NVDA",
+        "name": "NVIDIA",
+        "mentions": 207,
+        "upvotes": 20760,
+        "momentum24hPct": -64,
+        "url": "https://www.reddit.com/search/?q=%24NVDA&sort=hot"
+      },
+      {
+        "rank": 2,
+        "ticker": "SPY",
+        "name": "SPDR S&P 500 ETF Trust",
+        "mentions": 106,
+        "upvotes": 465,
+        "momentum24hPct": -79,
+        "url": "https://www.reddit.com/search/?q=%24SPY&sort=hot"
+      },
+      {
+        "rank": 3,
+        "ticker": "QQQ",
+        "name": "Invesco QQQ ETF",
+        "mentions": 69,
+        "upvotes": 454,
+        "momentum24hPct": -76,
+        "url": "https://www.reddit.com/search/?q=%24QQQ&sort=hot"
+      },
+      {
+        "rank": 4,
+        "ticker": "AMD",
+        "name": "AMD",
+        "mentions": 48,
+        "upvotes": 254,
+        "momentum24hPct": -64,
+        "url": "https://www.reddit.com/search/?q=%24AMD&sort=hot"
+      },
+      {
+        "rank": 5,
+        "ticker": "MU",
+        "name": "Micron Technology",
+        "mentions": 42,
+        "upvotes": 167,
+        "momentum24hPct": -78,
+        "url": "https://www.reddit.com/search/?q=%24MU&sort=hot"
+      },
+      {
+        "rank": 6,
+        "ticker": "VOO",
+        "name": "Vanguard S&P 500 ETF",
+        "mentions": 41,
+        "upvotes": 150,
+        "momentum24hPct": -52,
+        "url": "https://www.reddit.com/search/?q=%24VOO&sort=hot"
+      },
+      {
+        "rank": 7,
+        "ticker": "SNDK",
+        "name": "Sandisk",
+        "mentions": 40,
+        "upvotes": 134,
+        "momentum24hPct": -65,
+        "url": "https://www.reddit.com/search/?q=%24SNDK&sort=hot"
+      },
+      {
+        "rank": 8,
+        "ticker": "DTE",
+        "name": "DTE Energy",
+        "mentions": 37,
+        "upvotes": 323,
+        "momentum24hPct": -55,
+        "url": "https://www.reddit.com/search/?q=%24DTE&sort=hot"
+      },
+      {
+        "rank": 9,
+        "ticker": "SOXL",
+        "name": "Direxion Shares ETF Trust - Direxion Daily Semiconductor Bull 3X Share",
+        "mentions": 24,
+        "upvotes": 85,
+        "momentum24hPct": -80,
+        "url": "https://www.reddit.com/search/?q=%24SOXL&sort=hot"
+      },
+      {
+        "rank": 10,
+        "ticker": "VT",
+        "name": "Vanguard Group, Inc. - Vanguard Total World Stock ETF",
+        "mentions": 20,
+        "upvotes": 23,
+        "momentum24hPct": 25,
+        "url": "https://www.reddit.com/search/?q=%24VT&sort=hot"
+      }
+    ],
+    "hackerNews": [
+      {
+        "title": "Holy shit holy shit holy shit holy shit: The magnitude of what’s now happening",
+        "points": 1961,
+        "comments": 1794,
+        "url": "https://scottaaronson.blog/?p=10379",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50646108"
+      },
+      {
+        "title": "Tell HN: Happy Thanksgiving",
+        "points": 548,
+        "comments": 131,
+        "url": "https://news.ycombinator.com/item?id=50655664",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50655664"
+      },
+      {
+        "title": "Intel One Mono font (2023)",
+        "points": 436,
+        "comments": 234,
+        "url": "https://github.com/intel/intel-one-mono",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50653667"
+      },
+      {
+        "title": "Collection of preserved UI style guides",
+        "points": 394,
+        "comments": 93,
+        "url": "https://aresluna.org/ui-style-guides/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50649834"
+      },
+      {
+        "title": "Nextcloud Office Desktop app",
+        "points": 385,
+        "comments": 196,
+        "url": "https://nextcloud.com/blog/euro-office-comes-to-your-desktop-with-the-nextcloud-office-desktop-app/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50654289"
+      },
+      {
+        "title": "Minipg: PostgreSQL as a Single Executable",
+        "points": 283,
+        "comments": 44,
+        "url": "https://progrium.github.io/minipg/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50650892"
+      },
+      {
+        "title": "Lions' Commentary on Unix: Why It Was Secretly Copied for 20 Years",
+        "points": 264,
+        "comments": 58,
+        "url": "https://fosscomics.com/posts/17.%20Lions%27%20Commentary%20on%20Unix/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50651719"
+      },
+      {
+        "title": "AMD-specific fork of llama.cpp",
+        "points": 245,
+        "comments": 56,
+        "url": "https://devnull.land/amd-specific-llama-cpp",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657265"
+      },
+      {
+        "title": "Moat: OpenRouter replacement",
+        "points": 232,
+        "comments": 133,
+        "url": "https://commandcode.ai/moat",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50652184"
+      },
+      {
+        "title": "OpenAI may be in cost control mode",
+        "points": 195,
+        "comments": 176,
+        "url": "https://micjm.com/blog/openai-is-in-cost-control-mode/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50652527"
+      }
+    ]
+  }
+}
