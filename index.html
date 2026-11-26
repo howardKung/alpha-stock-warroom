@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpha 股市二部 · 戰情分析與百萬實盤模擬基金 (NT$1,000,000)</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: #0f172a;
+      --card2: #131e35;
+      --border: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #38bdf8;
+      --up: #ef4444;      /* 台股習慣：紅漲綠跌，同時標示清楚 +/- 符號 */
+      --down: #10b981;
+      --gold: #f59e0b;
+      --accent: #8b5cf6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", sans-serif;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .container { max-width: 1380px; margin: 0 auto; padding: 0 16px; }
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+    }
+    .head-flex { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .title { font-size: 16px; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .sub { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+    .badge {
+      font-size: 11px; padding: 2px 8px; border-radius: 999px;
+      background: rgba(245, 158, 11, 0.15); color: var(--gold);
+      border: 1px solid rgba(245, 158, 11, 0.35); font-weight: 600;
+    }
+    .badge-live {
+      background: rgba(56, 189, 248, 0.14); color: var(--primary);
+      border-color: rgba(56, 189, 248, 0.35); font-family: ui-monospace, monospace;
+    }
+    .btn {
+      background: #0284c7; color: #fff; border: 1px solid #38bdf8;
+      padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .btn:hover { background: #0369a1; }
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0;
+    }
+    @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    }
+    .kpi-label { font-size: 11.5px; color: var(--muted); }
+    .kpi-val { font-size: 21px; font-weight: 800; font-family: ui-monospace, monospace; margin-top: 4px; }
+    .kpi-foot { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .tabs {
+      display: flex; gap: 6px; border-bottom: 1px solid var(--border); margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: transparent; border: none; border-bottom: 2px solid transparent;
+      color: var(--muted); padding: 10px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .tab-btn.active { color: var(--text); border-bottom-color: var(--primary); }
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; margin-bottom: 16px; overflow-x: auto;
+    }
+    .card-title { font-size: 14px; font-weight: 700; margin: 0 0 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; min-width: 820px; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { font-size: 11.5px; color: var(--muted); font-weight: 600; background: rgba(255,255,255,0.02); }
+    .num { text-align: right; font-family: ui-monospace, monospace; }
+    .pos { color: #f87171; font-weight: 700; }
+    .neg { color: #34d399; font-weight: 700; }
+    .prog-wrap { width: 120px; height: 7px; background: #1e293b; border-radius: 99px; overflow: hidden; margin-top: 4px; }
+    .prog-bar { height: 100%; background: linear-gradient(90deg, #38bdf8, #f59e0b); }
+    .tag { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; background: #1e293b; color: #cbd5e1; }
+    .report-card {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-bottom: 12px;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; } }
+    .hidden { display: none; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { margin: 6px 0; padding-left: 18px; }
+    li { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container head-flex">
+      <div>
+        <h1 class="title">
+          📈 Alpha 股市二部 · 戰情室 & 百萬實盤模擬操盤室
+          <span class="badge">純模擬交易 · 初始本金 NT$1,000,000</span>
+          <span id="sync-badge" class="badge badge-live">● 讀取中...</span>
+        </h1>
+        <div class="sub">
+          每日台美股收盤由 GitHub Actions 自動抓取真實市價結算淨值、執行停損/停利並產出日報 · <a href="https://howardkung.github.io/project-lifeblood-rpg-office/" target="_blank">返回 24/7 集團 RPG 總部 ↗</a>
+        </div>
+      </div>
+      <button class="btn" onclick="loadData()">🔄 重新同步最新淨值</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Top KPIs -->
+    <div class="kpi-grid" id="kpi-grid"></div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="holdings">🎯 分析結果 vs 預期目標 vs 實際績效</button>
+      <button class="tab-btn" data-tab="daily">📅 每日投資結果報告 (Daily Reports)</button>
+      <button class="tab-btn" data-tab="research">🏛️ 二部總經・供應鏈・風控研報摘要</button>
+    </div>
+
+    <!-- Tab 1: Holdings & Expected vs Actual -->
+    <section id="tab-holdings">
+      <div class="card">
+        <div class="card-title">
+          <span>💼 當前模擬持倉組合（預期目標價 / 強制停損價 vs 最新實際表現）</span>
+          <span id="fx-label" class="tag"></span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>標的代號 / 名稱</th>
+              <th>產業主線</th>
+              <th class="num">股數</th>
+              <th class="num">建倉基準價</th>
+              <th class="num">最新市價</th>
+              <th class="num">預期目標價 (預期%)</th>
+              <th class="num">強制停損價</th>
+              <th class="num">盈虧比</th>
+              <th class="num">持倉市值 (TWD)</th>
+              <th class="num">實際損益 (含手續費)</th>
+            </tr>
+          </thead>
+          <tbody id="holdings-body"></tbody>
+        </table>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span>⏳ 右側條件掛單等待區（嚴守不追高紀律，達價自動買進）</span></div>
+          <div id="pending-box"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>🛑 毒舌風控官（CRO）首輪退件與避開名單</span></div>
+          <ul style="color:#cbd5e1;">
+            <li><strong><code>2344.TW</code> 華邦電 (103.5) / <code>2408.TW</code> 南亞科 (306.0)</strong>：單日雖漲停，但近 1 月暴跌逾 -35% 且深陷下彎月線下方 15%，屬破年線空方跌深反彈；記憶體資金集中買進已帶 1.24x 量攻克月線的 <code>8299.TWO 群聯</code>。</li>
+            <li><strong><code>2313.TW</code> 華通 (168.0) / <code>2308.TW</code> 台達電 (1,120.0)</strong>：尚未站回下彎之 20MA（179.1 / 1,148.0），待收盤實質站上月線再納入右側觀察。</li>
+            <li><strong>單筆歐印禁令</strong>：<code>^VIX</code> 處於 <code>27.5</code> 高檔震盪區，強制保留 <strong>~32% 現金戰備金（NT$321,347）</strong> 防範大盤打第二隻腳。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: Daily Investment Reports -->
+    <section id="tab-daily" class="hidden">
+      <div class="card">
+        <div class="card-title">
+          <span>📊 淨值曲線紀錄（NT$1,000,000 基準）</span>
+          <span class="tag">每週一至週五台美股收盤自動更新</span>
+        </div>
+        <div id="curve-box" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;"></div>
+      </div>
+      <div id="daily-reports-box"></div>
+    </section>
+
+    <!-- Tab 3: Division 2 Research Summary -->
+    <section id="tab-research" class="hidden">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span>🌍 1. 總經與跨市場配置師結論（溫度計：58/100）</span></div>
+          <ul>
+            <li><strong>利率見頂訊號確立</strong>：10 年期美債殖利率（<code>^TNX</code>）跌破月線與季線回落至 <strong><code>4.85%</code></strong>，<code>TLT</code>（<code>82.24</code>）帶量 1.25x 轉短中期多頭排列，殺估值元凶解除。</li>
+            <li><strong>台幣止貶拐點</strong>：<code>USD/TWD</code> 回升破 33 至 <strong><code>32.94</code></strong>，逼近月線 <code>32.86</code>；一旦升破 32.86 將觸發外資結束連賣轉為季底回補。</li>
+            <li><strong>總水位紀律</strong>：建議 ~68% 股債底倉（58% 高 RS 強勢股/ETF + 10% TLT 長債保護傘）＋ <strong>32% 機動現金</strong>。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span>🔗 2. 題材供應鏈 × 籌碼共振狙擊結論</span></div>
+          <ul>
+            <li><strong>北美 CSP 自研 ASIC 量產主線</strong>：<code>3661.TW 世芯-KY</code>（<code>3,735</code>）在大盤月跌 -16.8% 下僅跌 -1.7%，為全場唯一站上 50MA 季線之 AI 晶片領頭羊。</li>
+            <li><strong>Vera Rubin 液冷與高速互連</strong>：<code>3017.TW 奇鋐</code>（<code>2,795</code>）同時守穩年線與月線且正乖離僅 +3.8%；<code>3665.TW 貿聯-KY</code> 掛單等拉回修正乖離。</li>
+            <li><strong>投信季底作帳 752 億主導</strong>：鎖定帶 1.24x 攻擊量剛站上月線之高投本比股 <code>8299.TWO 群聯</code>（<code>1,630</code>，盈虧比高達 <code>4.12x</code>）及美股 3M 唯一正報酬巨頭 <code>META</code>（<code>US$609.89</code>）。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let PF = null;
+
+    function fmtTwd(n) {
+      const sign = n > 0 ? "+" : "";
+      return "NT$" + Math.round(n).toLocaleString("en-US");
+    }
+
+    function fmtSignedTwd(n) {
+      const sign = n > 0 ? "+" : (n < 0 ? "-" : "");
+      return sign + "NT$" + Math.abs(Math.round(n)).toLocaleString("en-US");
+    }
+
+    async function loadData() {
+      const badge = document.getElementById("sync-badge");
+      badge.textContent = "● 同步中...";
+      try {
+        let res = await fetch(
+          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/portfolio.json?ref=main",
+          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
+        );
+        if (!res.ok) {
+          res = await fetch("./portfolio.json?t=" + Date.now(), { cache: "no-store" });
+        }
+        PF = await res.json();
+        badge.textContent = "● 更新於 " + PF.lastUpdated;
+        renderAll();
+      } catch (e) {
+        badge.textContent = "● 讀取失敗: " + e.message;
+      }
+    }
+
+    function renderAll() {
+      const s = PF.summary;
+      const retCls = s.totalReturnTwd >= 0 ? "pos" : "neg";
+      document.getElementById("kpi-grid").innerHTML = `
+        <div class="kpi">
+          <div class="kpi-label">模擬基金當前總淨值 (NAV)</div>
+          <div class="kpi-val">${fmtTwd(s.navTwd)}</div>
+          <div class="kpi-foot">初始本金：NT$1,000,000（起算日 ${PF.inceptionDate}）</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">累計總損益（已扣除真實手續費/稅）</div>
+          <div class="kpi-val ${retCls}">${fmtSignedTwd(s.totalReturnTwd)} (${s.totalReturnPct >= 0 ? '+' : ''}${s.totalReturnPct}%)</div>
+          <div class="kpi-foot">累計交易摩擦成本：NT$${s.totalFeesPaidTwd.toLocaleString()}</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">持倉總市值 / 投入水位</div>
+          <div class="kpi-val" style="color:var(--primary)">${fmtTwd(s.marketValueTwd)} (${s.investedRatioPct}%)</div>
+          <div class="kpi-foot">共持有 ${PF.positions.length} 檔通過 CRO 風控審核標的</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">機動現金戰備池 (Dry Powder)</div>
+          <div class="kpi-val" style="color:var(--gold)">${fmtTwd(s.cashTwd)} (${s.cashRatioPct}%)</div>
+          <div class="kpi-foot">${s.marketRegime}</div>
+        </div>
+      `;
+
+      document.getElementById("fx-label").textContent = `匯率基準 USD/TWD = ${PF.fxUsdTwd}`;
+
+      document.getElementById("holdings-body").innerHTML = PF.positions.map(p => {
+        const curPrefix = p.currency === "USD" ? "US$" : "";
+        const pnlCls = p.unrealizedPnlTwd >= 0 ? "pos" : "neg";
+        const totalSpan = Math.max(0.01, p.targetPrice - p.stopLoss);
+        const progress = Math.max(0, Math.min(100, ((p.currentPrice - p.stopLoss) / totalSpan) * 100));
+        return `
+          <tr>
+            <td>
+              <strong>${p.symbol}</strong> · ${p.name}
+              <div style="font-size:11px; color:var(--muted); margin-top:3px; max-width:250px;">${p.thesis}</div>
+            </td>
+            <td><span class="tag">${p.category}</span></td>
+            <td class="num">${p.shares.toLocaleString()}</td>
+            <td class="num">${curPrefix}${p.entryPrice.toLocaleString()}</td>
+            <td class="num"><strong>${curPrefix}${p.currentPrice.toLocaleString()}</strong></td>
+            <td class="num" style="color:var(--gold);">
+              ${curPrefix}${p.targetPrice.toLocaleString()} (+${p.expectedReturnPct}%)
+              <div class="prog-wrap" title="停損 ➔ 目標價區間位置"><div class="prog-bar" style="width:${progress}%"></div></div>
+            </td>
+            <td class="num" style="color:#94a3b8;">${curPrefix}${p.stopLoss.toLocaleString()}</td>
+            <td class="num"><strong>${p.riskRewardRatio}x</strong></td>
+            <td class="num">${fmtTwd(p.marketValueTwd)}</td>
+            <td class="num ${pnlCls}">${fmtSignedTwd(p.unrealizedPnlTwd)}<br/><span style="font-size:11px;">(${p.unrealizedPnlPct >= 0 ? '+' : ''}${p.unrealizedPnlPct}%)</span></td>
+          </tr>
+        `;
+      }).join("");
+
+      document.getElementById("pending-box").innerHTML = (PF.pendingOrders || []).map(o => `
+        <div class="report-card" style="margin-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; font-weight:700;">
+            <span>${o.symbol} · ${o.name}（預定 ${o.shares} 股）</span>
+            <span style="color:var(--gold);">目標 ${o.targetPrice} / 停損 ${o.stopLoss}</span>
+          </div>
+          <div style="font-size:12px; color:var(--primary); margin-top:4px;">
+            觸發條件：${o.pullbackBuyBelow ? `拉回 <= ${o.pullbackBuyBelow} 低接 或 ` : ""}收盤突破 >= ${o.breakoutBuyAbove}
+          </div>
+          <div style="font-size:11.5px; color:var(--muted); margin-top:3px;">${o.note}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("curve-box").innerHTML = (PF.equityCurve || []).map(c => `
+        <div class="report-card" style="margin:0; min-width:190px;">
+          <div style="font-size:11px; color:var(--muted);">${c.date}</div>
+          <div style="font-size:16px; font-weight:800; font-family:monospace; margin-top:2px;">${fmtTwd(c.navTwd)} (${c.returnPct >= 0 ? '+' : ''}${c.returnPct}%)</div>
+          <div style="font-size:11px; color:var(--muted); margin-top:2px;">現金：${fmtTwd(c.cashTwd)}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("daily-reports-box").innerHTML = (PF.dailyReports || []).map(r => `
+        <div class="card">
+          <div class="card-title">
+            <span>📅 ${r.date} 每日投資結算報告</span>
+            <span style="font-family:monospace;">總淨值：<strong>${fmtTwd(r.navTwd)}</strong> ｜ 當日變動：<span class="${r.dailyChangeTwd >= 0 ? 'pos' : 'neg'}">${fmtSignedTwd(r.dailyChangeTwd)} (${r.dailyChangePct >= 0 ? '+' : ''}${r.dailyChangePct}%)</span></span>
+          </div>
+          <p style="color:#cbd5e1; margin:0 0 8px;">${r.commentary}</p>
+          <ul>${(r.actions || []).map(a => `<li>${a}</li>`).join("")}</ul>
+        </div>
+      `).join("");
+    }
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.tab;
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
+        ["holdings", "daily", "research"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
+      });
+    });
+
+    loadData();
+  </script>
+</body>
+</html>

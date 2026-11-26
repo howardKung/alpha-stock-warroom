@@ -1,0 +1,37 @@
+name: Daily NT$1M Paper Fund NAV Settlement
+
+on:
+  schedule:
+    # Weekdays 14:30 Taiwan Time (06:30 UTC) — after TWSE close
+    - cron: '30 6 * * 1-5'
+    # Weekdays 05:30 Taiwan Time (21:30 UTC) — after US Market close
+    - cron: '30 21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  settle-nav:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run daily mark-to-market & rule settlement
+        run: python3 scripts/daily_settle.py
+
+      - name: Commit and push daily investment report
+        run: |
+          git config user.name "Alpha Paper Fund Bot"
+          git config user.email "alpha-bot@project-lifeblood.local"
+          git add portfolio.json daily-reports/
+          if ! git diff --cached --quiet; then
+            git commit -m "📊 Daily NAV settlement $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push origin main
+          fi
