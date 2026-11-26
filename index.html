@@ -159,13 +159,21 @@
           <div id="pending-box"></div>
         </div>
         <div class="card">
-          <div class="card-title"><span>🛑 毒舌風控官（CRO）首輪退件與避開名單</span></div>
+          <div class="card-title"><span>🛑 PRO 毒舌風控官（CRO）退件與資金鐵律</span></div>
           <ul style="color:#cbd5e1;">
-            <li><strong><code>2344.TW</code> 華邦電 (103.5) / <code>2408.TW</code> 南亞科 (306.0)</strong>：單日雖漲停，但近 1 月暴跌逾 -35% 且深陷下彎月線下方 15%，屬破年線空方跌深反彈；記憶體資金集中買進已帶 1.24x 量攻克月線的 <code>8299.TWO 群聯</code>。</li>
-            <li><strong><code>2313.TW</code> 華通 (168.0) / <code>2308.TW</code> 台達電 (1,120.0)</strong>：尚未站回下彎之 20MA（179.1 / 1,148.0），待收盤實質站上月線再納入右側觀察。</li>
-            <li><strong>單筆歐印禁令</strong>：<code>^VIX</code> 處於 <code>27.5</code> 高檔震盪區，強制保留 <strong>~32% 現金戰備金（NT$321,347）</strong> 防範大盤打第二隻腳。</li>
+            <li><strong><code>6442.TW</code> 光聖 (980.0，Stage 2 直接退件)</strong>：破年線高達 <strong>-41.7%</strong>（200MA 1,680.5）、距高點腰斬 -58.7%，大盤強彈 +956 點仍量縮 0.89x，屬 CPO 籌碼重災區，嚴禁空頭接刀！</li>
+            <li><strong><code>2344.TW</code> 華邦電 (103.5) / <code>2408.TW</code> 南亞科 (306.0)</strong>：深陷下彎月線下方 15% 跌深反彈；記憶體集中買進帶量攻克月線之 <code>8299.TWO 群聯</code>。</li>
+            <li><strong>12% 鐵血現金紅線 & 60% 台股相關性鎖</strong>：<code>NT$321,347</code> 現金強制保留底線 <strong><code>NT$120,000 (12%)</code></strong>；所有條件單單筆上限壓在 <code>NT$50k~65k</code>，新增台股 AI 條件單最多成交 2 檔！</li>
           </ul>
         </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🇺🇸 跨部門情報：SEC Form 4 美股高管買進雷達（金流一部 Actor #5 實抓 × 二部 CRO 終審）</span>
+          <span class="tag">Code P 真金白銀買進 · 自動剔除贈股與烏龍申報</span>
+        </div>
+        <div id="insider-box" class="grid-2"></div>
       </div>
     </section>
 
@@ -303,6 +311,22 @@
           <div style="font-size:11.5px; color:var(--muted); margin-top:3px;">${o.note}</div>
         </div>
       `).join("");
+
+      const insiderEl = document.getElementById("insider-box");
+      if (insiderEl) {
+        insiderEl.innerHTML = (PF.insiderRadar || []).map(x => `
+          <div class="report-card" style="margin:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <strong>${x.ticker} · ${x.company}</strong>
+              <span style="font-size:11.5px; font-weight:700; color:var(--gold);">${x.verdict}</span>
+            </div>
+            <div style="font-size:12px; color:var(--primary); margin-top:4px;">
+              申報職稱：${x.role} ｜ ${x.buyUsd > 0 ? `買進金額 US$${x.buyUsd.toLocaleString()} (@ US$${x.avgPrice})` : `參考現價 US$${x.avgPrice}`}
+            </div>
+            <div style="font-size:11.5px; color:#cbd5e1; margin-top:4px;">${x.croAudit}</div>
+          </div>
+        `).join("");
+      }
 
       document.getElementById("curve-box").innerHTML = (PF.equityCurve || []).map(c => `
         <div class="report-card" style="margin:0; min-width:190px;">

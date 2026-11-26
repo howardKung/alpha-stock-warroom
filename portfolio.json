@@ -3,7 +3,7 @@
   "inceptionDate": "2026-11-26",
   "currency": "TWD",
   "initialCapitalTwd": 1000000,
-  "lastUpdated": "2026-11-26 20:08:25",
+  "lastUpdated": "2026-11-26 21:18:00 (台灣時間)",
   "fxUsdTwd": 32.95,
   "summary": {
     "navTwd": 999179,
@@ -162,16 +162,49 @@
   ],
   "pendingOrders": [
     {
+      "symbol": "PLTR",
+      "name": "Palantir Technologies",
+      "market": "US",
+      "ruleType": "BREAKOUT_ABOVE",
+      "breakoutBuyAbove": 167.5,
+      "shares": 10,
+      "targetPrice": 198.0,
+      "stopLoss": 157.5,
+      "note": "【Stage 2 首選 · R/R 3.05x】觀察池唯一穩守年線 (+6%) 之 AI 企業軟體股，與台股硬體低相關；待收盤站上 20MA (166.31) 右側進場。"
+    },
+    {
+      "symbol": "1560.TW",
+      "name": "中砂",
+      "market": "TW",
+      "ruleType": "BREAKOUT_ABOVE",
+      "breakoutBuyAbove": 690.0,
+      "shares": 85,
+      "targetPrice": 850.0,
+      "stopLoss": 648.0,
+      "note": "【Stage 2 首選 · R/R 3.81x】台積電 2nm 鑽石碟獨供耗材＋投信鎖碼；突破 690 同步收復 200MA 與 20MA 雙重壓力。"
+    },
+    {
+      "symbol": "3711.TW",
+      "name": "日月光投控",
+      "market": "TW",
+      "ruleType": "BREAKOUT_ABOVE",
+      "breakoutBuyAbove": 565.0,
+      "shares": 95,
+      "targetPrice": 655.0,
+      "stopLoss": 538.0,
+      "note": "【Stage 2 有條件核准 · R/R 3.33x】Vera Rubin 先進封裝長約；CRO 收緊停損至 538 並加掛台幣匯率 < 32.90 濾網。"
+    },
+    {
       "symbol": "3665.TW",
       "name": "貿聯-KY",
       "market": "TW",
       "ruleType": "PULLBACK_OR_BREAKOUT",
       "pullbackBuyBelow": 1650.0,
       "breakoutBuyAbove": 1905.0,
-      "shares": 60,
+      "shares": 32,
       "targetPrice": 2300.0,
       "stopLoss": 1515.0,
-      "note": "全場 RS 第 1 名，惟現價 1,790 距月線正乖離 +18%，嚴守 CRO 不追高紀律等待拉回或帶量過季線。"
+      "note": "【CRO 縮倉校准】全場 RS 第 1 名，單筆壓縮至 ~NT$55k 遵守 12% 現金紅線，等拉回 1,650 或帶量過季線 1,905。"
     },
     {
       "symbol": "2454.TW",
@@ -179,10 +212,71 @@
       "market": "TW",
       "ruleType": "BREAKOUT_ABOVE",
       "breakoutBuyAbove": 3780.0,
-      "shares": 30,
+      "shares": 16,
       "targetPrice": 4250.0,
       "stopLoss": 3580.0,
-      "note": "穩守年線且上修 2027 ASIC 規模，待收盤突破 20MA (3,768.5) 右側確認自動進場。"
+      "note": "【CRO 縮倉校准】穩守年線且上修 2027 ASIC 規模，單筆壓縮至 ~NT$60k，待收盤突破 20MA (3,768.5) 右側進場。"
+    },
+    {
+      "symbol": "ANET",
+      "name": "Arista Networks",
+      "market": "US",
+      "ruleType": "BREAKOUT_ABOVE",
+      "breakoutBuyAbove": 181.5,
+      "shares": 9,
+      "targetPrice": 212.0,
+      "stopLoss": 170.0,
+      "note": "【CRO 駁回 171.5 偷跑單 → 拉高門檻】800G/1.6T AI 交換器龍頭，強制等站回 20MA (180.14) 且 VIX < 25 才放行。"
+    },
+    {
+      "symbol": "6223.TWO",
+      "name": "旺矽",
+      "market": "TW",
+      "ruleType": "BREAKOUT_ABOVE",
+      "breakoutBuyAbove": 4200.0,
+      "shares": 13,
+      "targetPrice": 4950.0,
+      "stopLoss": 3950.0,
+      "note": "【CRO 降級次順位】探針卡龍頭但破年線 -17.7%，強制加掛大盤 ^TWII >= 40,200 與量比 >= 1.25x 濾網。"
+    }
+  ],
+  "cashReserveFloorTwd": 120000,
+  "insiderRadar": [
+    {
+      "ticker": "KDK",
+      "company": "Kodiak AI, Inc.",
+      "role": "CEO & 10% Owner",
+      "buyUsd": 2213400,
+      "avgPrice": 1.1067,
+      "verdict": "🟡 僅列高波動雷達（禁入百萬穩健倉）",
+      "croAudit": "SEC Form 4 Code P 真實買進 200 萬股，惟近 3 月跌 -68.5% 屬 Nasdaq $1 面額保衛戰，單日振幅逾 20%。"
+    },
+    {
+      "ticker": "GLXY",
+      "company": "Galaxy Digital Inc.",
+      "role": "Chief Financial Officer",
+      "buyUsd": 268450,
+      "avgPrice": 10.738,
+      "verdict": "🟡 左側觀察雷達（等站上 20MA $13.95）",
+      "croAudit": "CFO 精準抄底 25,000 股屬實，但為 Crypto 高 Beta 空頭主跌段（破年線 -49.7%），嚴禁左側接刀。"
+    },
+    {
+      "ticker": "SBLK",
+      "company": "Star Bulk Carriers",
+      "role": "Director",
+      "buyUsd": 25590,
+      "avgPrice": 25.59,
+      "verdict": "⚪ 低訊號雜訊（略過）",
+      "croAudit": "僅增持原部位 0.41%（1,000 股），屬象徵性買盤，無機構跟單催化力。"
+    },
+    {
+      "ticker": "SHMD",
+      "company": "SCHMID Group N.V.",
+      "role": "CFO (SEC 申報誤植)",
+      "buyUsd": 0,
+      "avgPrice": 1.89,
+      "verdict": "❌ 抓包申報烏龍（直接拉黑）",
+      "croAudit": "CRO 勘驗原始 XML 抓包申報人誤填 2006 年日期與單價 $1.73M；Actor #5 已同步實作防呆降級保護！"
     }
   ],
   "closedTrades": [],

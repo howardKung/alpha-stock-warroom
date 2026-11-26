@@ -116,7 +116,8 @@ def main() -> None:
 
     pf["positions"] = remaining_positions
 
-    # 2. Check pending conditional orders
+    # 2. Check pending conditional orders (with CRO NT$120,000 cash floor & TW AI correlation cap)
+    cash_floor = pf.get("cashReserveFloorTwd", 120000)
     still_pending = []
     for po in pf.get("pendingOrders", []):
         px = fetch_latest_price(po["symbol"])
@@ -129,9 +130,15 @@ def main() -> None:
         elif po["ruleType"] == "BREAKOUT_ABOVE":
             triggered = px >= po.get("breakoutBuyAbove", 1e12)
 
+        tw_count = sum(1 for p in pf["positions"] if p["market"].startswith("TW"))
+        is_tw = po["market"].startswith("TW")
+
         if triggered:
             cost_twd, fee = calc_buy_cost_twd(po["market"], po["shares"], px, fx)
-            if pf["summary"]["cashTwd"] >= cost_twd:
+            if is_tw and tw_count >= 6:
+                still_pending.append(po)
+                continue
+            if (pf["summary"]["cashTwd"] - cost_twd) >= cash_floor:
                 pf["summary"]["cashTwd"] -= cost_twd
                 pf["summary"]["totalFeesPaidTwd"] += fee
                 mkt_val = cost_twd - fee
