@@ -63,11 +63,13 @@ def main() -> None:
     tz_tw = timezone(timedelta(hours=8))
     now_tw = datetime.now(tz_tw)
     today_str = now_tw.strftime("%Y-%m-%d")
-    ts_str = now_tw.strftime("%Y-%m-%d %H:%M:%S")
+    ts_str = now_tw.strftime("%Y-%m-%d %H:%M:%S (台灣時間)")
 
     fx = fetch_latest_price("TWD=X") or pf.get("fxUsdTwd", 32.94)
     pf["fxUsdTwd"] = fx
-    prev_nav = pf["summary"]["navTwd"]
+    curve_today_label = f"{today_str} (收盤)"
+    prior_curves = [c for c in pf.get("equityCurve", []) if c.get("date") != curve_today_label]
+    prev_nav = prior_curves[-1]["navTwd"] if prior_curves else pf["initialCapitalTwd"]
     actions = []
 
     # 1. Update open positions & check Stop-Loss / Target Take-Profit
