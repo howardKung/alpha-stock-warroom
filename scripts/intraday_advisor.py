@@ -67,16 +67,274 @@ def fetch_intraday_bar(symbol: str) -> dict | None:
         return None
 
 
+TW_FEE_RATE = 0.001425
+TW_STOCK_TAX_RATE = 0.003
+TW_ETF_TAX_RATE = 0.001
+US_FRICTION_RATE = 0.001
+
+
+def is_market_open_for(market: str, now_tw: datetime) -> tuple[bool, bool]:
+    """Returns (is_open, is_preclose_decision_window) in Taiwan Time."""
+    wd = now_tw.weekday()
+    hm = now_tw.hour * 60 + now_tw.minute
+    if market.startswith("TW"):
+        is_open = (0 <= wd <= 4) and (540 <= hm <= 810)        # Mon-Fri 09:00~13:30 TWT
+        is_preclose = (0 <= wd <= 4) and (780 <= hm <= 810)    # Mon-Fri 13:00~13:30 TWT
+        return is_open, is_preclose
+    # US market (covers both US DST 21:30~04:00 & Standard 22:30~05:00 TWT, Mon night ~ Sat early morning)
+    if (0 <= wd <= 4 and hm >= 1290) or (1 <= wd <= 5 and hm <= 300):
+        is_preclose = (1 <= wd <= 5) and (225 <= hm <= 300)    # 03:45~05:00 TWT pre-close
+        return True, is_preclose
+    return False, False
+
+
+def calc_sell_proceeds_twd(pos: dict, exit_price: float, fx: float) -> tuple[int, int]:
+    gross_twd = pos["shares"] * exit_price * (fx if pos["currency"] == "USD" else 1.0)
+    if pos["market"] == "TW":
+        fee = gross_twd * (TW_FEE_RATE + TW_STOCK_TAX_RATE)
+    elif pos["market"] == "TW_ETF":
+        fee = gross_twd * (TW_FEE_RATE + TW_ETF_TAX_RATE)
+    else:
+        fee = gross_twd * US_FRICTION_RATE
+    fee_int = max(1, round(fee))
+    return round(gross_twd) - fee_int, fee_int
+
+
+def calc_buy_cost_twd(market: str, shares: int, price: float, fx: float) -> tuple[int, int]:
+    is_usd = market in ("US", "US_ETF")
+    gross_twd = shares * price * (fx if is_usd else 1.0)
+    fee_rate = TW_FEE_RATE if market.startswith("TW") else US_FRICTION_RATE
+    fee_int = max(1, round(gross_twd * fee_rate))
+    return round(gross_twd) + fee_int, fee_int
+
+
+def execute_intraday_paper_trades(
+    pf: dict,
+    quotes: dict,
+    fx: float,
+    vix: float,
+    twii_px: float,
+    now_tw: datetime,
+    ts_str: str,
+) -> list[str]:
+    """
+    Live Intraday Order Matching & Mark-to-Market Engine during TW & US open hours:
+    1. Limit Take-Profit (`dayHigh >= targetPrice` or `price >= targetPrice`): fills immediately at limit!
+    2. Hard Flash-Crash Stop (`price <= stopLoss * 0.975`) OR Pre-Close Confirmed Stop (`is_preclose and price <= stopLoss`): sells live!
+    3. Limit Pullback Buy (`dayLow <= pullbackBuyBelow` or `price <= pullbackBuyBelow`): buys immediately at limit!
+    4. Pre-Close Confirmed Breakout Buy (`is_preclose and price >= breakoutBuyAbove` + wick < 2.5% + CRO macro filters): buys live!
+    """
+    today_str = now_tw.strftime("%Y-%m-%d")
+    pf["fxUsdTwd"] = fx
+    executed_trades: list[str] = []
+
+    # 1. Check open positions (mark-to-market + intraday TP / SL execution)
+    remaining_positions = []
+    for pos in pf.get("positions", []):
+        sym = pos["symbol"]
+        q = quotes.get(sym)
+        mkt_open, mkt_preclose = is_market_open_for(pos["market"], now_tw)
+        px = q["price"] if q else float(pos["currentPrice"])
+        day_high = q["dayHigh"] if q else px
+        pos["currentPrice"] = px
+
+        stop = float(pos["stopLoss"])
+        target = float(pos["targetPrice"])
+
+        # (A) Intraday Limit Take-Profit (if market is open and session high/price touched targetPrice)
+        if mkt_open and (px >= target or day_high >= target):
+            fill_px = round(max(px, target), 2)
+            proceeds, fee = calc_sell_proceeds_twd(pos, fill_px, fx)
+            pnl = proceeds - pos["costBasisTwd"]
+            pf["summary"]["cashTwd"] += proceeds
+            pf["summary"]["realizedPnlTwd"] += pnl
+            pf["summary"]["totalFeesPaidTwd"] += fee
+            pf["summary"]["winCount"] += 1
+            pf.setdefault("closedTrades", []).insert(0, {
+                **pos, "exitDate": today_str, "exitPrice": fill_px, "realizedPnlTwd": pnl, "exitReason": "INTRADAY_TARGET_HIT"
+            })
+            msg = f"🎯【盤中限價達標停利成交】賣出 {sym} {pos['name']} {pos['shares']}股 @ {fill_px}（已實現獲利 NT${pnl:+,}）"
+            executed_trades.append(msg)
+            continue
+
+        # (B) Intraday Hard Flash-Crash Stop (-2.5% past stop) OR Pre-Close Confirmed Stop-Loss
+        hard_crash_stop = round(stop * 0.975, 2)
+        if mkt_open and (px <= hard_crash_stop or (mkt_preclose and px <= stop)):
+            reason_tag = "盤中閃崩硬停損" if px <= hard_crash_stop else "尾盤確認破線停損"
+            proceeds, fee = calc_sell_proceeds_twd(pos, px, fx)
+            pnl = proceeds - pos["costBasisTwd"]
+            pf["summary"]["cashTwd"] += proceeds
+            pf["summary"]["realizedPnlTwd"] += pnl
+            pf["summary"]["totalFeesPaidTwd"] += fee
+            if pnl >= 0:
+                pf["summary"]["winCount"] += 1
+            else:
+                pf["summary"]["lossCount"] += 1
+            pf.setdefault("closedTrades", []).insert(0, {
+                **pos, "exitDate": today_str, "exitPrice": px, "realizedPnlTwd": pnl, "exitReason": "INTRADAY_STOP_LOSS"
+            })
+            msg = f"🛑【{reason_tag}成交】賣出 {sym} {pos['name']} {pos['shares']}股 @ {px}（已實現損益 NT${pnl:+,}）"
+            executed_trades.append(msg)
+            continue
+
+        mkt_val = round(pos["shares"] * px * (fx if pos["currency"] == "USD" else 1.0))
+        pos["marketValueTwd"] = mkt_val
+        pos["unrealizedPnlTwd"] = mkt_val - pos["costBasisTwd"]
+        pos["unrealizedPnlPct"] = round((pos["unrealizedPnlTwd"] / pos["costBasisTwd"]) * 100, 2)
+        remaining_positions.append(pos)
+
+    pf["positions"] = remaining_positions
+
+    # 2. Check pending conditional buy orders during active market hours
+    cash_floor = pf.get("cashReserveFloorTwd", 120000)
+    still_pending = []
+    for po in pf.get("pendingOrders", []):
+        sym = po["symbol"]
+        q = quotes.get(sym)
+        mkt_open, mkt_preclose = is_market_open_for(po["market"], now_tw)
+        if not q or not mkt_open:
+            still_pending.append(po)
+            continue
+
+        px = q["price"]
+        day_low = q["dayLow"]
+        wick = q["upperWickPct"]
+        pull = po.get("pullbackBuyBelow")
+        brk = po.get("breakoutBuyAbove")
+
+        # CRO macro filter gates
+        macro_ok = True
+        if sym == "3711.TW" and fx >= 32.90:
+            macro_ok = False
+        elif sym == "ANET" and vix >= 25.0:
+            macro_ok = False
+        elif sym == "6223.TWO" and twii_px < 40200:
+            macro_ok = False
+
+        fill_px = None
+        fill_label = ""
+        if pull and (px <= pull or day_low <= pull) and macro_ok:
+            fill_px = round(min(px, float(pull)), 2)
+            fill_label = "盤中限價低接成交"
+        elif brk and mkt_preclose and px >= float(brk) and wick < 2.5 and macro_ok:
+            fill_px = px
+            fill_label = "尾盤確認突破買進成交"
+
+        tw_count = sum(1 for p in pf["positions"] if p["market"].startswith("TW"))
+        is_tw = po["market"].startswith("TW")
+
+        if fill_px is not None:
+            if is_tw and tw_count >= 6:
+                still_pending.append(po)
+                continue
+            cost_twd, fee = calc_buy_cost_twd(po["market"], po["shares"], fill_px, fx)
+            if (pf["summary"]["cashTwd"] - cost_twd) >= cash_floor:
+                pf["summary"]["cashTwd"] -= cost_twd
+                pf["summary"]["totalFeesPaidTwd"] += fee
+                mkt_val = cost_twd - fee
+                pf["positions"].append({
+                    "id": f"POS-{today_str}-{sym}",
+                    "symbol": sym,
+                    "name": po["name"],
+                    "market": po["market"],
+                    "category": fill_label,
+                    "entryDate": today_str,
+                    "shares": po["shares"],
+                    "entryPrice": fill_px,
+                    "currentPrice": px,
+                    "currency": "USD" if po["market"].startswith("US") else "TWD",
+                    "fxRateAtEntry": fx if po["market"].startswith("US") else 1.0,
+                    "costBasisTwd": cost_twd,
+                    "marketValueTwd": mkt_val,
+                    "unrealizedPnlTwd": -fee,
+                    "unrealizedPnlPct": round((-fee / cost_twd) * 100, 2),
+                    "targetPrice": po["targetPrice"],
+                    "stopLoss": po["stopLoss"],
+                    "riskRewardRatio": round((po["targetPrice"] - fill_px) / max(0.01, fill_px - po["stopLoss"]), 2),
+                    "thesis": po["note"],
+                    "status": "OPEN",
+                })
+                executed_trades.append(
+                    f"⚡【{fill_label}】買進 {sym} {po['name']} {po['shares']}股 @ {fill_px}（投入 NT${cost_twd:,}）"
+                )
+            else:
+                still_pending.append(po)
+        else:
+            still_pending.append(po)
+
+    pf["pendingOrders"] = still_pending
+
+    # 3. Live Mark-to-Market NAV & Benchmark Alpha Update
+    total_mkt_val = sum(p["marketValueTwd"] for p in pf["positions"])
+    total_unrealized = sum(p["unrealizedPnlTwd"] for p in pf["positions"])
+    nav = pf["summary"]["cashTwd"] + total_mkt_val
+    init_cap = pf["initialCapitalTwd"]
+    total_ret_twd = nav - init_cap
+    total_ret_pct = round((total_ret_twd / init_cap) * 100, 2)
+
+    bench = pf.get("benchmarks", {})
+    base_0050 = float(bench.get("tw0050BasePrice", 92.85))
+    init_0050_net = float(bench.get("tw0050InitNetTwd", 998575))
+    px_0050 = quotes.get("0050.TW", {}).get("price", base_0050)
+    tw0050_nav = round(init_0050_net * (px_0050 / base_0050))
+    tw0050_ret = round(((tw0050_nav - init_cap) / init_cap) * 100, 2)
+    alpha_pct = round(total_ret_pct - tw0050_ret, 2)
+
+    pf["lastUpdated"] = ts_str
+    pf["summary"]["navTwd"] = nav
+    pf["summary"]["marketValueTwd"] = total_mkt_val
+    pf["summary"]["unrealizedPnlTwd"] = total_unrealized
+    pf["summary"]["totalReturnTwd"] = total_ret_twd
+    pf["summary"]["totalReturnPct"] = total_ret_pct
+    pf["summary"]["investedRatioPct"] = round((total_mkt_val / nav) * 100, 1) if nav else 0.0
+    pf["summary"]["cashRatioPct"] = round((pf["summary"]["cashTwd"] / nav) * 100, 1) if nav else 0.0
+    pf["summary"]["tw0050NavTwd"] = tw0050_nav
+    pf["summary"]["tw0050ReturnPct"] = tw0050_ret
+    pf["summary"]["alphaVs0050Pct"] = alpha_pct
+
+    # Log any executed intraday trades into today's dailyReports[0]
+    if executed_trades:
+        reports = pf.setdefault("dailyReports", [])
+        if reports and reports[0].get("date") == today_str:
+            existing_acts = [a for a in reports[0].get("actions", []) if "無觸發" not in a]
+            reports[0]["actions"] = executed_trades + existing_acts
+            reports[0]["navTwd"] = nav
+            reports[0]["cashTwd"] = pf["summary"]["cashTwd"]
+            reports[0]["totalReturnPct"] = total_ret_pct
+        else:
+            reports.insert(0, {
+                "date": today_str,
+                "navTwd": nav,
+                "dailyChangeTwd": 0,
+                "dailyChangePct": 0.0,
+                "totalReturnPct": total_ret_pct,
+                "cashTwd": pf["summary"]["cashTwd"],
+                "actions": executed_trades,
+                "commentary": f"盤中即時撮合成交更新：最新總淨值 NT${nav:,}（Alpha {alpha_pct:+.2f}%）。",
+            })
+
+    PORTFOLIO_PATH.write_text(json.dumps(pf, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return executed_trades
+
+
 def detect_session_checkpoint(now_tw: datetime) -> tuple[str, str]:
     hm = now_tw.hour * 60 + now_tw.minute
-    if 535 <= hm <= 630:  # 08:55 ~ 10:30
-        return "TW_OPEN", "🔔 台股早盤強弱定調哨（防早盤假突破）"
-    if 631 <= hm <= 760:  # 10:31 ~ 12:40
-        return "TW_MID", "🕛 台股午盤換手與上影線檢視哨"
-    if 761 <= hm <= 820:  # 12:41 ~ 13:40
-        return "TW_PRECLOSE", "⚡ 台股尾盤 20 分鐘黃金決策哨（確認買進／停損！）"
-    if hm >= 1320 or hm <= 280:  # 22:00 ~ 04:40
-        return "US_INTRADAY", "🇺🇸 美股盤中實戰盯盤哨"
+    if 535 <= hm <= 610:  # 08:55 ~ 10:10
+        return "TW_OPEN", "🔔 台股早盤盯盤＆限價撮合哨"
+    if 611 <= hm <= 670:  # 10:11 ~ 11:10
+        return "TW_QUIET_1", "🔎 台股早盤中段密集盯盤撮合哨"
+    if 671 <= hm <= 725:  # 11:11 ~ 12:05
+        return "TW_MID", "🕛 台股午盤盯盤＆上影線檢視哨"
+    if 726 <= hm <= 775:  # 12:06 ~ 12:55
+        return "TW_QUIET_2", "🔎 台股午後密集盯盤撮合哨"
+    if 776 <= hm <= 820:  # 12:56 ~ 13:40
+        return "TW_PRECLOSE", "⚡ 台股尾盤 20 分鐘決策＆確認買賣執行哨"
+    if hm >= 1320 or hm <= 90:  # 22:00 ~ 01:30
+        return "US_INTRADAY", "🇺🇸 美股開盤盯盤＆限價撮合哨"
+    if 91 <= hm <= 220:  # 01:31 ~ 03:40
+        return "US_QUIET", "🔎 美股午盤密集盯盤撮合哨"
+    if 221 <= hm <= 305:  # 03:41 ~ 05:05
+        return "US_PRECLOSE", "⚡ 美股尾盤確認買賣執行哨"
     return "OFF_HOURS", "📡 盤中策略雷達快照（非開盤時段預覽）"
 
 
@@ -300,17 +558,33 @@ def send_telegram_intraday(pulse: dict) -> None:
         print("[TG-INTRADAY] Secrets not configured — skipping push.")
         return
 
+    trades = pulse.get("executedTrades") or []
+    is_quiet_shift = "QUIET" in pulse.get("sessionCode", "") or pulse.get("sessionCode") == "US_PRECLOSE"
+    is_manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    if is_quiet_shift and not trades and not is_manual:
+        print("[TG-INTRADAY] Quiet intermediate shift with 0 executed trades — updated web NAV silently without spamming TG.")
+        return
+
     m = pulse["marketPulse"]
-    lines = [
-        f"⚡ <b>【二部盤中實戰盯盤建議】</b>",
+    f_nav = pulse.get("fundLiveSummary", {})
+    lines: list[str] = []
+    if trades:
+        lines.append("🚨 <b>【百萬模擬操盤室・盤中即時撮合成交快報！】</b> 🚨")
+        for t in trades:
+            lines.append(f"• <b>{html.escape(t)}</b>")
+        lines.append("")
+
+    lines.extend([
+        f"⚡ <b>【二部盤中實戰盯盤 ＆ 模擬倉即時戰況】</b>",
         f"<b>{html.escape(pulse['checkpointLabel'])}</b>",
         f"🕒 <code>{pulse['updatedAt']}</code>",
         "",
+        f"💼 <b>模擬倉盤中即時淨值</b>：<code>NT${int(f_nav.get('navTwd', 0)):,}</code> (<code>{float(f_nav.get('totalReturnPct', 0)):+.2f}%</code>) ｜ 🏆 對決 0050 Alpha <code>{float(f_nav.get('alphaVs0050Pct', 0)):+.2f}%</code> ｜ 現金 <code>NT${int(f_nav.get('cashTwd', 0)):,}</code>",
         f"📊 <b>盤中大盤溫度</b>：加權 <code>{m['twiiPrice']:,.0f}</code> (<code>{m['twiiChangePct']:+.2f}%</code>) ｜ 0050 <code>{m['tw0050Price']}</code> (<code>{m['tw0050ChangePct']:+.2f}%</code>) ｜ 台幣 <code>{m['usdTwd']}</code> ｜ VIX <code>{m['vix']}</code>",
         f"🧭 <b>盤中總體策略</b>：{html.escape(pulse['overallStrategy'])}",
         "",
-        "<b>💼 現有 6 檔持股盤中操作建議</b>",
-    ]
+        f"<b>💼 現有 {len(pulse['positionAdvices'])} 檔持股盤中操作建議</b>",
+    ])
 
     for p in pulse["positionAdvices"]:
         lines.append(
@@ -331,25 +605,24 @@ def send_telegram_intraday(pulse: dict) -> None:
         closest = pulse["watchlistAdvices"][0] if pulse["watchlistAdvices"] else None
         if closest:
             lines.append(
-                f"• 目前 7 檔條件單皆未進入 2.8% 突破射程（最接近：<b>{html.escape(closest['symbol'])} {html.escape(closest['name'])}</b> 現價 <code>{closest['intradayPrice']}</code>，距門檻 <code>{closest['breakoutBuyAbove']}</code> 差 <code>{closest['gapToTriggerPct']}%</code>）➔ <b>盤中安心觀望不追價</b>。"
+                f"• 目前條件單未進 2.8% 突破射程（最接近：<b>{html.escape(closest['symbol'])} {html.escape(closest['name'])}</b> 現價 <code>{closest['intradayPrice']}</code>，距門檻 <code>{closest['breakoutBuyAbove']}</code> 差 <code>{closest['gapToTriggerPct']}%</code>）➔ <b>盤中觀望不追價</b>。"
             )
 
     boss_watch = pulse.get("bossWatchAdvices") or []
     if boss_watch:
-        # Sort by urgency first, then largest absolute daily move; show top 5 to stay well within TG 4096-char limit
         top_boss = sorted(boss_watch, key=lambda x: (x.get("priority", 4), -abs(float(x.get("dayChangePct", 0.0)))))[:5]
         lines.append("")
         lines.append("<b>👑【大 Boss 台股 10 檔盤中重點提示】</b>")
         for b in top_boss:
             lines.append(
                 f"• <b>{html.escape(b['code'])} {html.escape(b['name'])}</b> <code>{b['intradayPrice']}</code> (<code>{b['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(b['badge'])}</b>\n"
-                f"  └ 月線 {b['ma20']} ({b['vsMa20Pct']:+.1f}%) ｜ 防守 {b['defenseStop']} ｜ 壓力 {b['resistanceOrTrim']}"
+                f"  └ 月線 {b['ma20']} ({b['vsMa20Pct']:+.1f}%) ｜ 防守 {b['defenseStop']} ｜ 減碼/停利 {b['resistanceOrTrim']}"
             )
 
-    lines.extend(["", f'🔗 <a href="{WARROOM_URL}">開啟戰情網查看即時盤中雷達 ↗</a>'])
+    lines.extend(["", f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 大 Boss 處方箋 ↗</a>'])
     text = "\n".join(lines)
     if len(text) > 3900:
-        text = text[:3850] + "\n...\n" + f'🔗 <a href="{WARROOM_URL}">開啟戰情網 ↗</a>'
+        text = text[:3840] + "\n...\n" + f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ↗</a>'
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = json.dumps({
@@ -393,6 +666,13 @@ def main() -> None:
     fx = quotes.get("TWD=X", {}).get("price", pf.get("fxUsdTwd", 32.94))
     vix = quotes.get("^VIX", {}).get("price", 27.5)
 
+    # Execute live intraday mark-to-market & order matching during active market hours!
+    executed_trades = execute_intraday_paper_trades(pf, quotes, fx, vix, twii_px, now_tw, ts_str)
+    if Path("/home/antigravity/idea-team/stock-division").exists():
+        Path("/home/antigravity/idea-team/stock-division/portfolio.json").write_text(
+            json.dumps(pf, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+
     pos_advices = evaluate_positions(pf.get("positions", []), quotes, twii_chg, session_code)
     watch_advices = evaluate_pending_orders(pf.get("pendingOrders", []), quotes, fx, vix, twii_px, session_code)
     boss_advices = evaluate_boss_watchlist(boss_items, quotes, session_code)
@@ -400,22 +680,31 @@ def main() -> None:
     urgent_stops = sum(1 for x in pos_advices if x["priority"] == 1 and "停損" in x["badge"])
     hot_triggers = sum(1 for x in watch_advices if x["priority"] == 1)
 
-    if urgent_stops > 0:
-        overall = f"🚨 盤中有 {urgent_stops} 檔持股觸及停損警戒區！嚴禁攤平，請鎖定 13:10 尾盤確認是否執行停損。"
+    if executed_trades:
+        overall = f"🚨 盤中已即時撮合成交 {len(executed_trades)} 筆指令！（{executed_trades[0]}）"
+    elif urgent_stops > 0:
+        overall = f"🚨 盤中有 {urgent_stops} 檔持股觸及停損警戒區！嚴禁攤平，鎖定 13:10 尾盤確認是否執行停損。"
     elif hot_triggers > 0:
-        overall = f"⚡ 盤中有 {hot_triggers} 檔觀察股進入狙擊觸發區！切忌早盤追高，等 13:10 尾盤站穩再扣扳機。"
+        overall = f"⚡ 盤中有 {hot_triggers} 檔觀察股進入狙擊觸發區！切忌早盤追高，等 13:10 尾盤站穩自動扣扳機買進。"
     elif twii_chg <= -1.2:
         overall = f"🛡️ 大盤盤中偏弱 ({twii_chg:+.2f}%)，手握 32% 現金＋美債 TLT 發揮抗跌保護力，多看少動、不接刀！"
     elif twii_chg >= 1.0:
         overall = f"🔥 大盤盤中強勢 ({twii_chg:+.2f}%)，現有強勢持股續抱讓獲利奔跑，留意兵臨城下之條件單尾盤突破機會！"
     else:
-        overall = f"⚖️ 大盤盤中震盪換手 ({twii_chg:+.2f}%)，6 檔持股未破防守線前安心續抱，條件單嚴守右側突破才出手。"
+        overall = f"⚖️ 大盤盤中震盪換手 ({twii_chg:+.2f}%)，持股未破防守線前安心續抱，限價單與尾盤確認單全自動盯盤撮合中。"
 
     pulse = {
         "updatedAt": ts_str,
         "sessionCode": session_code,
         "checkpointLabel": session_label,
         "overallStrategy": overall,
+        "executedTrades": executed_trades,
+        "fundLiveSummary": {
+            "navTwd": pf["summary"]["navTwd"],
+            "totalReturnPct": pf["summary"]["totalReturnPct"],
+            "alphaVs0050Pct": pf["summary"].get("alphaVs0050Pct", 0.0),
+            "cashTwd": pf["summary"]["cashTwd"],
+        },
         "marketPulse": {
             "twiiPrice": twii_px,
             "twiiChangePct": twii_chg,
@@ -433,7 +722,10 @@ def main() -> None:
     if IDEA_COPY.parent.exists():
         IDEA_COPY.write_text(json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    print(f"[INTRADAY] {session_label} | TWII={twii_px} ({twii_chg:+.2f}%) | UrgentStops={urgent_stops} | HotTriggers={hot_triggers}")
+    print(
+        f"[INTRADAY-LIVE] {session_label} | NAV=NT${pf['summary']['navTwd']:,} "
+        f"(Alpha {pf['summary'].get('alphaVs0050Pct', 0):+.2f}%) | ExecutedTrades={len(executed_trades)}"
+    )
     send_telegram_intraday(pulse)
 
 
