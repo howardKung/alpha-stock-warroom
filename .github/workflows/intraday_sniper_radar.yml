@@ -1,26 +1,14 @@
-name: Intraday Sniper & Live Paper-Trading Execution
+name: Intraday 20-Min Live Trading & Actionable Buy/Sell Radar
 
 on:
   schedule:
-    # === 台股開市密集盯盤＆模擬撮合買賣（週一至週五，約每 50 分鐘一哨！）===
-    # 1. 09:35 台灣時間 (01:35 UTC)：早盤強弱定調＋限價撮合（推播 TG 戰報）
-    - cron: '35 1 * * 1-5'
-    # 2. 10:25 台灣時間 (02:25 UTC)：早盤中段密集盯盤撮合（安靜更新淨值，若有成交秒發 TG 警報！）
-    - cron: '25 2 * * 1-5'
-    # 3. 11:30 台灣時間 (03:30 UTC)：午盤換手檢視＋限價撮合（推播 TG 戰報）
-    - cron: '30 3 * * 1-5'
-    # 4. 12:20 台灣時間 (04:20 UTC)：午後密集盯盤撮合（安靜更新淨值，若有成交秒發 TG 警報！）
-    - cron: '20 4 * * 1-5'
-    # 5. 13:10 台灣時間 (05:10 UTC)：尾盤黃金決策窗 — 當場執行尾盤確認買進／停損並推播 TG！
-    - cron: '10 5 * * 1-5'
+    # === 台股開市每 20 分鐘盯盤撮合＆買賣建議（週一至週五 09:00 ~ 13:20 台灣時間 = 01:00 ~ 05:20 UTC）===
+    - cron: '0,20,40 1-4 * * 1-5'
+    - cron: '0,20 5 * * 1-5'
 
-    # === 美股開市密集盯盤＆模擬撮合買賣（台灣時間深夜至清晨）===
-    # 6. 23:30 台灣時間 (15:30 UTC)：美股開盤盯盤＋限價撮合（推播 TG 戰報）
-    - cron: '30 15 * * 1-5'
-    # 7. 02:00 台灣時間 (18:00 UTC)：美股午盤密集盯盤撮合（安靜更新淨值，若有成交秒發 TG 警報！）
-    - cron: '0 18 * * 1-5'
-    # 8. 04:35 台灣時間 (20:35 UTC)：美股收盤前決策窗 — 當場執行確認買進／停損（若有成交秒發 TG！）
-    - cron: '35 20 * * 1-5'
+    # === 美股開市每 20 分鐘盯盤撮合＆買賣建議（台灣時間深夜 21:40 ~ 清晨 04:40 = 13:40 ~ 20:40 UTC）===
+    - cron: '40 13 * * 1-5'
+    - cron: '0,20,40 14-20 * * 1-5'
   workflow_dispatch:
 
 permissions:
@@ -38,7 +26,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run live intraday trading engine & Telegram alert
+      - name: Run 20-min live trading & actionable Boss buy/sell advisor
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -47,10 +35,11 @@ jobs:
 
       - name: Commit live portfolio.json & intraday_pulse.json
         run: |
-          git config user.name "Alpha Intraday Trader Bot"
+          git config user.name "Alpha 20m Intraday Bot"
           git config user.email "alpha-intraday@project-lifeblood.local"
           git add portfolio.json intraday_pulse.json
           if ! git diff --cached --quiet; then
-            git commit -m "⚡ Intraday live mark-to-market & order match $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M TWT')"
+            git commit -m "⚡ 20m intraday radar & order match $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M TWT')"
+            git pull --rebase -X ours origin main
             git push origin main
           fi

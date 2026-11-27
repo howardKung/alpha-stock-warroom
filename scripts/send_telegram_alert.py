@@ -41,7 +41,7 @@ def fmt_pct(val: float | int | None) -> str:
     return f"{v:+.2f}%"
 
 
-def build_morning_message(pf: dict, news: dict, now_tw: datetime) -> str:
+def build_premarket_message(pf: dict, news: dict, now_tw: datetime, is_us: bool = False) -> str:
     brief = news.get("executiveBrief", {})
     takeaways = brief.get("boss3MinTakeaways", [])[:5]
     social = news.get("social", {})
@@ -53,13 +53,13 @@ def build_morning_message(pf: dict, news: dict, now_tw: datetime) -> str:
     ret_pct = float(s.get("totalReturnPct", 0.0))
     alpha = float(s.get("alphaVs0050Pct", 0.0))
     cash = int(s.get("cashTwd", 0))
-    cash_pct = float(s.get("cashRatioPct", 0.0))
 
+    header = "🌆 <b>【美股盤前獨立戰略專報 ＆ 今晚買賣好球帶】</b>" if is_us else "🌅 <b>【台股盤前獨立戰略早報 ＆ 今日買賣預備單】</b>"
     lines = [
-        f"🌅 <b>【大 Boss 3 分鐘專屬情報早報】</b>",
-        f"🕒 <code>{now_tw.strftime('%Y-%m-%d %H:%M')} (台灣時間)</code>",
+        header,
+        f"🕒 <code>{now_tw.strftime('%Y-%m-%d %H:%M')} (台灣時間 · 開盤前專報)</code>",
         "",
-        "<b>📌 今日 5 大核心戰情重點</b>",
+        "<b>📌 盤前 5 大核心情報重點</b>",
     ]
     if takeaways:
         for idx, t in enumerate(takeaways, 1):
@@ -69,8 +69,7 @@ def build_morning_message(pf: dict, news: dict, now_tw: datetime) -> str:
 
     lines.append("")
     ptt_label = html.escape(str(ptt.get("sentimentLabel", "情緒監測中")))
-    ptt_bull = ptt.get("sentimentBullPct", "--")
-    lines.append(f"<b>💬 PTT 股版散戶溫度計</b>：{ptt_label}（偏多 <code>{ptt_bull}%</code>）")
+    lines.append(f"<b>💬 PTT 股版散戶溫度計</b>：{ptt_label}")
 
     if reddit:
         top3 = " ｜ ".join(
@@ -79,14 +78,34 @@ def build_morning_message(pf: dict, news: dict, now_tw: datetime) -> str:
         )
         lines.append(f"<b>👽 Reddit 美股熱議</b>：{top3}")
 
-    div2_impact = brief.get("div2StockImpact", "")
-    if div2_impact:
-        lines.extend(["", f"<b>🎯 二部持股警戒/催化</b>：{html.escape(str(div2_impact))}"])
+    # Pre-market actionable buy zones for the upcoming session
+    pending = [
+        o for o in pf.get("pendingOrders", [])
+        if (o["market"].startswith("US") if is_us else o["market"].startswith("TW"))
+    ]
+    if pending:
+        lines.extend(["", f"<b>🎯 {'今晚美股' if is_us else '今日台股'}開盤預備買進好球帶（開市後每 20m 自動盯盤）</b>"])
+        for o in pending[:5]:
+            cond = (
+                f"低接 &lt;= {o['pullbackBuyBelow']} 或突破 &gt;= {o['breakoutBuyAbove']}"
+                if o.get("pullbackBuyBelow")
+                else f"突破 &gt;= {o['breakoutBuyAbove']}"
+            )
+            lines.append(f"• <b>{html.escape(o['symbol'])} {html.escape(o['name'])}</b>：{cond}（目標 {o['targetPrice']} / 停損 {o['stopLoss']}）")
+
+    if not is_us:
+        lines.extend([
+            "",
+            "<b>👑 大 Boss 台股 10 檔盤前重點價位提醒</b>",
+            "• <code>8112 至上</code>：守月線 77.63 強勢續抱（挑戰 81.2~84.5 季年線）",
+            "• <code>8110 華東 / 2329 華泰</code>：反彈摸月線 33.8~35.0 優先減半抽資；嚴守 28.5 / 29.5",
+            "• <code>1527 鑽全</code>：緊盯 26.0~26.4 防守底線；反彈 28.5~29.2 撤退",
+        ])
 
     lines.extend([
         "",
-        f"<b>💼 百萬模擬倉現況</b>：NAV <code>NT${nav:,}</code> (<code>{fmt_pct(ret_pct)}</code>) ｜ 對決 0050 Alpha <code>{fmt_pct(alpha)}</code> ｜ 現金 <code>NT${cash:,}</code> ({cash_pct:.1f}%)",
-        f'🔗 <a href="{WARROOM_URL}">一鍵開啟 Alpha 戰情網 ↗</a>',
+        f"<b>💼 模擬倉盤前基準</b>：NAV <code>NT${nav:,}</code> (<code>{fmt_pct(ret_pct)}</code>) ｜ Alpha <code>{fmt_pct(alpha)}</code> ｜ 現金 <code>NT${cash:,}</code>",
+        f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 大 Boss 處方箋 ↗</a>',
     ])
     return "\n".join(lines)
 
@@ -203,8 +222,8 @@ def send_telegram_message(token: str, chat_id: str, text: str) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Send Telegram alert for Alpha Stock Warroom")
-    parser.add_argument("--mode", choices=["auto", "morning", "settle"], default="auto")
+    parser = argparse.ArgumentParser(description="Send dedicated Pre/Post-Market Telegram report")
+    parser.add_argument("--mode", choices=["auto", "morning", "settle", "pre_tw", "post_tw", "pre_us", "post_us"], default="auto")
     args = parser.parse_args()
 
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -216,14 +235,30 @@ def main() -> int:
     now_tw = datetime.now(TZ_TW)
     mode = args.mode
     if mode == "auto":
-        # Morning brief window: 06:00 ~ 11:30 Taiwan time
         hhmm = now_tw.hour * 60 + now_tw.minute
-        mode = "morning" if (360 <= hhmm <= 690) else "settle"
+        if 420 <= hhmm <= 540:        # 07:00 ~ 09:00 TWT -> TW Pre-Market
+            mode = "pre_tw"
+        elif 1200 <= hhmm <= 1320:    # 20:00 ~ 22:00 TWT -> US Pre-Market
+            mode = "pre_us"
+        elif 810 <= hhmm <= 1080:     # 13:30 ~ 18:00 TWT -> TW Post-Market
+            mode = "post_tw"
+        else:                         # Early morning ~05:30 TWT -> US Post-Market
+            mode = "post_us"
 
     pf = load_json(PORTFOLIO_PATH)
     news = load_json(NEWS_FEED_PATH)
 
-    msg = build_morning_message(pf, news, now_tw) if mode == "morning" else build_settle_message(pf, news, now_tw)
+    if mode in ("morning", "pre_tw"):
+        msg = build_premarket_message(pf, news, now_tw, is_us=False)
+    elif mode == "pre_us":
+        msg = build_premarket_message(pf, news, now_tw, is_us=True)
+    else:
+        msg = build_settle_message(pf, news, now_tw)
+        if mode == "post_tw":
+            msg = msg.replace("【百萬模擬倉收盤戰報 ＆ 大盤對決】", "【台股盤後獨立結算專報 ＆ 大盤對決】", 1)
+        elif mode == "post_us":
+            msg = msg.replace("【百萬模擬倉收盤戰報 ＆ 大盤對決】", "【美股盤後暨全日總結算專報】", 1)
+
     try:
         send_telegram_message(token, chat_id, msg)
         print(f"[TG] Sent {mode} notification successfully ({len(msg)} chars).")

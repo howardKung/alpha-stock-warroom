@@ -319,23 +319,21 @@ def execute_intraday_paper_trades(
 
 def detect_session_checkpoint(now_tw: datetime) -> tuple[str, str]:
     hm = now_tw.hour * 60 + now_tw.minute
-    if 535 <= hm <= 610:  # 08:55 ~ 10:10
-        return "TW_OPEN", "🔔 台股早盤盯盤＆限價撮合哨"
-    if 611 <= hm <= 670:  # 10:11 ~ 11:10
-        return "TW_QUIET_1", "🔎 台股早盤中段密集盯盤撮合哨"
-    if 671 <= hm <= 725:  # 11:11 ~ 12:05
-        return "TW_MID", "🕛 台股午盤盯盤＆上影線檢視哨"
-    if 726 <= hm <= 775:  # 12:06 ~ 12:55
-        return "TW_QUIET_2", "🔎 台股午後密集盯盤撮合哨"
-    if 776 <= hm <= 820:  # 12:56 ~ 13:40
-        return "TW_PRECLOSE", "⚡ 台股尾盤 20 分鐘決策＆確認買賣執行哨"
-    if hm >= 1320 or hm <= 90:  # 22:00 ~ 01:30
-        return "US_INTRADAY", "🇺🇸 美股開盤盯盤＆限價撮合哨"
-    if 91 <= hm <= 220:  # 01:31 ~ 03:40
-        return "US_QUIET", "🔎 美股午盤密集盯盤撮合哨"
-    if 221 <= hm <= 305:  # 03:41 ~ 05:05
-        return "US_PRECLOSE", "⚡ 美股尾盤確認買賣執行哨"
-    return "OFF_HOURS", "📡 盤中策略雷達快照（非開盤時段預覽）"
+    if 552 <= hm <= 572:    # ~09:20 TWT milestone
+        return "TW_OPEN", "🔔 台股早盤 20m 盯盤＆買賣建議哨"
+    if 672 <= hm <= 692:    # ~11:20 TWT milestone
+        return "TW_MID", "🕛 台股午盤 20m 盯盤＆買賣建議哨"
+    if 792 <= hm <= 815:    # ~13:20 TWT pre-close final decision milestone
+        return "TW_PRECLOSE", "⚡ 台股尾盤收盤前決策＆買賣執行哨"
+    if 535 <= hm <= 815:    # All other 20-min ticks during TW open hours (09:00, 09:40, 10:00, 10:20, 10:40, 11:00, 11:40, 12:00, 12:20, 12:40, 13:00)
+        return "TW_QUIET_SCAN", f"🔎 台股盤中 20m 巡檢撮合 ({now_tw.strftime('%H:%M')})"
+    if 1390 <= hm <= 1415:  # ~23:20 TWT US open milestone
+        return "US_INTRADAY", "🇺🇸 美股開盤 20m 盯盤＆買賣建議哨"
+    if 265 <= hm <= 300:    # ~04:30~05:00 TWT US pre-close window
+        return "US_PRECLOSE", "⚡ 美股尾盤收盤前決策＆買賣執行哨"
+    if hm >= 1290 or hm <= 300:
+        return "US_QUIET_SCAN", f"🔎 美股盤中 20m 巡檢撮合 ({now_tw.strftime('%H:%M')})"
+    return "OFF_HOURS", "📡 盤中策略雷達快照"
 
 
 def evaluate_positions(positions: list[dict], quotes: dict, twii_chg: float, session_code: str) -> list[dict]:
@@ -551,7 +549,76 @@ def evaluate_boss_watchlist(boss_items: list[dict], quotes: dict, session_code: 
     return out
 
 
-def send_telegram_intraday(pulse: dict) -> None:
+def extract_boss_actionable_signals(watch_advices: list[dict], boss_advices: list[dict], now_tw: datetime) -> list[dict]:
+    """
+    Identifies concrete intraday BUY / ADD / TRIM / DEFENSE-STOP recommendations for Đại Boss
+    during active TW or US market hours so any new opportunity pushes within 20 minutes!
+    """
+    signals: list[dict] = []
+    tw_open, _ = is_market_open_for("TW", now_tw)
+    us_open, _ = is_market_open_for("US", now_tw)
+
+    # 1. New Buy Opportunities for Đại Boss (from CRO-approved Stage 2 & Right-Side Watchlist)
+    for w in watch_advices:
+        mkt_active = tw_open if w["market"].startswith("TW") else us_open
+        if not mkt_active and os.environ.get("GITHUB_EVENT_NAME") != "workflow_dispatch":
+            continue
+        if w["priority"] == 1:
+            signals.append({
+                "key": f"NEWBUY:{w['symbol']}:TRIGGER",
+                "type": "🎯 新買進觸價建議",
+                "title": f"{w['symbol']} {w['name']} 現價 {w['intradayPrice']} ({w['dayChangePct']:+.2f}%)",
+                "detail": w["advice"],
+            })
+        elif w["priority"] == 2 and w["gapToTriggerPct"] <= 1.8:
+            signals.append({
+                "key": f"NEWBUY:{w['symbol']}:NEAR",
+                "type": "👀 新買進逼近好球帶",
+                "title": f"{w['symbol']} {w['name']} 現價 {w['intradayPrice']}（距買點 {w['breakoutBuyAbove']} 僅差 {w['gapToTriggerPct']}%）",
+                "detail": w["advice"],
+            })
+
+    # 2. Đại Boss's 10 TW Holdings: Intraday Add-on-Pullback, Trim-at-Resistance, or Defense-Stop Alerts
+    if tw_open or os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch":
+        for b in boss_advices:
+            px = b["intradayPrice"]
+            ma20 = b["ma20"]
+            resist = b["resistanceOrTrim"]
+            defense = b["defenseStop"]
+            # Special leader pullback buy-zone check on Q1 leader (e.g., 8112 至上 holding 0%~+1.8% above rising 20MA)
+            if b["code"] == "8112" and ma20 > 0 and ma20 <= px <= round(ma20 * 1.018, 2):
+                signals.append({
+                    "key": f"BOSS:{b['code']}:PULLBACK_ADD",
+                    "type": "🟢 強勢股回測月線買點",
+                    "title": f"{b['code']} {b['name']} 現價 {px}（緊貼月線支撐 {ma20}）",
+                    "detail": f"全倉唯一多頭領頭羊盤中量縮回測月線 {ma20} 有守，若想換股集中火力可留意低接，防守設 {defense}。",
+                })
+            elif defense and px <= defense:
+                signals.append({
+                    "key": f"BOSS:{b['code']}:STOP_BREACH",
+                    "type": "🚨 持股跌破防守線建議",
+                    "title": f"{b['code']} {b['name']} 現價 {px} <= 防守價 {defense}",
+                    "detail": b["advice"],
+                })
+            elif resist and px >= round(resist * 0.985, 2):
+                signals.append({
+                    "key": f"BOSS:{b['code']}:TRIM_ZONE",
+                    "type": "💰 持股達減碼／停利區",
+                    "title": f"{b['code']} {b['name']} 現價 {px} 觸及觀察區 {resist}",
+                    "detail": b["advice"],
+                })
+            elif defense and round(((px - defense) / px) * 100, 2) <= 2.2:
+                signals.append({
+                    "key": f"BOSS:{b['code']}:NEAR_DEFENSE",
+                    "type": "🟠 持股貼近防守底線",
+                    "title": f"{b['code']} {b['name']} 現價 {px}（逼近防守死線 {defense}）",
+                    "detail": b["advice"],
+                })
+
+    return signals
+
+
+def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict]) -> None:
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
     if not token or not chat_id:
@@ -561,63 +628,63 @@ def send_telegram_intraday(pulse: dict) -> None:
     trades = pulse.get("executedTrades") or []
     is_quiet_shift = "QUIET" in pulse.get("sessionCode", "") or pulse.get("sessionCode") == "US_PRECLOSE"
     is_manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-    if is_quiet_shift and not trades and not is_manual:
-        print("[TG-INTRADAY] Quiet intermediate shift with 0 executed trades — updated web NAV silently without spamming TG.")
+
+    # Push immediately on ANY 20-min tick if simulated trades executed OR new Boss buy/sell signals emerged!
+    if is_quiet_shift and not trades and not new_boss_signals and not is_manual:
+        print("[TG-INTRADAY] 20m scan: 0 new trades & 0 new Boss signals — updated web silently without spamming TG.")
         return
 
     m = pulse["marketPulse"]
     f_nav = pulse.get("fundLiveSummary", {})
     lines: list[str] = []
+
     if trades:
-        lines.append("🚨 <b>【百萬模擬操盤室・盤中即時撮合成交快報！】</b> 🚨")
+        lines.append("🚨 <b>【百萬模擬室・盤中即時撮合成交快報！】</b> 🚨")
         for t in trades:
             lines.append(f"• <b>{html.escape(t)}</b>")
         lines.append("")
 
+    if new_boss_signals:
+        lines.append("🎯 <b>【大 Boss 盤中即時買賣操作建議！】</b>")
+        for sig in new_boss_signals[:6]:
+            lines.append(
+                f"• <b>{html.escape(sig['type'])}｜{html.escape(sig['title'])}</b>\n"
+                f"  └ {html.escape(sig['detail'])}"
+            )
+        lines.append("")
+
     lines.extend([
-        f"⚡ <b>【二部盤中實戰盯盤 ＆ 模擬倉即時戰況】</b>",
-        f"<b>{html.escape(pulse['checkpointLabel'])}</b>",
+        f"⚡ <b>【盤中 20m 實戰盯盤戰況】</b> {html.escape(pulse['checkpointLabel'])}",
         f"🕒 <code>{pulse['updatedAt']}</code>",
-        "",
-        f"💼 <b>模擬倉盤中即時淨值</b>：<code>NT${int(f_nav.get('navTwd', 0)):,}</code> (<code>{float(f_nav.get('totalReturnPct', 0)):+.2f}%</code>) ｜ 🏆 對決 0050 Alpha <code>{float(f_nav.get('alphaVs0050Pct', 0)):+.2f}%</code> ｜ 現金 <code>NT${int(f_nav.get('cashTwd', 0)):,}</code>",
-        f"📊 <b>盤中大盤溫度</b>：加權 <code>{m['twiiPrice']:,.0f}</code> (<code>{m['twiiChangePct']:+.2f}%</code>) ｜ 0050 <code>{m['tw0050Price']}</code> (<code>{m['tw0050ChangePct']:+.2f}%</code>) ｜ 台幣 <code>{m['usdTwd']}</code> ｜ VIX <code>{m['vix']}</code>",
-        f"🧭 <b>盤中總體策略</b>：{html.escape(pulse['overallStrategy'])}",
-        "",
-        f"<b>💼 現有 {len(pulse['positionAdvices'])} 檔持股盤中操作建議</b>",
+        f"💼 <b>模擬倉即時淨值</b>：<code>NT${int(f_nav.get('navTwd', 0)):,}</code> (<code>{float(f_nav.get('totalReturnPct', 0)):+.2f}%</code> ｜ 🏆 Alpha <code>{float(f_nav.get('alphaVs0050Pct', 0)):+.2f}%</code>)",
+        f"📊 <b>盤中指數</b>：加權 <code>{m['twiiPrice']:,.0f}</code> (<code>{m['twiiChangePct']:+.2f}%</code>) ｜ 0050 <code>{m['tw0050Price']}</code> (<code>{m['tw0050ChangePct']:+.2f}%</code>) ｜ 台幣 <code>{m['usdTwd']}</code> ｜ VIX <code>{m['vix']}</code>",
+        f"🧭 <b>盤中策略</b>：{html.escape(pulse['overallStrategy'])}",
     ])
 
-    for p in pulse["positionAdvices"]:
-        lines.append(
-            f"• <b>{html.escape(p['symbol'])} {html.escape(p['name'])}</b> <code>{p['intradayPrice']}</code> (<code>{p['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(p['badge'])}</b>\n"
-            f"  └ {html.escape(p['advice'])}"
-        )
-
-    hot_watch = [w for w in pulse["watchlistAdvices"] if w["priority"] <= 2]
-    lines.append("")
-    lines.append("<b>🎯 右側條件單盤中狙擊雷達</b>")
-    if hot_watch:
-        for w in hot_watch[:4]:
-            lines.append(
-                f"• <b>{html.escape(w['symbol'])} {html.escape(w['name'])}</b> <code>{w['intradayPrice']}</code> ➔ <b>{html.escape(w['badge'])}</b>\n"
-                f"  └ {html.escape(w['advice'])}"
-            )
-    else:
-        closest = pulse["watchlistAdvices"][0] if pulse["watchlistAdvices"] else None
-        if closest:
-            lines.append(
-                f"• 目前條件單未進 2.8% 突破射程（最接近：<b>{html.escape(closest['symbol'])} {html.escape(closest['name'])}</b> 現價 <code>{closest['intradayPrice']}</code>，距門檻 <code>{closest['breakoutBuyAbove']}</code> 差 <code>{closest['gapToTriggerPct']}%</code>）➔ <b>盤中觀望不追價</b>。"
-            )
-
-    boss_watch = pulse.get("bossWatchAdvices") or []
-    if boss_watch:
-        top_boss = sorted(boss_watch, key=lambda x: (x.get("priority", 4), -abs(float(x.get("dayChangePct", 0.0)))))[:5]
+    # On scheduled milestone checks (or if no new_boss_signals block was printed yet), show concise summary
+    if not is_quiet_shift or is_manual:
+        hot_watch = [w for w in pulse["watchlistAdvices"] if w["priority"] <= 2]
         lines.append("")
-        lines.append("<b>👑【大 Boss 台股 10 檔盤中重點提示】</b>")
-        for b in top_boss:
-            lines.append(
-                f"• <b>{html.escape(b['code'])} {html.escape(b['name'])}</b> <code>{b['intradayPrice']}</code> (<code>{b['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(b['badge'])}</b>\n"
-                f"  └ 月線 {b['ma20']} ({b['vsMa20Pct']:+.1f}%) ｜ 防守 {b['defenseStop']} ｜ 減碼/停利 {b['resistanceOrTrim']}"
-            )
+        lines.append("<b>🎯 盤中新買進候選雷達（好球帶監測）</b>")
+        if hot_watch:
+            for w in hot_watch[:3]:
+                lines.append(f"• <b>{html.escape(w['symbol'])} {html.escape(w['name'])}</b> <code>{w['intradayPrice']}</code> ➔ {html.escape(w['badge'])}")
+        else:
+            closest = pulse["watchlistAdvices"][0] if pulse["watchlistAdvices"] else None
+            if closest:
+                lines.append(
+                    f"• 最接近買點：<b>{html.escape(closest['symbol'])} {html.escape(closest['name'])}</b> 現價 <code>{closest['intradayPrice']}</code>（距突破門檻 <code>{closest['breakoutBuyAbove']}</code> 差 <code>{closest['gapToTriggerPct']}%</code>）"
+                )
+
+        boss_watch = pulse.get("bossWatchAdvices") or []
+        if boss_watch:
+            top_boss = sorted(boss_watch, key=lambda x: (x.get("priority", 4), -abs(float(x.get("dayChangePct", 0.0)))))[:5]
+            lines.append("")
+            lines.append("<b>👑 大 Boss 台股 10 檔盤中動態（Top 5）</b>")
+            for b in top_boss:
+                lines.append(
+                    f"• <b>{html.escape(b['code'])} {html.escape(b['name'])}</b> <code>{b['intradayPrice']}</code> (<code>{b['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(b['badge'])}</b> [守{b['defenseStop']} / 壓{b['resistanceOrTrim']}]"
+                )
 
     lines.extend(["", f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 大 Boss 處方箋 ↗</a>'])
     text = "\n".join(lines)
@@ -642,8 +709,20 @@ def send_telegram_intraday(pulse: dict) -> None:
 def main() -> None:
     pf = json.loads(PORTFOLIO_PATH.read_text(encoding="utf-8"))
     now_tw = datetime.now(TZ_TW)
+    today_str = now_tw.strftime("%Y-%m-%d")
     ts_str = now_tw.strftime("%Y-%m-%d %H:%M:%S (台灣時間)")
     session_code, session_label = detect_session_checkpoint(now_tw)
+
+    # Load today's already-alerted signal keys so 20-min loop never spams duplicate alerts
+    prev_alerted_keys: set[str] = set()
+    if OUT_PATH.exists():
+        try:
+            prev_pulse = json.loads(OUT_PATH.read_text(encoding="utf-8"))
+            at = prev_pulse.get("alertedToday", {})
+            if at.get("date") == today_str:
+                prev_alerted_keys = set(at.get("keys") or [])
+        except Exception:
+            pass
 
     boss_cfg = json.loads(BOSS_WATCH_PATH.read_text(encoding="utf-8")) if BOSS_WATCH_PATH.exists() else {}
     boss_items = boss_cfg.get("items", [])
@@ -666,7 +745,6 @@ def main() -> None:
     fx = quotes.get("TWD=X", {}).get("price", pf.get("fxUsdTwd", 32.94))
     vix = quotes.get("^VIX", {}).get("price", 27.5)
 
-    # Execute live intraday mark-to-market & order matching during active market hours!
     executed_trades = execute_intraday_paper_trades(pf, quotes, fx, vix, twii_px, now_tw, ts_str)
     if Path("/home/antigravity/idea-team/stock-division").exists():
         Path("/home/antigravity/idea-team/stock-division/portfolio.json").write_text(
@@ -677,21 +755,35 @@ def main() -> None:
     watch_advices = evaluate_pending_orders(pf.get("pendingOrders", []), quotes, fx, vix, twii_px, session_code)
     boss_advices = evaluate_boss_watchlist(boss_items, quotes, session_code)
 
+    all_boss_signals = extract_boss_actionable_signals(watch_advices, boss_advices, now_tw)
+    is_manual_dispatch = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    has_tg_secrets = bool(os.environ.get("TELEGRAM_BOT_TOKEN", "").strip() and os.environ.get("TELEGRAM_CHAT_ID", "").strip())
+    new_boss_signals = [s for s in all_boss_signals if s["key"] not in prev_alerted_keys]
+    if is_manual_dispatch and not new_boss_signals:
+        new_boss_signals = list(all_boss_signals)
+    updated_alerted_keys = (
+        sorted(prev_alerted_keys | {s["key"] for s in all_boss_signals})
+        if has_tg_secrets
+        else sorted(prev_alerted_keys)
+    )
+
     urgent_stops = sum(1 for x in pos_advices if x["priority"] == 1 and "停損" in x["badge"])
     hot_triggers = sum(1 for x in watch_advices if x["priority"] == 1)
 
     if executed_trades:
         overall = f"🚨 盤中已即時撮合成交 {len(executed_trades)} 筆指令！（{executed_trades[0]}）"
+    elif new_boss_signals:
+        overall = f"🎯 盤中浮現 {len(new_boss_signals)} 檔大 Boss 可執行買賣／防守訊號，請查看建議明細！"
     elif urgent_stops > 0:
-        overall = f"🚨 盤中有 {urgent_stops} 檔持股觸及停損警戒區！嚴禁攤平，鎖定 13:10 尾盤確認是否執行停損。"
+        overall = f"🚨 盤中有 {urgent_stops} 檔持股觸及停損警戒區！嚴禁攤平，鎖定 13:20 尾盤確認是否執行停損。"
     elif hot_triggers > 0:
-        overall = f"⚡ 盤中有 {hot_triggers} 檔觀察股進入狙擊觸發區！切忌早盤追高，等 13:10 尾盤站穩自動扣扳機買進。"
+        overall = f"⚡ 盤中有 {hot_triggers} 檔新買進候選股進入狙擊區！切忌早盤亂追，尾盤站穩再出手。"
     elif twii_chg <= -1.2:
-        overall = f"🛡️ 大盤盤中偏弱 ({twii_chg:+.2f}%)，手握 32% 現金＋美債 TLT 發揮抗跌保護力，多看少動、不接刀！"
+        overall = f"🛡️ 大盤盤中偏弱 ({twii_chg:+.2f}%)，手握 32% 現金＋美債 TLT 抗跌保護中，多看少動不接刀！"
     elif twii_chg >= 1.0:
-        overall = f"🔥 大盤盤中強勢 ({twii_chg:+.2f}%)，現有強勢持股續抱讓獲利奔跑，留意兵臨城下之條件單尾盤突破機會！"
+        overall = f"🔥 大盤盤中強勢 ({twii_chg:+.2f}%)，強勢股續抱讓獲利奔跑，留意突破好球帶買點！"
     else:
-        overall = f"⚖️ 大盤盤中震盪換手 ({twii_chg:+.2f}%)，持股未破防守線前安心續抱，限價單與尾盤確認單全自動盯盤撮合中。"
+        overall = f"⚖️ 大盤盤中震盪 ({twii_chg:+.2f}%)，每 20 分鐘自動巡檢買點與減碼位，沒進好球帶前安心觀望。"
 
     pulse = {
         "updatedAt": ts_str,
@@ -699,6 +791,11 @@ def main() -> None:
         "checkpointLabel": session_label,
         "overallStrategy": overall,
         "executedTrades": executed_trades,
+        "bossActionableSignals": all_boss_signals,
+        "alertedToday": {
+            "date": today_str,
+            "keys": updated_alerted_keys,
+        },
         "fundLiveSummary": {
             "navTwd": pf["summary"]["navTwd"],
             "totalReturnPct": pf["summary"]["totalReturnPct"],
@@ -723,10 +820,10 @@ def main() -> None:
         IDEA_COPY.write_text(json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(
-        f"[INTRADAY-LIVE] {session_label} | NAV=NT${pf['summary']['navTwd']:,} "
-        f"(Alpha {pf['summary'].get('alphaVs0050Pct', 0):+.2f}%) | ExecutedTrades={len(executed_trades)}"
+        f"[INTRADAY-20M] {session_label} | NAV=NT${pf['summary']['navTwd']:,} "
+        f"(Alpha {pf['summary'].get('alphaVs0050Pct', 0):+.2f}%) | Trades={len(executed_trades)} | NewBossSignals={len(new_boss_signals)}"
     )
-    send_telegram_intraday(pulse)
+    send_telegram_intraday(pulse, new_boss_signals)
 
 
 if __name__ == "__main__":

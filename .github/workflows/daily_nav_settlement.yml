@@ -1,12 +1,14 @@
-name: Daily NT$1M Paper Fund NAV Settlement
+name: Pre-Market & Post-Market Dedicated Briefs & Settlement
 
 on:
   schedule:
-    # Weekdays 08:15 Taiwan Time (00:15 UTC) — Morning Boss Brief & News/Social Radar
+    # 1. 台股盤前獨立專報：週一至週五 08:15 台灣時間 (00:15 UTC)
     - cron: '15 0 * * 1-5'
-    # Weekdays 14:30 Taiwan Time (06:30 UTC) — after TWSE close
-    - cron: '30 6 * * 1-5'
-    # Weekdays 05:30 Taiwan Time (21:30 UTC) — after US Market close
+    # 2. 台股盤後獨立結算專報：週一至週五 13:50 台灣時間 (05:50 UTC)
+    - cron: '50 5 * * 1-5'
+    # 3. 美股盤前獨立專報：週一至週五 21:00 台灣時間 (13:00 UTC)
+    - cron: '0 13 * * 1-5'
+    # 4. 美股盤後全日總結算專報：週二至週六 05:30 台灣時間 (週一至週五 21:30 UTC)
     - cron: '30 21 * * 1-5'
   workflow_dispatch:
 
@@ -14,7 +16,7 @@ permissions:
   contents: write
 
 jobs:
-  settle-nav:
+  pre-and-post-market:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -25,23 +27,24 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run daily mark-to-market & rule settlement
+      - name: Run mark-to-market & closing settlement
         run: python3 scripts/daily_settle.py
 
-      - name: Fetch news & social sentiment radar
+      - name: Refresh global news & social sentiment radar
         run: python3 scripts/fetch_news_social.py
 
-      - name: Commit and push daily investment report
+      - name: Commit updated settlement & news feed
         run: |
           git config user.name "Alpha Paper Fund Bot"
           git config user.email "alpha-bot@project-lifeblood.local"
           git add portfolio.json news_feed.json daily-reports/
           if ! git diff --cached --quiet; then
-            git commit -m "📊 Daily NAV settlement & news radar $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "📊 Pre/Post market report & settlement $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M TWT')"
+            git pull --rebase -X ours origin main
             git push origin main
           fi
 
-      - name: Send Telegram push notification (if configured)
+      - name: Send dedicated Pre-Market or Post-Market Telegram report
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
