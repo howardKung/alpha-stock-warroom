@@ -175,7 +175,7 @@ def main() -> None:
             still_pending.append(po)
     pf["pendingOrders"] = still_pending
 
-    # 3. Recompute Fund NAV Summary
+    # 3. Recompute Fund NAV Summary & Benchmarks (0050.TW / ^GSPC)
     total_mkt_val = sum(p["marketValueTwd"] for p in pf["positions"])
     total_unrealized = sum(p["unrealizedPnlTwd"] for p in pf["positions"])
     nav = pf["summary"]["cashTwd"] + total_mkt_val
@@ -185,12 +185,38 @@ def main() -> None:
     daily_chg_twd = nav - prev_nav
     daily_chg_pct = round((daily_chg_twd / prev_nav) * 100, 2) if prev_nav else 0.0
 
+    bm = pf.setdefault("benchmarks", {
+        "tw0050BasePrice": 92.85,
+        "tw0050InitNetTwd": 998575,
+        "sp500BasePrice": 7182.78,
+    })
+    base_0050 = float(bm.get("tw0050BasePrice", 92.85))
+    init_net_0050 = float(bm.get("tw0050InitNetTwd", 998575))
+    base_sp500 = float(bm.get("sp500BasePrice", 7182.78))
+
+    px_0050 = fetch_latest_price("0050.TW")
+    if px_0050 is None:
+        px_0050 = next((p["currentPrice"] for p in pf["positions"] if p["symbol"] == "0050.TW"), base_0050)
+    px_sp500 = fetch_latest_price("^GSPC")
+    if px_sp500 is None:
+        prev_sp_ret = float(pf["summary"].get("sp500ReturnPct", 0.0))
+        px_sp500 = base_sp500 * (1.0 + prev_sp_ret / 100.0)
+
+    tw0050_nav_twd = round(init_net_0050 * (px_0050 / base_0050))
+    tw0050_ret_pct = round(((tw0050_nav_twd - init_cap) / init_cap) * 100, 2)
+    sp500_ret_pct = round(((px_sp500 / base_sp500) - 1) * 100, 2)
+    alpha_vs_0050_pct = round(total_ret_pct - tw0050_ret_pct, 2)
+
     pf["lastUpdated"] = ts_str
     pf["summary"]["navTwd"] = nav
     pf["summary"]["marketValueTwd"] = total_mkt_val
     pf["summary"]["unrealizedPnlTwd"] = total_unrealized
     pf["summary"]["totalReturnTwd"] = total_ret_twd
     pf["summary"]["totalReturnPct"] = total_ret_pct
+    pf["summary"]["tw0050NavTwd"] = tw0050_nav_twd
+    pf["summary"]["tw0050ReturnPct"] = tw0050_ret_pct
+    pf["summary"]["sp500ReturnPct"] = sp500_ret_pct
+    pf["summary"]["alphaVs0050Pct"] = alpha_vs_0050_pct
     pf["summary"]["investedRatioPct"] = round((total_mkt_val / nav) * 100, 1) if nav else 0.0
     pf["summary"]["cashRatioPct"] = round((pf["summary"]["cashTwd"] / nav) * 100, 1) if nav else 0.0
 
@@ -200,14 +226,20 @@ def main() -> None:
     # Update or append today's equityCurve & dailyReport
     curve_label = f"{today_str} (收盤)"
     existing_curve = next((c for c in pf["equityCurve"] if c["date"] == curve_label), None)
+    curve_payload = {
+        "navTwd": nav,
+        "cashTwd": pf["summary"]["cashTwd"],
+        "returnPct": total_ret_pct,
+        "tw0050NavTwd": tw0050_nav_twd,
+        "tw0050ReturnPct": tw0050_ret_pct,
+        "sp500ReturnPct": sp500_ret_pct,
+    }
     if existing_curve:
-        existing_curve.update({"navTwd": nav, "cashTwd": pf["summary"]["cashTwd"], "returnPct": total_ret_pct})
+        existing_curve.update(curve_payload)
     else:
         pf["equityCurve"].append({
             "date": curve_label,
-            "navTwd": nav,
-            "cashTwd": pf["summary"]["cashTwd"],
-            "returnPct": total_ret_pct,
+            **curve_payload,
             "note": actions[0],
         })
 
@@ -217,9 +249,16 @@ def main() -> None:
         "dailyChangeTwd": daily_chg_twd,
         "dailyChangePct": daily_chg_pct,
         "totalReturnPct": total_ret_pct,
+        "tw0050ReturnPct": tw0050_ret_pct,
+        "sp500ReturnPct": sp500_ret_pct,
+        "alphaVs0050Pct": alpha_vs_0050_pct,
         "cashTwd": pf["summary"]["cashTwd"],
         "actions": actions,
-        "commentary": f"自動收盤結算完成（USD/TWD={fx}）：總淨值 NT${nav:,}（累計報酬 {total_ret_pct:+.2f}%），持倉市值 NT${total_mkt_val:,}，現金儲備 NT${pf['summary']['cashTwd']:,}。",
+        "commentary": (
+            f"自動收盤結算完成（USD/TWD={fx}）：總淨值 NT${nav:,}（累計報酬 {total_ret_pct:+.2f}%），"
+            f"對決無腦買 0050（{tw0050_ret_pct:+.2f}%）超額報酬 Alpha {alpha_vs_0050_pct:+.2f}%；"
+            f"S&P 500 同期 {sp500_ret_pct:+.2f}%；持倉市值 NT${total_mkt_val:,}，現金儲備 NT${pf['summary']['cashTwd']:,}。"
+        ),
     }
     if pf["dailyReports"] and pf["dailyReports"][0]["date"] == today_str and today_str != pf["inceptionDate"]:
         pf["dailyReports"][0] = report_entry
@@ -233,6 +272,7 @@ def main() -> None:
         f"# 百萬實盤模擬基金 · 每日投資結算報告（{today_str}）",
         f"- **結算時間**：`{ts_str}`（Asia/Taipei）",
         f"- **初始本金**：`NT$1,000,000` ｜ **今日總淨值（NAV）**：**`NT${nav:,}`**（累計 `{total_ret_pct:+.2f}%` / `NT${total_ret_twd:+,}`）",
+        f"- **大盤基準對決**：`0050.TW` 無腦買進 `{tw0050_ret_pct:+.2f}%`（淨值 `NT${tw0050_nav_twd:,}`）➔ **超額報酬 Alpha `{alpha_vs_0050_pct:+.2f}%`** ｜ `S&P 500` `{sp500_ret_pct:+.2f}%`",
         f"- **持倉總市值**：`NT${total_mkt_val:,}`（`{pf['summary']['investedRatioPct']}%`） ｜ **機動現金**：`NT${pf['summary']['cashTwd']:,}`（`{pf['summary']['cashRatioPct']}%`）",
         f"- **匯率基準**：`USD/TWD = {fx}`",
         "",
@@ -248,7 +288,7 @@ def main() -> None:
         ],
     ]
     (DAILY_DIR / f"{today_str}.md").write_text("\n".join(md_lines) + "\n", encoding="utf-8")
-    print(f"[SETTLED] {today_str} | NAV=NT${nav:,} ({total_ret_pct:+.2f}%)")
+    print(f"[SETTLED] {today_str} | NAV=NT${nav:,} ({total_ret_pct:+.2f}%) | 0050={tw0050_ret_pct:+.2f}% | Alpha={alpha_vs_0050_pct:+.2f}% | SPX={sp500_ret_pct:+.2f}%")
 
 
 if __name__ == "__main__":

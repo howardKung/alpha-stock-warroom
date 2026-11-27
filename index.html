@@ -161,6 +161,44 @@
       .tab-btn { padding: 9px 10px; font-size: 12.5px; }
       .tabs { gap: 4px; }
     }
+    .alpha-banner {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(19, 30, 53, 0.96));
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: -4px 0 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .alpha-banner.win {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.96) 55%);
+    }
+    .alpha-banner.lose {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(15, 23, 42, 0.96) 55%);
+    }
+    .alpha-win { color: #34d399; font-weight: 800; }
+    .alpha-lose { color: #f87171; font-weight: 800; }
+    .chart-legend {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center; font-size: 12px; color: #cbd5e1;
+    }
+    .legend-item { display: inline-flex; align-items: center; gap: 6px; }
+    .legend-line { width: 18px; height: 0; border-top: 2.5px solid #f59e0b; display: inline-block; }
+    .legend-line.tw0050 { border-top: 2.5px dashed #38bdf8; }
+    .legend-line.sp500 { border-top: 2px dashed #94a3b8; }
+    .bench-pills {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px;
+    }
+    @media (max-width: 780px) { .bench-pills { grid-template-columns: repeat(2, 1fr); } }
+    .bench-pill {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px;
+    }
+    .bench-pill-label { font-size: 11px; color: var(--muted); }
+    .bench-pill-val { font-size: 15px; font-weight: 800; font-family: ui-monospace, monospace; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -183,6 +221,7 @@
   <main class="container">
     <!-- Top KPIs -->
     <div class="kpi-grid" id="kpi-grid"></div>
+    <div id="alpha-banner-box"></div>
 
     <!-- Navigation Tabs -->
     <div class="tabs">
@@ -194,6 +233,18 @@
 
     <!-- Tab 1: Holdings & Expected vs Actual -->
     <section id="tab-holdings">
+      <div class="card">
+        <div class="card-title">
+          <span>🏆 績效對決大盤基準（百萬模擬倉 vs 無腦買進 0050.TW vs 美股 S&P 500）</span>
+          <div class="chart-legend">
+            <span class="legend-item"><i class="legend-line"></i> 百萬模擬倉</span>
+            <span class="legend-item"><i class="legend-line tw0050"></i> 無腦買進 0050.TW</span>
+            <span class="legend-item"><i class="legend-line sp500"></i> 美股 S&amp;P 500</span>
+          </div>
+        </div>
+        <div id="alpha-chart-holdings"></div>
+      </div>
+
       <div class="card">
         <div class="card-title">
           <span>💼 當前模擬持倉組合（預期目標價 / 強制停損價 vs 最新實際表現）</span>
@@ -246,10 +297,15 @@
     <section id="tab-daily" class="hidden">
       <div class="card">
         <div class="card-title">
-          <span>📊 淨值曲線紀錄（NT$1,000,000 基準）</span>
-          <span class="tag">每週一至週五台美股收盤自動更新</span>
+          <span>📊 淨值曲線 &amp; 雙基準對決儀表板（NT$1,000,000 基準）</span>
+          <div class="chart-legend">
+            <span class="legend-item"><i class="legend-line"></i> 百萬模擬倉</span>
+            <span class="legend-item"><i class="legend-line tw0050"></i> 無腦買進 0050.TW</span>
+            <span class="legend-item"><i class="legend-line sp500"></i> 美股 S&amp;P 500</span>
+          </div>
         </div>
-        <div id="curve-box" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;"></div>
+        <div id="alpha-chart-daily" style="margin-bottom:14px;"></div>
+        <div id="curve-box" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:4px;"></div>
       </div>
       <div id="daily-reports-box"></div>
     </section>
@@ -370,9 +426,147 @@
       }
     }
 
+    function fmtPct(v) {
+      const n = Number(v || 0);
+      return (n >= 0 ? "+" : "") + n.toFixed(2) + "%";
+    }
+
+    function renderBenchmarkChart(containerId) {
+      const el = document.getElementById(containerId);
+      if (!el || !PF) return;
+      const curve = PF.equityCurve || [];
+      if (!curve.length) {
+        el.innerHTML = `<div style="color:var(--muted);">尚無淨值曲線資料</div>`;
+        return;
+      }
+
+      const s = PF.summary || {};
+      const fundRet = Number(s.totalReturnPct ?? curve[curve.length - 1].returnPct ?? 0);
+      const tw0050Ret = Number(s.tw0050ReturnPct ?? curve[curve.length - 1].tw0050ReturnPct ?? 0);
+      const sp500Ret = Number(s.sp500ReturnPct ?? curve[curve.length - 1].sp500ReturnPct ?? 0);
+      const alpha = Number(s.alphaVs0050Pct ?? (fundRet - tw0050Ret));
+      const tw0050Nav = Number(s.tw0050NavTwd ?? curve[curve.length - 1].tw0050NavTwd ?? 1000000);
+      const alphaCls = alpha >= 0 ? "alpha-win" : "alpha-lose";
+
+      const pts = curve.map(c => ({
+        label: String(c.date || "").replace(" (初始)", " 初始").replace(" (收盤)", ""),
+        fund: Number(c.returnPct ?? 0),
+        tw0050: Number(c.tw0050ReturnPct ?? 0),
+        sp500: Number(c.sp500ReturnPct ?? 0),
+      }));
+
+      const allVals = pts.flatMap(p => [p.fund, p.tw0050, p.sp500, 0]);
+      let minV = Math.min(...allVals);
+      let maxV = Math.max(...allVals);
+      const rawSpan = maxV - minV;
+      const pad = Math.max(0.12, rawSpan * 0.28);
+      minV -= pad;
+      maxV += pad;
+      if (maxV - minV < 0.4) {
+        const mid = (maxV + minV) / 2;
+        minV = mid - 0.25;
+        maxV = mid + 0.25;
+      }
+
+      const W = 860, H = 250;
+      const ml = 58, mr = 110, mt = 20, mb = 36;
+      const cw = W - ml - mr;
+      const ch = H - mt - mb;
+
+      const xPos = (i) => pts.length === 1 ? ml + cw / 2 : ml + (i / (pts.length - 1)) * cw;
+      const yPos = (v) => mt + ((maxV - v) / (maxV - minV)) * ch;
+
+      // Grid ticks (5 levels)
+      let gridSvg = "";
+      for (let k = 0; k <= 4; k++) {
+        const val = minV + ((maxV - minV) * k) / 4;
+        const y = yPos(val).toFixed(1);
+        gridSvg += `
+          <line x1="${ml}" y1="${y}" x2="${W - mr}" y2="${y}" stroke="#1e293b" stroke-width="1" />
+          <text x="${ml - 8}" y="${Number(y) + 4}" text-anchor="end" fill="#94a3b8" font-size="11" font-family="ui-monospace, monospace">${val >= 0 ? "+" : ""}${val.toFixed(2)}%</text>
+        `;
+      }
+
+      // Zero baseline
+      const yZero = yPos(0);
+      if (yZero >= mt && yZero <= mt + ch) {
+        gridSvg += `<line x1="${ml}" y1="${yZero.toFixed(1)}" x2="${W - mr}" y2="${yZero.toFixed(1)}" stroke="rgba(248,250,252,0.28)" stroke-width="1" stroke-dasharray="4,4" />`;
+      }
+
+      // X-axis labels
+      let xLabelsSvg = "";
+      const step = Math.max(1, Math.ceil(pts.length / 7));
+      pts.forEach((p, idx) => {
+        if (idx === 0 || idx === pts.length - 1 || idx % step === 0) {
+          const x = xPos(idx).toFixed(1);
+          xLabelsSvg += `<text x="${x}" y="${H - 12}" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="ui-monospace, monospace">${escHtml(p.label)}</text>`;
+        }
+      });
+
+      const buildLine = (key) => pts.map((p, i) => `${i === 0 ? "M" : "L"}${xPos(i).toFixed(1)},${yPos(p[key]).toFixed(1)}`).join(" ");
+      const last = pts[pts.length - 1];
+      const lx = xPos(pts.length - 1);
+
+      // Avoid overlapping right-side end labels
+      const endTags = [
+        { key: "fund", name: "模擬倉", val: last.fund, color: "#f59e0b", y: yPos(last.fund) },
+        { key: "tw0050", name: "0050", val: last.tw0050, color: "#38bdf8", y: yPos(last.tw0050) },
+        { key: "sp500", name: "S&P500", val: last.sp500, color: "#94a3b8", y: yPos(last.sp500) },
+      ].sort((a, b) => a.y - b.y);
+      for (let i = 1; i < endTags.length; i++) {
+        if (endTags[i].y - endTags[i - 1].y < 16) {
+          endTags[i].y = endTags[i - 1].y + 16;
+        }
+      }
+
+      el.innerHTML = `
+        <div class="bench-pills">
+          <div class="bench-pill">
+            <div class="bench-pill-label">🟡 百萬模擬倉累計報酬</div>
+            <div class="bench-pill-val" style="color:var(--gold);">${fmtPct(fundRet)} <span style="font-size:11.5px; color:var(--muted);">(${fmtTwd(s.navTwd)})</span></div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">🔵 無腦買進 0050.TW</div>
+            <div class="bench-pill-val" style="color:var(--primary);">${fmtPct(tw0050Ret)} <span style="font-size:11.5px; color:var(--muted);">(${fmtTwd(tw0050Nav)})</span></div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">⚪ 美股 S&amp;P 500 (^GSPC)</div>
+            <div class="bench-pill-val" style="color:#cbd5e1;">${fmtPct(sp500Ret)}</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">🏆 對決 0050 超額報酬 Alpha</div>
+            <div class="bench-pill-val ${alphaCls}">${fmtPct(alpha)} <span style="font-size:11.5px;">${alpha >= 0 ? "贏大盤" : "落後大盤"}</span></div>
+          </div>
+        </div>
+        <div style="width:100%; overflow:hidden; background:#0b1220; border:1px solid var(--border); border-radius:8px; padding:8px;">
+          <svg viewBox="0 0 ${W} ${H}" style="width:100%; height:auto; display:block;" role="img" aria-label="模擬倉與大盤基準績效對決圖">
+            ${gridSvg}
+            ${xLabelsSvg}
+            <path d="${buildLine("sp500")}" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,4" />
+            <path d="${buildLine("tw0050")}" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-dasharray="6,4" />
+            <path d="${buildLine("fund")}" fill="none" stroke="#f59e0b" stroke-width="3" />
+            ${pts.map((p, i) => `
+              <circle cx="${xPos(i).toFixed(1)}" cy="${yPos(p.sp500).toFixed(1)}" r="3.2" fill="#94a3b8" />
+              <circle cx="${xPos(i).toFixed(1)}" cy="${yPos(p.tw0050).toFixed(1)}" r="3.6" fill="#38bdf8" />
+              <circle cx="${xPos(i).toFixed(1)}" cy="${yPos(p.fund).toFixed(1)}" r="4.5" fill="#f59e0b" stroke="#0b1220" stroke-width="1.5" />
+            `).join("")}
+            ${endTags.map(t => `
+              <text x="${(lx + 10).toFixed(1)}" y="${(t.y + 4).toFixed(1)}" fill="${t.color}" font-size="11.5" font-weight="700" font-family="ui-monospace, monospace">${t.name} ${fmtPct(t.val)}</text>
+            `).join("")}
+          </svg>
+        </div>
+      `;
+    }
+
     function renderAll() {
       const s = PF.summary;
       const retCls = s.totalReturnTwd >= 0 ? "pos" : "neg";
+      const tw0050Ret = Number(s.tw0050ReturnPct ?? 0);
+      const sp500Ret = Number(s.sp500ReturnPct ?? 0);
+      const alpha = Number(s.alphaVs0050Pct ?? (s.totalReturnPct - tw0050Ret));
+      const tw0050Nav = Number(s.tw0050NavTwd ?? 1000000);
+      const isWin = alpha >= 0;
+
       document.getElementById("kpi-grid").innerHTML = `
         <div class="kpi">
           <div class="kpi-label">模擬基金當前總淨值 (NAV)</div>
@@ -395,6 +589,24 @@
           <div class="kpi-foot">${s.marketRegime}</div>
         </div>
       `;
+
+      document.getElementById("alpha-banner-box").innerHTML = `
+        <div class="alpha-banner ${isWin ? "win" : "lose"}">
+          <div>
+            <span style="font-size:13.5px; font-weight:800;">🏆 對決無腦買 0050 超額報酬 (Alpha)：</span>
+            <span style="font-family:ui-monospace, monospace; font-size:13.5px;">
+              模擬倉 <strong style="color:var(--gold);">${fmtPct(s.totalReturnPct)}</strong> vs 0050 <strong style="color:var(--primary);">${fmtPct(tw0050Ret)}</strong> ➔
+              <span class="${isWin ? "alpha-win" : "alpha-lose"}" style="font-size:15px;">Alpha ${fmtPct(alpha)} ${isWin ? "✅ 贏大盤" : "⚠️ 輸大盤"}</span>
+            </span>
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; font-family:ui-monospace, monospace;">
+            無腦買 0050 淨值：${fmtTwd(tw0050Nav)} ｜ 同期美股 S&amp;P 500：<strong>${fmtPct(sp500Ret)}</strong>
+          </div>
+        </div>
+      `;
+
+      renderBenchmarkChart("alpha-chart-holdings");
+      renderBenchmarkChart("alpha-chart-daily");
 
       document.getElementById("fx-label").textContent = `匯率基準 USD/TWD = ${PF.fxUsdTwd}`;
 
@@ -454,13 +666,23 @@
         `).join("");
       }
 
-      document.getElementById("curve-box").innerHTML = (PF.equityCurve || []).map(c => `
-        <div class="report-card" style="margin:0; min-width:190px;">
-          <div style="font-size:11px; color:var(--muted);">${c.date}</div>
-          <div style="font-size:16px; font-weight:800; font-family:monospace; margin-top:2px;">${fmtTwd(c.navTwd)} (${c.returnPct >= 0 ? '+' : ''}${c.returnPct}%)</div>
-          <div style="font-size:11px; color:var(--muted); margin-top:2px;">現金：${fmtTwd(c.cashTwd)}</div>
-        </div>
-      `).join("");
+      document.getElementById("curve-box").innerHTML = (PF.equityCurve || []).map(c => {
+        const c0050 = Number(c.tw0050ReturnPct ?? 0);
+        const cSp = Number(c.sp500ReturnPct ?? 0);
+        const cAlpha = Number(c.returnPct ?? 0) - c0050;
+        return `
+          <div class="report-card" style="margin:0; min-width:220px;">
+            <div style="font-size:11px; color:var(--muted);">${c.date}</div>
+            <div style="font-size:16px; font-weight:800; font-family:monospace; margin-top:2px;">${fmtTwd(c.navTwd)} (${c.returnPct >= 0 ? '+' : ''}${c.returnPct}%)</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:2px;">現金：${fmtTwd(c.cashTwd)}</div>
+            <div style="font-size:11px; margin-top:3px; font-family:ui-monospace, monospace;">
+              <span style="color:var(--primary);">0050 ${fmtPct(c0050)}</span> ｜
+              <span style="color:#94a3b8;">S&amp;P ${fmtPct(cSp)}</span> ｜
+              <span class="${cAlpha >= 0 ? 'alpha-win' : 'alpha-lose'}">Alpha ${fmtPct(cAlpha)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
 
       document.getElementById("daily-reports-box").innerHTML = (PF.dailyReports || []).map(r => `
         <div class="card">
