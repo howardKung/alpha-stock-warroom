@@ -1,0 +1,44 @@
+name: Intraday Sniper & Tactical Advice Radar
+
+on:
+  schedule:
+    # 1. 台股早盤強弱定調哨：週一至週五 09:35 台灣時間 (01:35 UTC)
+    - cron: '35 1 * * 1-5'
+    # 2. 台股午盤換手檢視哨：週一至週五 11:30 台灣時間 (03:30 UTC)
+    - cron: '30 3 * * 1-5'
+    # 3. 台股尾盤 20 分鐘黃金決策哨：週一至週五 13:10 台灣時間 (05:10 UTC)
+    - cron: '10 5 * * 1-5'
+    # 4. 美股盤中實戰盯盤哨：週一至週五 23:30 台灣時間 (15:30 UTC)
+    - cron: '30 15 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  intraday-radar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run intraday tactical advisor & push Telegram alert
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python3 scripts/intraday_advisor.py
+
+      - name: Commit latest intraday_pulse.json to War Room
+        run: |
+          git config user.name "Alpha Intraday Sniper Bot"
+          git config user.email "alpha-intraday@project-lifeblood.local"
+          git add intraday_pulse.json
+          if ! git diff --cached --quiet; then
+            git commit -m "⚡ Intraday tactical pulse $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M TWT')"
+            git push origin main
+          fi

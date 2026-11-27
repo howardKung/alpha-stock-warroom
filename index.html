@@ -233,6 +233,24 @@
 
     <!-- Tab 1: Holdings & Expected vs Actual -->
     <section id="tab-holdings">
+      <div class="card" style="border-color: rgba(56, 189, 248, 0.45); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(12, 34, 62, 0.94));">
+        <div class="card-title">
+          <span>⚡ 二部盤中實戰盯盤建議（早盤 09:35 · 午盤 11:30 · 尾盤 13:10 · 美股 23:30 自動推播 TG）</span>
+          <span id="intraday-badge" class="tag">載入盤中雷達中...</span>
+        </div>
+        <div id="intraday-strategy" class="impact-box gold" style="margin-bottom: 12px;">連線盤中數據中...</div>
+        <div class="grid-2">
+          <div>
+            <div style="font-size:12.5px; font-weight:800; color:#f8fafc; margin-bottom:8px;">💼 現有 6 檔持股盤中逐檔建議</div>
+            <div id="intraday-pos-box"></div>
+          </div>
+          <div>
+            <div style="font-size:12.5px; font-weight:800; color:#fbbf24; margin-bottom:8px;">🎯 7 檔右側條件單盤中衝關雷達</div>
+            <div id="intraday-watch-box"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-title">
           <span>🏆 績效對決大盤基準（百萬模擬倉 vs 無腦買進 0050.TW vs 美股 S&P 500）</span>
@@ -849,8 +867,57 @@
       });
     });
 
+    async function loadIntradayPulse() {
+      try {
+        let res = await fetch(
+          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/intraday_pulse.json?ref=main",
+          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
+        );
+        if (!res.ok) {
+          res = await fetch("./intraday_pulse.json?t=" + Date.now(), { cache: "no-store" });
+        }
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const pulse = await res.json();
+        const m = pulse.marketPulse || {};
+        document.getElementById("intraday-badge").textContent = `${pulse.checkpointLabel || "盤中雷達"} · ${pulse.updatedAt || ""}`;
+        document.getElementById("intraday-strategy").innerHTML = `
+          <strong>🧭 盤中總體策略：</strong>${escHtml(pulse.overallStrategy || "")}
+          <div style="font-size:11.5px; color:var(--muted); margin-top:4px; font-family:ui-monospace, monospace;">
+            加權指數 ${Number(m.twiiPrice || 0).toLocaleString()} (${Number(m.twiiChangePct || 0) >= 0 ? '+' : ''}${m.twiiChangePct || 0}%) ｜ 0050 ${m.tw0050Price || '--'} (${Number(m.tw0050ChangePct || 0) >= 0 ? '+' : ''}${m.tw0050ChangePct || 0}%) ｜ USD/TWD ${m.usdTwd || '--'} ｜ VIX ${m.vix || '--'}
+          </div>
+        `;
+        document.getElementById("intraday-pos-box").innerHTML = (pulse.positionAdvices || []).map(p => `
+          <div class="report-card" style="margin-bottom:7px; padding:9px 11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+              <strong>${escHtml(p.symbol)} · ${escHtml(p.name)}</strong>
+              <span style="font-size:11.5px; font-weight:800; color:var(--gold);">${escHtml(p.badge)}</span>
+            </div>
+            <div style="font-size:11.5px; font-family:ui-monospace, monospace; color:var(--primary); margin-top:2px;">
+              盤中價 ${p.intradayPrice} (${p.dayChangePct >= 0 ? '+' : ''}${p.dayChangePct}%) ｜ 防守停損 ${p.stopLoss} ｜ 目標 ${p.targetPrice}
+            </div>
+            <div style="font-size:11.5px; color:#cbd5e1; margin-top:3px;">${escHtml(p.advice)}</div>
+          </div>
+        `).join("");
+        document.getElementById("intraday-watch-box").innerHTML = (pulse.watchlistAdvices || []).slice(0, 6).map(w => `
+          <div class="report-card" style="margin-bottom:7px; padding:9px 11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:6px;">
+              <strong>${escHtml(w.symbol)} · ${escHtml(w.name)}</strong>
+              <span style="font-size:11.5px; font-weight:800; color:#38bdf8;">${escHtml(w.badge)}</span>
+            </div>
+            <div style="font-size:11.5px; font-family:ui-monospace, monospace; color:var(--muted); margin-top:2px;">
+              盤中價 ${w.intradayPrice} (${w.dayChangePct >= 0 ? '+' : ''}${w.dayChangePct}%) ｜ 觸發門檻 &gt;= ${w.breakoutBuyAbove} (差 ${w.gapToTriggerPct}%)
+            </div>
+            <div style="font-size:11.5px; color:#cbd5e1; margin-top:3px;">${escHtml(w.advice)}</div>
+          </div>
+        `).join("");
+      } catch (e) {
+        document.getElementById("intraday-badge").textContent = "等待首班盤中雷達";
+      }
+    }
+
     loadData();
     loadNewsData();
+    loadIntradayPulse();
   </script>
 </body>
 </html>
