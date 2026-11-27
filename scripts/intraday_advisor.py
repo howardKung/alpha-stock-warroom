@@ -28,8 +28,8 @@ TZ_TW = timezone(timedelta(hours=8))
 
 
 def fetch_intraday_bar(symbol: str) -> dict | None:
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?range=5d&interval=5m"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    url_1d = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}?range=1d&interval=5m"
+    req = urllib.request.Request(url_1d, headers={"User-Agent": "Mozilla/5.0"})
     try:
         with urllib.request.urlopen(req, timeout=10) as r:
             d = json.loads(r.read().decode("utf-8"))
@@ -47,9 +47,8 @@ def fetch_intraday_bar(symbol: str) -> dict | None:
         if cur_px <= 0:
             return None
 
-        # Today's recent session high/low (last ~60 5-min bars)
-        recent_high = max(highs[-55:]) if highs else cur_px
-        recent_low = min(lows[-55:]) if lows else cur_px
+        recent_high = max(highs) if highs else float(meta.get("regularMarketDayHigh") or cur_px)
+        recent_low = min(lows) if lows else float(meta.get("regularMarketDayLow") or cur_px)
         prev = float(prev_close) if prev_close else cur_px
         chg_pct = round(((cur_px - prev) / prev) * 100, 2) if prev else 0.0
         upper_wick_pct = round(((recent_high - cur_px) / cur_px) * 100, 2) if recent_high > cur_px else 0.0

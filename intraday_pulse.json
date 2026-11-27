@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-27 08:56:52 (台灣時間)",
+  "updatedAt": "2026-11-27 08:57:46 (台灣時間)",
   "sessionCode": "TW_OPEN",
   "checkpointLabel": "🔔 台股早盤強弱定調哨（防早盤假突破）",
-  "overallStrategy": "🔥 大盤盤中強勢 (+8.65%)，現有強勢持股續抱讓獲利奔跑，留意兵臨城下之條件單尾盤突破機會！",
+  "overallStrategy": "🛡️ 大盤盤中偏弱 (-2.42%)，手握 32% 現金＋美債 TLT 發揮抗跌保護力，多看少動、不接刀！",
   "marketPulse": {
     "twiiPrice": 39151.81,
-    "twiiChangePct": 8.65,
+    "twiiChangePct": -2.42,
     "tw0050Price": 92.85,
-    "tw0050ChangePct": 9.95,
+    "tw0050ChangePct": 2.82,
     "usdTwd": 32.94,
     "vix": 26.8
   },
@@ -18,7 +18,7 @@
       "market": "TW",
       "entryPrice": 3735.0,
       "intradayPrice": 3735.0,
-      "dayChangePct": 15.28,
+      "dayChangePct": 3.61,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 3480.0,
       "targetPrice": 4480.0,
@@ -33,13 +33,13 @@
       "market": "TW",
       "entryPrice": 2795.0,
       "intradayPrice": 2795.0,
-      "dayChangePct": 26.76,
+      "dayChangePct": 9.82,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 2580.0,
       "targetPrice": 3350.0,
       "distToStopPct": 7.69,
       "badge": "🟢 強於大盤・安心續抱",
-      "advice": "盤中 +26.76% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 2580.0）。",
+      "advice": "盤中 +9.82% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 2580.0）。",
       "priority": 4
     },
     {
@@ -48,13 +48,13 @@
       "market": "TW",
       "entryPrice": 1630.0,
       "intradayPrice": 1630.0,
-      "dayChangePct": 23.48,
+      "dayChangePct": 9.76,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 1545.0,
       "targetPrice": 1980.0,
       "distToStopPct": 5.21,
       "badge": "🟢 強於大盤・安心續抱",
-      "advice": "盤中 +23.48% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 1545.0）。",
+      "advice": "盤中 +9.76% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 1545.0）。",
       "priority": 4
     },
     {
@@ -63,13 +63,13 @@
       "market": "TW_ETF",
       "entryPrice": 92.85,
       "intradayPrice": 92.85,
-      "dayChangePct": 9.95,
+      "dayChangePct": 2.82,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 88.8,
       "targetPrice": 104.5,
       "distToStopPct": 4.36,
       "badge": "🟢 強於大盤・安心續抱",
-      "advice": "盤中 +9.95% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 88.8）。",
+      "advice": "盤中 +2.82% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 88.8）。",
       "priority": 4
     },
     {
@@ -78,13 +78,13 @@
       "market": "US",
       "entryPrice": 609.89,
       "intradayPrice": 609.89,
-      "dayChangePct": -1.05,
+      "dayChangePct": 3.4,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 584.0,
       "targetPrice": 715.0,
       "distToStopPct": 4.25,
-      "badge": "🔵 正常震盪・紀律續抱",
-      "advice": "盤中 -1.05% 溫和整理，距停損 584.0 尚有 4.25% 安全緩衝，維持原計畫續抱。",
+      "badge": "🟢 強於大盤・安心續抱",
+      "advice": "盤中 +3.40% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 584.0）。",
       "priority": 4
     },
     {
@@ -93,13 +93,13 @@
       "market": "US_ETF",
       "entryPrice": 82.24,
       "intradayPrice": 82.24,
-      "dayChangePct": 2.52,
+      "dayChangePct": 0.92,
       "pnlFromEntryPct": 0.0,
       "stopLoss": 80.1,
       "targetPrice": 88.5,
       "distToStopPct": 2.6,
-      "badge": "🔵 正常震盪・紀律續抱",
-      "advice": "盤中 +2.52% 溫和整理，距停損 80.1 尚有 2.6% 安全緩衝，維持原計畫續抱。",
+      "badge": "🟢 強於大盤・安心續抱",
+      "advice": "盤中 +0.92% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 80.1）。",
       "priority": 4
     }
   ],
@@ -109,7 +109,7 @@
       "name": "聯發科",
       "market": "TW",
       "intradayPrice": 3705.0,
-      "dayChangePct": 10.6,
+      "dayChangePct": 1.65,
       "breakoutBuyAbove": 3780.0,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 2.02,
@@ -117,7 +117,7 @@
       "stopLoss": 3580.0,
       "targetPrice": 4250.0,
       "badge": "👀 兵臨城下・重點盯盤",
-      "advice": "現價 3705.0（+10.60%）距右側突破價 3780.0 僅差 2.02%！隨時可能點火攻關，列入今日頭號觀察名單。",
+      "advice": "現價 3705.0（+1.65%）距右側突破價 3780.0 僅差 2.02%！隨時可能點火攻關，列入今日頭號觀察名單。",
       "priority": 2
     },
     {
@@ -125,7 +125,7 @@
       "name": "旺矽",
       "market": "TW",
       "intradayPrice": 4115.0,
-      "dayChangePct": 15.59,
+      "dayChangePct": 9.15,
       "breakoutBuyAbove": 4200.0,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 2.07,
@@ -133,7 +133,7 @@
       "stopLoss": 3950.0,
       "targetPrice": 4950.0,
       "badge": "👀 兵臨城下・重點盯盤",
-      "advice": "現價 4115.0（+15.59%）距右側突破價 4200.0 僅差 2.07%！隨時可能點火攻關，列入今日頭號觀察名單（⚠️ 注意大盤 39,152 尚未站上 40,200 濾網）。",
+      "advice": "現價 4115.0（+9.15%）距右側突破價 4200.0 僅差 2.07%！隨時可能點火攻關，列入今日頭號觀察名單（⚠️ 注意大盤 39,152 尚未站上 40,200 濾網）。",
       "priority": 2
     },
     {
@@ -141,7 +141,7 @@
       "name": "Palantir Technologies",
       "market": "US",
       "intradayPrice": 163.59,
-      "dayChangePct": 4.42,
+      "dayChangePct": 1.5,
       "breakoutBuyAbove": 167.5,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 2.39,
@@ -149,7 +149,7 @@
       "stopLoss": 157.5,
       "targetPrice": 198.0,
       "badge": "👀 兵臨城下・重點盯盤",
-      "advice": "現價 163.59（+4.42%）距右側突破價 167.5 僅差 2.39%！隨時可能點火攻關，列入今日頭號觀察名單。",
+      "advice": "現價 163.59（+1.50%）距右側突破價 167.5 僅差 2.39%！隨時可能點火攻關，列入今日頭號觀察名單。",
       "priority": 2
     },
     {
@@ -157,7 +157,7 @@
       "name": "貿聯-KY",
       "market": "TW",
       "intradayPrice": 1790.0,
-      "dayChangePct": 37.69,
+      "dayChangePct": 9.82,
       "breakoutBuyAbove": 1905.0,
       "pullbackBuyBelow": 1650.0,
       "gapToTriggerPct": 6.42,
@@ -165,7 +165,7 @@
       "stopLoss": 1515.0,
       "targetPrice": 2300.0,
       "badge": "⏳ 尚未進射程・觀望",
-      "advice": "現價 1790.0（+37.69%）距突破門檻 1905.0 尚差 6.42%，靜待右側轉強，盤中不摸底。",
+      "advice": "現價 1790.0（+9.82%）距突破門檻 1905.0 尚差 6.42%，靜待右側轉強，盤中不摸底。",
       "priority": 4
     },
     {
@@ -173,7 +173,7 @@
       "name": "中砂",
       "market": "TW",
       "intradayPrice": 639.0,
-      "dayChangePct": 22.18,
+      "dayChangePct": 9.98,
       "breakoutBuyAbove": 690.0,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 7.98,
@@ -181,7 +181,7 @@
       "stopLoss": 648.0,
       "targetPrice": 850.0,
       "badge": "⏳ 尚未進射程・觀望",
-      "advice": "現價 639.0（+22.18%）距突破門檻 690.0 尚差 7.98%，靜待右側轉強，盤中不摸底。",
+      "advice": "現價 639.0（+9.98%）距突破門檻 690.0 尚差 7.98%，靜待右側轉強，盤中不摸底。",
       "priority": 4
     },
     {
@@ -189,7 +189,7 @@
       "name": "日月光投控",
       "market": "TW",
       "intradayPrice": 511.0,
-      "dayChangePct": 11.82,
+      "dayChangePct": 4.71,
       "breakoutBuyAbove": 565.0,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 10.57,
@@ -197,7 +197,7 @@
       "stopLoss": 538.0,
       "targetPrice": 655.0,
       "badge": "⏳ 尚未進射程・觀望",
-      "advice": "現價 511.0（+11.82%）距突破門檻 565.0 尚差 10.57%，靜待右側轉強，盤中不摸底。",
+      "advice": "現價 511.0（+4.71%）距突破門檻 565.0 尚差 10.57%，靜待右側轉強，盤中不摸底。",
       "priority": 4
     },
     {
@@ -205,7 +205,7 @@
       "name": "Arista Networks",
       "market": "US",
       "intradayPrice": 163.99,
-      "dayChangePct": -15.44,
+      "dayChangePct": -2.71,
       "breakoutBuyAbove": 181.5,
       "pullbackBuyBelow": null,
       "gapToTriggerPct": 10.68,
@@ -213,7 +213,7 @@
       "stopLoss": 170.0,
       "targetPrice": 212.0,
       "badge": "⏳ 尚未進射程・觀望",
-      "advice": "現價 163.99（-15.44%）距突破門檻 181.5 尚差 10.68%，靜待右側轉強，盤中不摸底。",
+      "advice": "現價 163.99（-2.71%）距突破門檻 181.5 尚差 10.68%，靜待右側轉強，盤中不摸底。",
       "priority": 4
     }
   ]
