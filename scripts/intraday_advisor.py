@@ -21,6 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = ROOT / "portfolio.json"
+BOSS_WATCH_PATH = ROOT / "boss_watchlist.json"
 OUT_PATH = ROOT / "intraday_pulse.json"
 IDEA_COPY = Path("/home/antigravity/idea-team/stock-division/data/intraday_pulse.json")
 WARROOM_URL = "https://howardkung.github.io/alpha-stock-warroom/"
@@ -213,6 +214,85 @@ def evaluate_pending_orders(pending: list[dict], quotes: dict, fx: float, vix: f
     return out
 
 
+def evaluate_boss_watchlist(boss_items: list[dict], quotes: dict, session_code: str) -> list[dict]:
+    out = []
+    is_preclose = session_code == "TW_PRECLOSE"
+    for item in boss_items:
+        sym = item["symbol"]
+        q = quotes.get(sym)
+        if not q:
+            continue
+        px = float(q["price"])
+        chg = float(q["dayChangePct"])
+        ma20 = float(item.get("ma20") or 0.0)
+        ma200 = float(item.get("ma200") or 0.0)
+        defense = float(item.get("defenseStop") or 0.0)
+        resist = float(item.get("resistanceOrTrim") or ma20 or 0.0)
+
+        vs_ma20_pct = round(((px - ma20) / ma20) * 100, 2) if ma20 else 0.0
+        vs_ma200_pct = round(((px - ma200) / ma200) * 100, 2) if ma200 else 0.0
+        dist_def_pct = round(((px - defense) / px) * 100, 2) if defense and px else 99.0
+        dist_res_pct = round(((resist - px) / px) * 100, 2) if resist and px else 99.0
+
+        if defense and px <= defense:
+            badge = "🚨 跌破前低防守警戒"
+            advice = (
+                f"現價 {px} 跌破關鍵防守線 {defense}！嚴禁向下攤平，留意{'13:10 尾盤站不回' if not is_preclose else '收盤前'}汰弱降曝險。"
+            )
+            priority = 1
+        elif ma20 and px >= ma20 and (not resist or px < resist * 0.985 or resist <= ma20 * 1.02):
+            if resist and px >= resist and resist > ma20 * 1.03:
+                badge = "🎯 站上月線・逼近壓力停利區"
+                advice = f"現價 {px} 站穩月線 {ma20}（{vs_ma20_pct:+.2f}%）並接近上檔觀察價 {resist}，可分批停利鎖住獲利。"
+                priority = 2
+            else:
+                badge = "🟢 站上月線強勢續抱"
+                advice = f"現價 {px} 強勢站上月線 {ma20}（{vs_ma20_pct:+.2f}%），結構領先群組；上檔觀察 {resist}、防守 {defense}。"
+                priority = 2
+        elif resist and (px >= resist * 0.975 or dist_res_pct <= 2.5):
+            badge = "⚡ 強彈攻抵月線減碼觀察區"
+            advice = f"現價 {px}（{chg:+.2f}%）逼近／觸及壓力觀察價 {resist}，若量縮留上影線可逢彈分批減碼降風險。"
+            priority = 1
+        elif defense and dist_def_pct <= 3.0:
+            badge = "🟠 貼近前低支撐・嚴禁攤平"
+            advice = f"現價 {px} 距防守價 {defense} 僅 {dist_def_pct}%，暫以觀望為主、切勿提前接刀。"
+            priority = 2
+        elif chg >= 3.0:
+            badge = "📈 跌深強彈・看月線反壓"
+            advice = f"盤中強彈 {chg:+.2f}% 至 {px}，但距月線 {ma20} 仍有距離（{vs_ma20_pct:+.2f}%），反彈先看 {resist} 壓力反應。"
+            priority = 3
+        elif chg <= -2.5:
+            badge = "⚠️ 盤中偏弱・緊盯防守價"
+            advice = f"盤中走弱 {chg:+.2f}%（{px}），仍壓在月線 {ma20} 下方，緊守 {defense} 不盲目低接。"
+            priority = 3
+        else:
+            badge = "🔵 月線下整理・守前低觀望"
+            advice = f"現價 {px}（{chg:+.2f}%），位於月線 {ma20} 下方（{vs_ma20_pct:+.2f}%），守穩 {defense} 續觀察反彈至 {resist} 表現。"
+            priority = 4
+
+        out.append({
+            "symbol": sym,
+            "code": item.get("code", sym.split(".")[0]),
+            "name": item["name"],
+            "sector": item.get("sector", ""),
+            "intradayPrice": px,
+            "dayChangePct": chg,
+            "ma20": ma20,
+            "ma50": float(item.get("ma50") or 0.0),
+            "ma200": ma200,
+            "vsMa20Pct": vs_ma20_pct,
+            "vsMa200Pct": vs_ma200_pct,
+            "defenseStop": defense,
+            "resistanceOrTrim": resist,
+            "badge": badge,
+            "advice": advice,
+            "priority": priority,
+        })
+
+    out.sort(key=lambda x: (x["priority"], -abs(x["dayChangePct"])))
+    return out
+
+
 def send_telegram_intraday(pulse: dict) -> None:
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
@@ -254,8 +334,22 @@ def send_telegram_intraday(pulse: dict) -> None:
                 f"• 目前 7 檔條件單皆未進入 2.8% 突破射程（最接近：<b>{html.escape(closest['symbol'])} {html.escape(closest['name'])}</b> 現價 <code>{closest['intradayPrice']}</code>，距門檻 <code>{closest['breakoutBuyAbove']}</code> 差 <code>{closest['gapToTriggerPct']}%</code>）➔ <b>盤中安心觀望不追價</b>。"
             )
 
+    boss_watch = pulse.get("bossWatchAdvices") or []
+    if boss_watch:
+        # Sort by urgency first, then largest absolute daily move; show top 5 to stay well within TG 4096-char limit
+        top_boss = sorted(boss_watch, key=lambda x: (x.get("priority", 4), -abs(float(x.get("dayChangePct", 0.0)))))[:5]
+        lines.append("")
+        lines.append("<b>👑【大 Boss 台股 10 檔盤中重點提示】</b>")
+        for b in top_boss:
+            lines.append(
+                f"• <b>{html.escape(b['code'])} {html.escape(b['name'])}</b> <code>{b['intradayPrice']}</code> (<code>{b['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(b['badge'])}</b>\n"
+                f"  └ 月線 {b['ma20']} ({b['vsMa20Pct']:+.1f}%) ｜ 防守 {b['defenseStop']} ｜ 壓力 {b['resistanceOrTrim']}"
+            )
+
     lines.extend(["", f'🔗 <a href="{WARROOM_URL}">開啟戰情網查看即時盤中雷達 ↗</a>'])
     text = "\n".join(lines)
+    if len(text) > 3900:
+        text = text[:3850] + "\n...\n" + f'🔗 <a href="{WARROOM_URL}">開啟戰情網 ↗</a>'
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
     payload = json.dumps({
@@ -278,9 +372,13 @@ def main() -> None:
     ts_str = now_tw.strftime("%Y-%m-%d %H:%M:%S (台灣時間)")
     session_code, session_label = detect_session_checkpoint(now_tw)
 
+    boss_cfg = json.loads(BOSS_WATCH_PATH.read_text(encoding="utf-8")) if BOSS_WATCH_PATH.exists() else {}
+    boss_items = boss_cfg.get("items", [])
+
     symbols = ["^TWII", "0050.TW", "TWD=X", "^VIX"]
     symbols += [p["symbol"] for p in pf.get("positions", [])]
     symbols += [o["symbol"] for o in pf.get("pendingOrders", [])]
+    symbols += [b["symbol"] for b in boss_items]
 
     quotes = {}
     for sym in dict.fromkeys(symbols):
@@ -297,6 +395,7 @@ def main() -> None:
 
     pos_advices = evaluate_positions(pf.get("positions", []), quotes, twii_chg, session_code)
     watch_advices = evaluate_pending_orders(pf.get("pendingOrders", []), quotes, fx, vix, twii_px, session_code)
+    boss_advices = evaluate_boss_watchlist(boss_items, quotes, session_code)
 
     urgent_stops = sum(1 for x in pos_advices if x["priority"] == 1 and "停損" in x["badge"])
     hot_triggers = sum(1 for x in watch_advices if x["priority"] == 1)
@@ -327,6 +426,7 @@ def main() -> None:
         },
         "positionAdvices": pos_advices,
         "watchlistAdvices": watch_advices,
+        "bossWatchAdvices": boss_advices,
     }
 
     OUT_PATH.write_text(json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

@@ -24,6 +24,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PORTFOLIO_PATH = ROOT / "portfolio.json"
 NEWS_FEED_PATH = ROOT / "news_feed.json"
+INTRADAY_PULSE_PATH = ROOT / "intraday_pulse.json"
+BOSS_WATCH_PATH = ROOT / "boss_watchlist.json"
 WARROOM_URL = "https://howardkung.github.io/alpha-stock-warroom/"
 TZ_TW = timezone(timedelta(hours=8))
 
@@ -149,8 +151,35 @@ def build_settle_message(pf: dict, news: dict, now_tw: datetime) -> str:
     if top_headline:
         lines.extend(["", f"📰 <b>最新市場頭條</b>：{html.escape(str(top_headline))}"])
 
+    pulse = load_json(INTRADAY_PULSE_PATH)
+    boss_advices = pulse.get("bossWatchAdvices") or []
+    if boss_advices:
+        sorted_boss = sorted(boss_advices, key=lambda x: (x.get("priority", 4), -abs(float(x.get("dayChangePct", 0.0)))))
+        lines.extend(["", "<b>👑【大 Boss 台股 10 檔收盤強弱快篩】</b>"])
+        for b in sorted_boss[:5]:
+            lines.append(
+                f"• <b>{html.escape(str(b.get('code', '')))} {html.escape(str(b.get('name', '')))}</b> "
+                f"<code>{b.get('intradayPrice', '--')}</code> (<code>{float(b.get('dayChangePct', 0.0)):+.2f}%</code>) ➔ "
+                f"{html.escape(str(b.get('badge', '')))}"
+            )
+        if len(sorted_boss) > 5:
+            rest = "、".join(
+                f"{b.get('code', '')}({float(b.get('dayChangePct', 0.0)):+.1f}%)"
+                for b in sorted_boss[5:]
+            )
+            lines.append(f"• 其餘追蹤：<code>{html.escape(rest)}</code>")
+    else:
+        boss_cfg = load_json(BOSS_WATCH_PATH)
+        boss_items = boss_cfg.get("items", [])
+        if boss_items:
+            summary_codes = "、".join(f"{x.get('code', '')}{x.get('name', '')}" for x in boss_items[:5])
+            lines.extend(["", f"<b>👑【大 Boss 台股 10 檔收盤強弱快篩】</b>", f"• 常態監測中：{html.escape(summary_codes)} 等 10 檔（詳見戰情網專屬頁籤）"])
+
     lines.extend(["", f'🔗 <a href="{WARROOM_URL}">查看完整持倉與 SVG 績效曲線 ↗</a>'])
-    return "\n".join(lines)
+    msg = "\n".join(lines)
+    if len(msg) > 3750:
+        msg = msg[:3700] + "\n...\n" + f'🔗 <a href="{WARROOM_URL}">查看戰情網 ↗</a>'
+    return msg
 
 
 def send_telegram_message(token: str, chat_id: str, text: str) -> None:

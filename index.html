@@ -226,6 +226,7 @@
     <!-- Navigation Tabs -->
     <div class="tabs">
       <button class="tab-btn active" data-tab="holdings">🎯 分析結果 vs 預期目標 vs 實際績效</button>
+      <button class="tab-btn" data-tab="boss">👑 大 Boss 台股 10 檔診斷雷達</button>
       <button class="tab-btn" data-tab="daily">📅 每日投資結果報告 (Daily Reports)</button>
       <button class="tab-btn" data-tab="research">🏛️ 二部總經・供應鏈・風控研報摘要</button>
       <button class="tab-btn tab-btn-news" data-tab="news">📰 大 Boss 情報早報 ＆ 社群輿情站</button>
@@ -309,6 +310,37 @@
         </div>
         <div id="insider-box" class="grid-2"></div>
       </div>
+    </section>
+
+    <!-- Tab 1.5: Boss 10 TW Watchlist Diagnostic Radar (Privacy-Safe) -->
+    <section id="tab-boss" class="hidden">
+      <div class="card" style="border-color: rgba(245, 158, 11, 0.45); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(40, 28, 12, 0.35));">
+        <div class="card-title">
+          <span>👑 大 Boss 台股 10 檔診斷雷達（常態技術追蹤 · 隱私保護去識別化公開版）</span>
+          <span id="boss-sync-badge" class="tag tag-gold">載入診斷雷達中...</span>
+        </div>
+        <div id="boss-privacy-note" class="impact-box gold" style="margin-bottom: 12px;">
+          🛡️ <strong>隱私保護鐵律</strong>：公開戰情網僅呈現股票代號、名稱、盤中／收盤價位、漲跌幅、20MA/200MA 均線位階、關鍵防守價、反彈減碼／停利觀察價與二部即時操作建議，絕不揭露任何個人股數與台幣總損益金額。
+        </div>
+        <div id="boss-summary-pills" class="bench-pills" style="margin-bottom: 14px;"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>代號 / 名稱</th>
+              <th>產業定位</th>
+              <th class="num">最新市價</th>
+              <th class="num">當日漲跌%</th>
+              <th class="num">20MA 月線 (乖離%)</th>
+              <th class="num">200MA 年線 (乖離%)</th>
+              <th class="num">關鍵防守價</th>
+              <th class="num">減碼 / 停利觀察價</th>
+              <th>二部即時診斷與操作建議</th>
+            </tr>
+          </thead>
+          <tbody id="boss-watch-body"></tbody>
+        </table>
+      </div>
+      <div id="boss-cards-grid" class="grid-2"></div>
     </section>
 
     <!-- Tab 2: Daily Investment Reports -->
@@ -863,9 +895,164 @@
       btn.addEventListener("click", () => {
         const target = btn.dataset.tab;
         document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
-        ["holdings", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
+        ["holdings", "boss", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
       });
     });
+
+    let BOSS_CFG = null;
+    let PULSE_DATA = null;
+
+    async function fetchJsonWithFallback(repoPath) {
+      let res = await fetch(
+        `https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/${repoPath}?ref=main`,
+        { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
+      );
+      if (!res.ok) {
+        res = await fetch(`./${repoPath}?t=` + Date.now(), { cache: "no-store" });
+      }
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return await res.json();
+    }
+
+    function renderBossRadar() {
+      const tbody = document.getElementById("boss-watch-body");
+      const cardsEl = document.getElementById("boss-cards-grid");
+      const pillsEl = document.getElementById("boss-summary-pills");
+      const badgeEl = document.getElementById("boss-sync-badge");
+      if (!tbody || !cardsEl || !pillsEl) return;
+
+      const items = (BOSS_CFG && BOSS_CFG.items) || [];
+      const advices = (PULSE_DATA && PULSE_DATA.bossWatchAdvices) || [];
+      const advMap = new Map(advices.map(a => [a.symbol, a]));
+
+      if (!items.length && !advices.length) {
+        tbody.innerHTML = `<tr><td colspan="9" style="color:var(--muted);">尚無追蹤清單資料</td></tr>`;
+        return;
+      }
+
+      const merged = (items.length ? items : advices).map(it => {
+        const live = advMap.get(it.symbol) || {};
+        const px = live.intradayPrice ?? null;
+        const chg = live.dayChangePct ?? null;
+        const ma20 = Number(live.ma20 ?? it.ma20 ?? 0);
+        const ma200 = Number(live.ma200 ?? it.ma200 ?? 0);
+        const vsMa20 = live.vsMa20Pct ?? (px && ma20 ? Number((((px - ma20) / ma20) * 100).toFixed(2)) : null);
+        const vsMa200 = live.vsMa200Pct ?? (px && ma200 ? Number((((px - ma200) / ma200) * 100).toFixed(2)) : null);
+        return {
+          symbol: it.symbol,
+          code: it.code || live.code || String(it.symbol || "").split(".")[0],
+          name: it.name || live.name || "",
+          sector: it.sector || live.sector || "",
+          price: px,
+          dayChangePct: chg,
+          ma20,
+          ma50: Number(it.ma50 ?? live.ma50 ?? 0),
+          ma200,
+          vsMa20Pct: vsMa20,
+          vsMa200Pct: vsMa200,
+          defenseStop: Number(live.defenseStop ?? it.defenseStop ?? 0),
+          resistanceOrTrim: Number(live.resistanceOrTrim ?? it.resistanceOrTrim ?? 0),
+          badge: live.badge || "📡 等待盤中即時報價",
+          advice: live.advice || it.tacticalNote || "",
+          tacticalNote: it.tacticalNote || "",
+          priority: live.priority ?? 4,
+        };
+      });
+
+      const aboveMa20Cnt = merged.filter(x => x.price && x.ma20 && x.price >= x.ma20).length;
+      const alertCnt = merged.filter(x => x.priority === 1).length;
+      const upCnt = merged.filter(x => x.dayChangePct !== null && x.dayChangePct > 0).length;
+      const bestMover = merged.slice().sort((a, b) => (b.dayChangePct ?? -999) - (a.dayChangePct ?? -999))[0];
+
+      if (badgeEl) {
+        badgeEl.textContent = PULSE_DATA && PULSE_DATA.updatedAt
+          ? `即時報價：${PULSE_DATA.updatedAt}`
+          : `基準更新：${(BOSS_CFG && BOSS_CFG.updatedAt) || "--"}`;
+      }
+
+      pillsEl.innerHTML = `
+        <div class="bench-pill">
+          <div class="bench-pill-label">📊 常態追蹤總檔數</div>
+          <div class="bench-pill-val" style="color:var(--gold);">${merged.length} 檔台股</div>
+        </div>
+        <div class="bench-pill">
+          <div class="bench-pill-label">🟢 站上 20MA 月線檔數</div>
+          <div class="bench-pill-val" style="color:var(--primary);">${aboveMa20Cnt} / ${merged.length} 檔</div>
+        </div>
+        <div class="bench-pill">
+          <div class="bench-pill-label">⚡ 觸及防守 / 壓力警戒</div>
+          <div class="bench-pill-val" style="color:${alertCnt > 0 ? '#f87171' : '#34d399'};">${alertCnt} 檔重點盯盤</div>
+        </div>
+        <div class="bench-pill">
+          <div class="bench-pill-label">🔥 今日盤中紅盤 / 強勢王</div>
+          <div class="bench-pill-val">${upCnt} 紅盤${bestMover && bestMover.dayChangePct !== null ? ` · ${escHtml(bestMover.code)} ${fmtPct(bestMover.dayChangePct)}` : ""}</div>
+        </div>
+      `;
+
+      tbody.innerHTML = merged.map(b => {
+        const chgCls = b.dayChangePct === null ? "" : (b.dayChangePct >= 0 ? "pos" : "neg");
+        const ma20Cls = b.vsMa20Pct === null ? "" : (b.vsMa20Pct >= 0 ? "pos" : "neg");
+        const ma200Cls = b.vsMa200Pct === null ? "" : (b.vsMa200Pct >= 0 ? "pos" : "neg");
+        return `
+          <tr>
+            <td>
+              <strong>${escHtml(b.code)}</strong> · ${escHtml(b.name)}
+              <div style="font-size:11px; color:var(--muted);">${escHtml(b.symbol)}</div>
+            </td>
+            <td style="max-width:210px; font-size:12px; color:#cbd5e1;">${escHtml(b.sector)}</td>
+            <td class="num"><strong>${b.price !== null ? b.price.toLocaleString() : "--"}</strong></td>
+            <td class="num ${chgCls}">${b.dayChangePct !== null ? fmtPct(b.dayChangePct) : "--"}</td>
+            <td class="num">
+              ${b.ma20 ? b.ma20.toLocaleString() : "--"}
+              <div class="${ma20Cls}" style="font-size:11px;">${b.vsMa20Pct !== null ? fmtPct(b.vsMa20Pct) : "--"}</div>
+            </td>
+            <td class="num">
+              ${b.ma200 ? b.ma200.toLocaleString() : "--"}
+              <div class="${ma200Cls}" style="font-size:11px;">${b.vsMa200Pct !== null ? fmtPct(b.vsMa200Pct) : "--"}</div>
+            </td>
+            <td class="num" style="color:#f87171;">${b.defenseStop ? b.defenseStop.toLocaleString() : "--"}</td>
+            <td class="num" style="color:var(--gold);">${b.resistanceOrTrim ? b.resistanceOrTrim.toLocaleString() : "--"}</td>
+            <td style="min-width:240px;">
+              <div style="font-weight:800; color:var(--gold); font-size:12px;">${escHtml(b.badge)}</div>
+              <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">${escHtml(b.advice)}</div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      cardsEl.innerHTML = merged.map(b => {
+        const chgCls = b.dayChangePct === null ? "" : (b.dayChangePct >= 0 ? "pos" : "neg");
+        return `
+          <div class="card" style="margin-bottom:0;">
+            <div class="card-title">
+              <span><strong>${escHtml(b.code)} ${escHtml(b.name)}</strong> <span class="tag">${escHtml(b.symbol)}</span></span>
+              <span style="font-size:12px; font-weight:800; color:var(--gold);">${escHtml(b.badge)}</span>
+            </div>
+            <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">${escHtml(b.sector)}</div>
+            <div style="font-family:ui-monospace, monospace; font-size:12px; margin-bottom:6px;">
+              現價 <strong>${b.price !== null ? b.price.toLocaleString() : "--"}</strong>
+              (<span class="${chgCls}">${b.dayChangePct !== null ? fmtPct(b.dayChangePct) : "--"}</span>) ｜
+              月線 ${b.ma20} ｜ 年線 ${b.ma200}
+            </div>
+            <div style="font-family:ui-monospace, monospace; font-size:12px; color:var(--primary); margin-bottom:6px;">
+              🛡️ 防守價 ${b.defenseStop} ｜ 🎯 減碼/停利觀察價 ${b.resistanceOrTrim}
+            </div>
+            <div style="font-size:12px; color:#e2e8f0;">${escHtml(b.advice)}</div>
+            ${b.tacticalNote && b.tacticalNote !== b.advice ? `<div style="font-size:11.5px; color:var(--muted); margin-top:4px;">📌 策略備註：${escHtml(b.tacticalNote)}</div>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function loadBossWatchlist() {
+      try {
+        BOSS_CFG = await fetchJsonWithFallback("boss_watchlist.json");
+        renderBossRadar();
+      } catch (e) {
+        const badgeEl = document.getElementById("boss-sync-badge");
+        if (badgeEl) badgeEl.textContent = "載入失敗：" + e.message;
+      }
+    }
 
     async function loadIntradayPulse() {
       try {
@@ -878,6 +1065,8 @@
         }
         if (!res.ok) throw new Error("HTTP " + res.status);
         const pulse = await res.json();
+        PULSE_DATA = pulse;
+        renderBossRadar();
         const m = pulse.marketPulse || {};
         document.getElementById("intraday-badge").textContent = `${pulse.checkpointLabel || "盤中雷達"} · ${pulse.updatedAt || ""}`;
         document.getElementById("intraday-strategy").innerHTML = `
@@ -917,6 +1106,7 @@
 
     loadData();
     loadNewsData();
+    loadBossWatchlist();
     loadIntradayPulse();
   </script>
 </body>
