@@ -1,0 +1,47 @@
+name: Division 1 Cashflow & Storefront Traffic Radar
+
+on:
+  schedule:
+    # Every 2 hours — monitors Apify 5 Actors, GitHub Stars, Gumroad health/sales & n8n review status
+    - cron: '18 */2 * * *'
+  workflow_dispatch:
+    inputs:
+      trigger_source:
+        description: 'Trigger source (manual or auto_2h)'
+        required: false
+        default: 'manual'
+
+permissions:
+  contents: write
+
+jobs:
+  monitor-div1-traffic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Check Apify, GitHub, Gumroad & n8n traffic and send instant TG alerts on deltas
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GUMROAD_ACCESS_TOKEN: ${{ secrets.GUMROAD_ACCESS_TOKEN }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          TRIGGER_SOURCE: ${{ inputs.trigger_source }}
+        run: python3 scripts/fetch_div1_traffic.py
+
+      - name: Commit updated div1_traffic.json
+        run: |
+          git config user.name "Lifeblood Traffic Bot"
+          git config user.email "traffic-bot@project-lifeblood.local"
+          git add div1_traffic.json
+          if ! git diff --cached --quiet; then
+            git commit -m "📈 Update Division 1 traffic & monetization snapshot $(TZ=Asia/Taipei date +'%Y-%m-%d %H:%M TWT')"
+            git pull --rebase -X ours origin main
+            git push origin main
+          fi

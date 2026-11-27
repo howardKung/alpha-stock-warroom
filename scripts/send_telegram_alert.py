@@ -111,11 +111,21 @@ def build_premarket_message(pf: dict, news: dict, now_tw: datetime, is_us: bool 
             "• <code>8110 華東 / 2329 華泰</code>：反彈摸月線 33.8~35.0 優先減半抽資；嚴守 28.5 / 29.5",
             "• <code>1527 鑽全</code>：緊盯 26.0~26.4 防守底線；反彈 28.5~29.2 撤退",
         ])
+        div1 = load_json(ROOT / "div1_traffic.json")
+        if div1.get("apify"):
+            ap = div1["apify"]
+            gh = div1.get("github", {})
+            n8 = div1.get("n8n", {})
+            lines.extend([
+                "",
+                "<b>💰 金流一部 6 座收銀台流量日報</b>",
+                f"• Apify 5 機呼叫 <code>{ap.get('totalRuns', 0)}</code> 次（<code>{ap.get('totalUsers', 0)}</code> 人）｜ GH 14d 瀏覽 <code>{gh.get('totalViews14d', 0)}</code> / Clone <code>{gh.get('totalClones14d', 0)}</code> ｜ n8n 上架 <code>{n8.get('approvedCount', 0)}</code> 支",
+            ])
 
     lines.extend([
         "",
         f"<b>💼 模擬倉盤前基準</b>：NAV <code>NT${nav:,}</code> (<code>{fmt_pct(ret_pct)}</code>) ｜ Alpha <code>{fmt_pct(alpha)}</code> ｜ 現金 <code>NT${cash:,}</code>",
-        f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 大 Boss 處方箋 ↗</a>',
+        f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 流量監控面板 ↗</a>',
     ])
     return "\n".join(lines)
 

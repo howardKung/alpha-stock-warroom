@@ -1,0 +1,224 @@
+{
+  "updatedAt": "2026-11-27 22:36:50 (台灣時間)",
+  "apify": {
+    "liveCount": 5,
+    "totalRuns": 8,
+    "totalUsers": 5,
+    "totalBookmarks": 0,
+    "actors": [
+      {
+        "id": "actor1",
+        "slug": "multi-ats-hiring-signals-api-zero-pii",
+        "title": "Multi Ats Hiring Signals API (Zero-PII)",
+        "storeUrl": "https://apify.com/howardkung/multi-ats-hiring-signals-api-zero-pii",
+        "isPublic": true,
+        "pricingModel": "PAY_PER_EVENT",
+        "pricePer1kUsd": 15.0,
+        "eventName": "company-signal-extracted",
+        "totalRuns": 2,
+        "totalUsers": 1,
+        "users7d": 0,
+        "users30d": 0,
+        "bookmarks": 0,
+        "reviews": 0,
+        "rating": 0.0,
+        "lastRunTw": "2026-11-26 15:48",
+        "status": "LIVE"
+      },
+      {
+        "id": "actor2",
+        "slug": "company-dns-email-auth-tech-stack-signals-zero-pii",
+        "title": "Company DNS, Email-Auth & Tech-Stack Signals (Zero-PII)",
+        "storeUrl": "https://apify.com/howardkung/company-dns-email-auth-tech-stack-signals-zero-pii",
+        "isPublic": true,
+        "pricingModel": "PAY_PER_EVENT",
+        "pricePer1kUsd": 8.0,
+        "eventName": "domain-signal-extracted",
+        "totalRuns": 3,
+        "totalUsers": 1,
+        "users7d": 0,
+        "users30d": 0,
+        "bookmarks": 0,
+        "reviews": 0,
+        "rating": 0.0,
+        "lastRunTw": "2026-11-27 19:38",
+        "status": "LIVE"
+      },
+      {
+        "id": "actor3",
+        "slug": "sec-form-d-funding-signals",
+        "title": "US Startup Funding Signals — SEC Form D API (Zero-PII)",
+        "storeUrl": "https://apify.com/howardkung/sec-form-d-funding-signals",
+        "isPublic": true,
+        "pricingModel": "PAY_PER_EVENT",
+        "pricePer1kUsd": 10.0,
+        "eventName": "funding-signal-extracted",
+        "totalRuns": 1,
+        "totalUsers": 1,
+        "users7d": 0,
+        "users30d": 0,
+        "bookmarks": 0,
+        "reviews": 0,
+        "rating": 0.0,
+        "lastRunTw": "2026-11-27 19:49",
+        "status": "LIVE"
+      },
+      {
+        "id": "actor4",
+        "slug": "ecommerce-store-app-intel-api-zero-pii",
+        "title": "Ecommerce Store App Intel API (Zero-PII)",
+        "storeUrl": "https://apify.com/howardkung/ecommerce-store-app-intel-api-zero-pii",
+        "isPublic": true,
+        "pricingModel": "PAY_PER_EVENT",
+        "pricePer1kUsd": 10.0,
+        "eventName": "store-intel-extracted",
+        "totalRuns": 1,
+        "totalUsers": 1,
+        "users7d": 0,
+        "users30d": 0,
+        "bookmarks": 0,
+        "reviews": 0,
+        "rating": 0.0,
+        "lastRunTw": "2026-11-27 20:03",
+        "status": "LIVE"
+      },
+      {
+        "id": "actor5",
+        "slug": "sec-form4-insider-cluster-buys-api-zero-pii",
+        "title": "Sec Form4 Insider Cluster Buys API (Zero-PII)",
+        "storeUrl": "https://apify.com/howardkung/sec-form4-insider-cluster-buys-api-zero-pii",
+        "isPublic": true,
+        "pricingModel": "PAY_PER_EVENT",
+        "pricePer1kUsd": 10.0,
+        "eventName": "insider-buy-extracted",
+        "totalRuns": 1,
+        "totalUsers": 1,
+        "users7d": 0,
+        "users30d": 0,
+        "bookmarks": 0,
+        "reviews": 0,
+        "rating": 0.0,
+        "lastRunTw": "2026-11-27 20:54",
+        "status": "LIVE"
+      }
+    ]
+  },
+  "github": {
+    "repoCount": 6,
+    "totalStars": 0,
+    "totalForks": 0,
+    "totalViews14d": 2,
+    "totalUniques14d": 2,
+    "totalClones14d": 124,
+    "totalCloneUniques14d": 90,
+    "topReferrers": [
+      {
+        "referrer": "github.com",
+        "views": 1,
+        "uniques": 1
+      }
+    ],
+    "repos": [
+      {
+        "repo": "agentguard-kit",
+        "url": "https://github.com/howardKung/agentguard-kit",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 1,
+        "uniques14d": 1,
+        "clones14d": 22,
+        "cloneUniques14d": 18,
+        "referrers": []
+      },
+      {
+        "repo": "multi-ats-hiring-signals",
+        "url": "https://github.com/howardKung/multi-ats-hiring-signals",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 1,
+        "uniques14d": 1,
+        "clones14d": 30,
+        "cloneUniques14d": 20,
+        "referrers": [
+          {
+            "referrer": "github.com",
+            "views": 1,
+            "uniques": 1
+          }
+        ]
+      },
+      {
+        "repo": "domain-dns-tech-trust-signals",
+        "url": "https://github.com/howardKung/domain-dns-tech-trust-signals",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 0,
+        "uniques14d": 0,
+        "clones14d": 16,
+        "cloneUniques14d": 12,
+        "referrers": []
+      },
+      {
+        "repo": "sec-form-d-funding-signals",
+        "url": "https://github.com/howardKung/sec-form-d-funding-signals",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 0,
+        "uniques14d": 0,
+        "clones14d": 20,
+        "cloneUniques14d": 14,
+        "referrers": []
+      },
+      {
+        "repo": "ecommerce-store-app-intel",
+        "url": "https://github.com/howardKung/ecommerce-store-app-intel",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 0,
+        "uniques14d": 0,
+        "clones14d": 16,
+        "cloneUniques14d": 12,
+        "referrers": []
+      },
+      {
+        "repo": "sec-form4-insider-cluster-buys",
+        "url": "https://github.com/howardKung/sec-form4-insider-cluster-buys",
+        "stars": 0,
+        "forks": 0,
+        "views14d": 0,
+        "uniques14d": 0,
+        "clones14d": 20,
+        "cloneUniques14d": 14,
+        "referrers": []
+      }
+    ]
+  },
+  "gumroad": {
+    "url": "https://howardk1.gumroad.com/l/agentguard-pro-kit",
+    "storeLive": true,
+    "apiConnected": false,
+    "salesCount": null,
+    "salesUsd": null,
+    "tiers": "$49 Solo / $89 Agency Unlimited"
+  },
+  "n8n": {
+    "submittedPendingReview": 1,
+    "approvedCount": 0,
+    "totalViews": 0,
+    "templates": [],
+    "portalUrl": "https://creators.n8n.io/"
+  },
+  "history": [
+    {
+      "time": "11-27 22:36",
+      "apifyRuns": 8,
+      "apifyUsers": 5,
+      "ghViews14d": 2,
+      "ghUniques14d": 2,
+      "ghClones14d": 124,
+      "n8nApproved": 0,
+      "events": [],
+      "tgSent": false
+    }
+  ]
+}

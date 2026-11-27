@@ -230,6 +230,7 @@
       <button class="tab-btn" data-tab="daily">📅 每日投資結果報告 (Daily Reports)</button>
       <button class="tab-btn" data-tab="research">🏛️ 二部總經・供應鏈・風控研報摘要</button>
       <button class="tab-btn tab-btn-news" data-tab="news">📰 大 Boss 情報早報 ＆ 社群輿情站</button>
+      <button class="tab-btn tab-btn-news" data-tab="traffic">💰 金流一部・流量＆收銀監控</button>
     </div>
 
     <!-- Tab 1: Holdings & Expected vs Actual -->
@@ -460,6 +461,80 @@
           <div class="card-title"><span>🇹🇼 台灣熱門時事 ＆ 加密／原物料</span><span class="tag">多維情報雷達</span></div>
           <div id="news-twcrypto-box"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- Tab 5: Division 1 Cashflow & Storefront Traffic Radar -->
+    <section id="tab-traffic" class="hidden">
+      <div class="card" style="border-color: rgba(16, 185, 129, 0.5); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(6, 40, 32, 0.42));">
+        <div class="card-title">
+          <span>💰 第一事業部（生存金流戰隊）・6 座收銀台即時流量 ＆ 新客監控中心</span>
+          <span id="div1-sync-badge" class="tag tag-gold">載入流量數據中...</span>
+        </div>
+        <div id="div1-kpi-pills" class="bench-pills" style="margin-bottom: 12px;"></div>
+        <div class="impact-box" style="font-size:12px;">
+          🔔 <strong>Telegram 自動通報機制已啟動：</strong>每 2 小時自動巡檢全部 5 台 Apify 印鈔機、6 座 GitHub 導流倉庫、Gumroad 收銀台與 n8n 官方範本庫。只要出現<strong>新客戶呼叫、新增收藏、GitHub 摘星、n8n 範本過審或新訂單成交</strong>，系統會第一時間自動推播通知至大 Boss 的 Telegram！
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🕷️ Apify Store 5 台按量計費（PPE）印鈔機即時跑量表</span>
+          <span class="tag">官方公開 API 直連 · 零延遲追蹤</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>機台名稱 ＆ 商店連結</th>
+                <th>狀態 / 定價</th>
+                <th class="num">累計總跑量 (Runs)</th>
+                <th class="num">獨立客戶數 (7d / 總計)</th>
+                <th class="num">收藏 / 評價</th>
+                <th>最近一次呼叫 (台灣時間)</th>
+              </tr>
+            </thead>
+            <tbody id="div1-apify-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <span>🐙 GitHub 6 大導流倉庫流量（近 14 天瀏覽 / 獨立訪客 / Clone）</span>
+            <span class="tag">SEO 與開源引流漏斗</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>倉庫名稱</th>
+                  <th class="num">14天瀏覽 (獨立人)</th>
+                  <th class="num">14天 Clone (獨立人)</th>
+                  <th class="num">⭐ Stars</th>
+                </tr>
+              </thead>
+              <tbody id="div1-gh-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>🧭 外部流量來源追蹤（Referrers）＆ Gumroad / n8n 狀態</span>
+            <span class="tag">客人從哪裡點進來</span>
+          </div>
+          <div id="div1-funnels-box"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>📜 流量巡檢歷史快照紀錄（Recent Snapshots）</span>
+          <span class="tag">每 2 小時自動歸檔</span>
+        </div>
+        <div id="div1-history-box"></div>
       </div>
     </section>
   </main>
@@ -945,9 +1020,10 @@
     }
 
     function activateMainTab(target) {
-      if (!["holdings", "boss", "daily", "research", "news"].includes(target)) return;
+      const tabs = ["holdings", "boss", "daily", "research", "news", "traffic"];
+      if (!tabs.includes(target)) return;
       document.querySelectorAll(".tabs .tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
-      ["holdings", "boss", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
+      tabs.forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
     }
 
     document.querySelectorAll(".tabs .tab-btn").forEach(btn => {
@@ -1352,12 +1428,149 @@
       });
     }, 1000);
 
+    async function loadDiv1Traffic() {
+      try {
+        const d = await fetchJsonWithFallback("div1_traffic.json");
+        renderDiv1Traffic(d);
+      } catch (e) {
+        const b = document.getElementById("div1-sync-badge");
+        if (b) b.textContent = "載入失敗：" + e.message;
+      }
+    }
+
+    function renderDiv1Traffic(d) {
+      if (!d) return;
+      const ap = d.apify || {};
+      const gh = d.github || {};
+      const gr = d.gumroad || {};
+      const n8 = d.n8n || {};
+
+      const badge = document.getElementById("div1-sync-badge");
+      if (badge) badge.textContent = `最新巡檢：${d.updatedAt || "--"}`;
+
+      const pills = document.getElementById("div1-kpi-pills");
+      if (pills) {
+        pills.innerHTML = `
+          <div class="bench-pill">
+            <div class="bench-pill-label">🕷️ Apify 5 機總呼叫 / 獨立客戶</div>
+            <div class="bench-pill-val" style="color:#10b981;">${Number(ap.totalRuns || 0).toLocaleString()} 次 ｜ ${Number(ap.totalUsers || 0)} 人</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">🐙 GitHub 14天瀏覽 / Clone 下載</div>
+            <div class="bench-pill-val" style="color:var(--primary);">${Number(gh.totalViews14d || 0)} 瀏覽 (${Number(gh.totalUniques14d || 0)}人) ｜ ${Number(gh.totalClones14d || 0)} Clones</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">🛍️ Gumroad 買斷收銀台</div>
+            <div class="bench-pill-val" style="color:${gr.storeLive ? '#34d399' : '#f87171'}; font-size:13px;">
+              ${gr.storeLive ? '🟢 200 OK 營業中 ($49 / $89)' : '🔴 連線檢查中'}
+              ${gr.salesCount != null ? ` · 已售 ${gr.salesCount} 單` : ""}
+            </div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">⚡ n8n 官方市集導流範本</div>
+            <div class="bench-pill-val" style="color:var(--gold); font-size:13px;">
+              已上架 ${Number(n8.approvedCount || 0)} 支 ｜ 審核排隊 ${Number(n8.submittedPendingReview || 0)} 支
+            </div>
+          </div>
+        `;
+      }
+
+      const apBody = document.getElementById("div1-apify-body");
+      if (apBody) {
+        apBody.innerHTML = (ap.actors || []).map(a => `
+          <tr>
+            <td>
+              <a href="${escHtml(a.storeUrl)}" target="_blank" rel="noopener noreferrer"><strong>${escHtml(a.title)} ↗</strong></a>
+              <div style="font-size:11px; color:var(--muted); font-family:ui-monospace, monospace;">howardkung/${escHtml(a.slug)}</div>
+            </td>
+            <td style="white-space:nowrap;">
+              <span class="tag" style="border:1px solid #10b981; color:#34d399;">🟢 PUBLIC</span>
+              <span class="tag tag-gold">$${a.pricePer1kUsd} / 1k</span>
+            </td>
+            <td class="num"><strong>${Number(a.totalRuns || 0).toLocaleString()}</strong></td>
+            <td class="num"><strong>${Number(a.users7d || 0)}</strong> / ${Number(a.totalUsers || 0)} 人</td>
+            <td class="num">⭐ ${Number(a.bookmarks || 0)} 收藏 · ${Number(a.reviews || 0)} 評</td>
+            <td style="font-family:ui-monospace, monospace; font-size:12px; color:#cbd5e1;">${escHtml(a.lastRunTw || "--")}</td>
+          </tr>
+        `).join("");
+      }
+
+      const ghBody = document.getElementById("div1-gh-body");
+      if (ghBody) {
+        ghBody.innerHTML = (gh.repos || []).map(r => `
+          <tr>
+            <td><a href="${escHtml(r.url)}" target="_blank" rel="noopener noreferrer"><strong>${escHtml(r.repo)} ↗</strong></a></td>
+            <td class="num"><strong>${Number(r.views14d || 0)}</strong> <span style="color:var(--muted);">(${Number(r.uniques14d || 0)}人)</span></td>
+            <td class="num"><strong>${Number(r.clones14d || 0)}</strong> <span style="color:var(--muted);">(${Number(r.cloneUniques14d || 0)}人)</span></td>
+            <td class="num">⭐ ${Number(r.stars || 0)}</td>
+          </tr>
+        `).join("");
+      }
+
+      const funnelsBox = document.getElementById("div1-funnels-box");
+      if (funnelsBox) {
+        const refs = gh.topReferrers || [];
+        const refsHtml = refs.length > 0
+          ? refs.map(rf => `
+              <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--border); font-size:12.5px;">
+                <strong>🌐 ${escHtml(rf.referrer)}</strong>
+                <span style="font-family:ui-monospace, monospace;">${rf.views} 次瀏覽 (${rf.uniques} 位獨立訪客)</span>
+              </div>
+            `).join("")
+          : `<div style="font-size:12px; color:var(--muted); margin-bottom:10px;">目前剛上架首日，尚無外部搜尋引擎 Referrer 累積（一旦 Google / n8n.io / Apify 開始導流將自動列出前 10 大來源網站！）</div>`;
+
+        funnelsBox.innerHTML = `
+          <div style="font-size:12.5px; font-weight:800; color:#38bdf8; margin-bottom:6px;">🌐 外部網站引流排行（Top Referrers）</div>
+          ${refsHtml}
+          <div class="impact-box gold" style="margin-top:12px; font-size:12px;">
+            <div><strong>🛍️ Gumroad 收銀台：</strong><a href="${escHtml(gr.url || '')}" target="_blank" rel="noopener noreferrer">AgentGuard Pro Kit ($49 / $89) ↗</a> — <strong>${gr.storeLive ? '🟢 線上正常收款中' : '檢查中'}</strong></div>
+            <div style="margin-top:6px;"><strong>⚡ n8n 創作者後台：</strong><a href="https://creators.n8n.io/" target="_blank" rel="noopener noreferrer">creators.n8n.io ↗</a> — 第 1 支範本審核中（一旦過審上架將自動發送 TG 通知提醒您傳第 2 支！）</div>
+          </div>
+        `;
+      }
+
+      const histBox = document.getElementById("div1-history-box");
+      if (histBox) {
+        const hist = d.history || [];
+        histBox.innerHTML = `
+          <div style="overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>巡檢時間 (TWT)</th>
+                  <th class="num">Apify 總呼叫 (客戶數)</th>
+                  <th class="num">GitHub 14d 瀏覽 (獨立人)</th>
+                  <th class="num">GitHub 14d Clones</th>
+                  <th>異動事件 / TG 推播</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${hist.slice(0, 12).map(h => `
+                  <tr>
+                    <td class="num" style="white-space:nowrap;"><strong>${escHtml(h.time)}</strong></td>
+                    <td class="num">${h.apifyRuns} 次 (${h.apifyUsers} 人)</td>
+                    <td class="num">${h.ghViews14d} (${h.ghUniques14d} 人)</td>
+                    <td class="num">${h.ghClones14d}</td>
+                    <td style="font-size:12px;">
+                      ${(h.events && h.events.length) ? escHtml(h.events.join(" ｜ ")) : '<span style="color:var(--muted);">✅ 巡檢正常（無新增跳動，靜默歸檔）</span>'}
+                    </td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+    }
+
     loadData();
     loadNewsData();
     loadBossWatchlist();
     loadIntradayPulse();
+    loadDiv1Traffic();
     setInterval(loadIntradayPulse, 45000);
     setInterval(loadData, 60000);
+    setInterval(loadDiv1Traffic, 120000);
   </script>
 </body>
 </html>
