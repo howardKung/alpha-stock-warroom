@@ -239,7 +239,9 @@
           <span>⚡ 二部盤中實戰盯盤建議（開市每 20 分鐘自動盯盤撮合 · 有買賣建議即刻推播 TG · 盤前／盤後獨立專報）</span>
           <span id="intraday-badge" class="tag">載入盤中雷達中...</span>
         </div>
+        <div id="intraday-heartbeat-bar" class="bench-pills" style="margin-bottom: 10px;"></div>
         <div id="intraday-strategy" class="impact-box gold" style="margin-bottom: 12px;">連線盤中數據中...</div>
+        <div id="intraday-boss-signals" style="margin-bottom: 12px;"></div>
         <div class="grid-2">
           <div>
             <div style="font-size:12.5px; font-weight:800; color:#f8fafc; margin-bottom:8px;">💼 現有 6 檔持股盤中逐檔建議</div>
@@ -250,6 +252,7 @@
             <div id="intraday-watch-box"></div>
           </div>
         </div>
+        <div id="intraday-history-box" style="margin-top: 12px;"></div>
       </div>
 
       <div class="card">
@@ -474,18 +477,32 @@
       return sign + "NT$" + Math.abs(Math.round(n)).toLocaleString("en-US");
     }
 
+    async function fetchJsonWithFallback(repoPath) {
+      const ts = Date.now();
+      const urls = window.location.protocol === "file:"
+        ? [`https://raw.githubusercontent.com/howardKung/alpha-stock-warroom/main/${repoPath}?t=${ts}`]
+        : [
+            `./${repoPath}?t=${ts}`,
+            `https://raw.githubusercontent.com/howardKung/alpha-stock-warroom/main/${repoPath}?t=${ts}`
+          ];
+      let lastErr = new Error("All endpoints failed");
+      for (const u of urls) {
+        try {
+          const res = await fetch(u, { cache: "no-store" });
+          if (res.ok) return await res.json();
+          lastErr = new Error("HTTP " + res.status);
+        } catch (err) {
+          lastErr = err;
+        }
+      }
+      throw lastErr;
+    }
+
     async function loadData() {
       const badge = document.getElementById("sync-badge");
       badge.textContent = "● 同步中...";
       try {
-        let res = await fetch(
-          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/portfolio.json?ref=main",
-          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
-        );
-        if (!res.ok) {
-          res = await fetch("./portfolio.json?t=" + Date.now(), { cache: "no-store" });
-        }
-        PF = await res.json();
+        PF = await fetchJsonWithFallback("portfolio.json");
         badge.textContent = "● 更新於 " + PF.lastUpdated;
         renderAll();
       } catch (e) {
@@ -799,14 +816,7 @@
 
     async function loadNewsData() {
       try {
-        let res = await fetch(
-          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/news_feed.json?ref=main",
-          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
-        );
-        if (!res.ok) {
-          res = await fetch("./news_feed.json?t=" + Date.now(), { cache: "no-store" });
-        }
-        NEWS = await res.json();
+        NEWS = await fetchJsonWithFallback("news_feed.json");
         renderNewsAll();
       } catch (e) {
         const box = document.getElementById("news-brief-box");
@@ -932,18 +942,6 @@
         renderBossRadar();
       });
     });
-
-    async function fetchJsonWithFallback(repoPath) {
-      let res = await fetch(
-        `https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/${repoPath}?ref=main`,
-        { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
-      );
-      if (!res.ok) {
-        res = await fetch(`./${repoPath}?t=` + Date.now(), { cache: "no-store" });
-      }
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      return await res.json();
-    }
 
     function quadColor(q) {
       if (q === "Q1") return "#10b981";
@@ -1134,17 +1132,10 @@
 
     async function loadIntradayPulse() {
       try {
-        let res = await fetch(
-          "https://api.github.com/repos/howardKung/alpha-stock-warroom/contents/intraday_pulse.json?ref=main",
-          { headers: { "Accept": "application/vnd.github.raw+json" }, cache: "no-store" }
-        );
-        if (!res.ok) {
-          res = await fetch("./intraday_pulse.json?t=" + Date.now(), { cache: "no-store" });
-        }
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        const pulse = await res.json();
+        const pulse = await fetchJsonWithFallback("intraday_pulse.json");
         PULSE_DATA = pulse;
         renderBossRadar();
+        renderHeartbeatAndSignals(pulse);
         const m = pulse.marketPulse || {};
         document.getElementById("intraday-badge").textContent = `${pulse.checkpointLabel || "盤中雷達"} · ${pulse.updatedAt || ""}`;
         document.getElementById("intraday-strategy").innerHTML = `
@@ -1182,10 +1173,165 @@
       }
     }
 
+    function computeNext20mStatus() {
+      // Calculate Taiwan Time (UTC+8)
+      const nowUtcMs = Date.now();
+      const twDate = new Date(nowUtcMs + 8 * 3600 * 1000);
+      const wd = twDate.getUTCDay(); // 0=Sun, 1=Mon..5=Fri, 6=Sat
+      const h = twDate.getUTCHours();
+      const m = twDate.getUTCMinutes();
+      const s = twDate.getUTCSeconds();
+      const hm = h * 60 + m;
+
+      const isTwOpen = (wd >= 1 && wd <= 5) && (hm >= 540 && hm <= 805);
+      const isUsOpen = ((wd >= 1 && wd <= 5 && hm >= 1300) || (wd >= 2 && wd <= 6 && hm <= 285));
+
+      if (!isTwOpen && !isUsOpen) {
+        let nextLabel = "休市待命（09:00 台股開市自動啟動）";
+        if (wd >= 1 && wd <= 5 && hm > 805 && hm < 1300) {
+          nextLabel = "台股已收盤 · 21:40 美股開市自動啟動";
+        }
+        return { active: false, label: "🟡 非開市時段待命中", countdown: nextLabel };
+      }
+
+      const nextSlotMin = (Math.floor(m / 20) + 1) * 20;
+      const remSec = Math.max(0, (nextSlotMin - m) * 60 - s);
+      const mm = String(Math.floor(remSec / 60)).padStart(2, "0");
+      const ss = String(remSec % 60).padStart(2, "0");
+      const mktName = isTwOpen ? "台股盤中" : "美股盤中";
+      return {
+        active: true,
+        label: `🟢 ${mktName}・每 20 分鐘自動巡檢中`,
+        countdown: `${mm}:${ss} 後下一輪巡檢`,
+      };
+    }
+
+    function renderHeartbeatAndSignals(pulse) {
+      const hbEl = document.getElementById("intraday-heartbeat-bar");
+      const sigEl = document.getElementById("intraday-boss-signals");
+      const histEl = document.getElementById("intraday-history-box");
+      const bossXrayEl = document.getElementById("boss-xray-box");
+
+      const st = computeNext20mStatus();
+      const sh = pulse.scanHistoryToday || { totalRuns: 1, runs: [] };
+      const runs = sh.runs || [];
+      const totalRuns = sh.totalRuns || Math.max(1, runs.length);
+      const signals = pulse.bossActionableSignals || [];
+      const lastTimeOnly = String(pulse.updatedAt || "--").replace(" (台灣時間)", "");
+
+      if (hbEl) {
+        hbEl.innerHTML = `
+          <div class="bench-pill">
+            <div class="bench-pill-label">⚙️ 20分鐘盯盤引擎狀態</div>
+            <div class="bench-pill-val" style="color:${st.active ? '#10b981' : '#fbbf24'}; font-size:13px;">${escHtml(st.label)}</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">🕒 最近一次完成巡檢</div>
+            <div class="bench-pill-val" style="color:#f8fafc; font-size:13px;">${escHtml(lastTimeOnly)}</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">⏱️ 下次自動巡檢倒數</div>
+            <div class="bench-pill-val next-20m-cd" style="color:var(--primary); font-size:13.5px;">${escHtml(st.countdown)}</div>
+          </div>
+          <div class="bench-pill">
+            <div class="bench-pill-label">📡 今日已巡檢趟數 / 買賣訊號</div>
+            <div class="bench-pill-val" style="color:var(--gold); font-size:13px;">第 ${totalRuns} 趟 ｜ ${signals.length} 筆建議</div>
+          </div>
+        `;
+      }
+
+      const sigHtml = signals.length > 0
+        ? `
+          <div class="impact-box" style="border-left: 3px solid #10b981; background: rgba(16, 185, 129, 0.09);">
+            <div style="font-weight:800; color:#34d399; margin-bottom:6px;">🎯 大 Boss 盤中即時買賣／加減碼建議（共 ${signals.length} 筆觸發中 · 新訊號即刻推播 TG）</div>
+            ${signals.map(s => `
+              <div style="font-size:12.5px; margin-bottom:5px; color:#f8fafc;">
+                <strong>${escHtml(s.type)}｜${escHtml(s.title)}</strong>
+                <div style="font-size:11.5px; color:#cbd5e1; margin-left:8px;">└ ${escHtml(s.detail)}</div>
+              </div>
+            `).join("")}
+          </div>
+        `
+        : `
+          <div class="impact-box" style="font-size:12px; color:#94a3b8;">
+            🎯 <strong>大 Boss 盤中即時買賣建議：</strong>目前尚無新買點突破或觸及防守／減碼門檻，系統每 20 分鐘持續自動盯盤中（一旦觸價即刻推播 TG）。
+          </div>
+        `;
+
+      if (sigEl) sigEl.innerHTML = sigHtml;
+
+      // Also inject live 20-min status strip at top of Boss PRO Prescription tab
+      if (bossXrayEl && !document.getElementById("boss-live-strip")) {
+        bossXrayEl.insertAdjacentHTML("beforebegin", `<div id="boss-live-strip" style="margin-bottom:12px;"></div>`);
+      }
+      const bossStrip = document.getElementById("boss-live-strip");
+      if (bossStrip) {
+        bossStrip.innerHTML = `
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.35); font-size:12px; margin-bottom:8px;">
+            <span><strong>${escHtml(st.label)}</strong> ｜ 上次掃描：<code>${escHtml(lastTimeOnly)}</code>（今日第 <strong>${totalRuns}</strong> 趟）</span>
+            <span class="next-20m-cd" style="font-family:ui-monospace, monospace; font-weight:800; color:#38bdf8;">${escHtml(st.countdown)}</span>
+          </div>
+          ${sigHtml}
+        `;
+      }
+
+      if (histEl && runs.length > 0) {
+        histEl.innerHTML = `
+          <div style="border-top:1px solid var(--border); padding-top:10px;">
+            <div style="font-size:12.5px; font-weight:800; color:#38bdf8; margin-bottom:6px;">
+              📜 今日每 20 分鐘自動盯盤打卡流水帳（最新 ${Math.min(runs.length, 10)} 趟實況紀錄 · 網頁每 45 秒自動同步）
+            </div>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>台灣時間</th>
+                    <th>巡檢班次</th>
+                    <th class="num">加權指數</th>
+                    <th class="num">模擬倉淨值 (Alpha)</th>
+                    <th>執行結果 ＆ TG 推播狀態</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${runs.slice(0, 10).map(r => `
+                    <tr>
+                      <td class="num" style="white-space:nowrap;"><strong>${escHtml(r.time)}</strong></td>
+                      <td style="font-size:12px;">${escHtml(r.label)}</td>
+                      <td class="num ${Number(r.twiiChangePct) >= 0 ? 'pos' : 'neg'}" style="white-space:nowrap;">
+                        ${Number(r.twiiPrice || 0).toLocaleString()} (${Number(r.twiiChangePct) >= 0 ? '+' : ''}${r.twiiChangePct}%)
+                      </td>
+                      <td class="num" style="white-space:nowrap;">
+                        NT$${Number(r.navTwd || 0).toLocaleString()} <span class="${Number(r.alphaPct) >= 0 ? 'pos' : 'neg'}">(${Number(r.alphaPct) >= 0 ? '+' : ''}${r.alphaPct}%)</span>
+                      </td>
+                      <td style="font-size:12px;">
+                        <span class="tag" style="margin-right:6px; border:1px solid ${r.tgPushed ? '#10b981' : '#475569'}; color:${r.tgPushed ? '#34d399' : '#94a3b8'};">
+                          ${r.tgPushed ? '📲 已推播 TG' : '🔇 靜默刷新網頁'}
+                        </span>
+                        ${escHtml(r.note || "")}
+                      </td>
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    setInterval(() => {
+      const st = computeNext20mStatus();
+      document.querySelectorAll(".next-20m-cd").forEach(el => {
+        el.textContent = st.countdown;
+      });
+    }, 1000);
+
     loadData();
     loadNewsData();
     loadBossWatchlist();
     loadIntradayPulse();
+    setInterval(loadIntradayPulse, 45000);
+    setInterval(loadData, 60000);
   </script>
 </body>
 </html>

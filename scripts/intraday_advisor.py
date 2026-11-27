@@ -618,21 +618,20 @@ def extract_boss_actionable_signals(watch_advices: list[dict], boss_advices: lis
     return signals
 
 
-def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict]) -> None:
+def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict], is_manual_override: bool = False) -> bool:
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
     chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
     if not token or not chat_id:
         print("[TG-INTRADAY] Secrets not configured — skipping push.")
-        return
+        return False
 
     trades = pulse.get("executedTrades") or []
-    is_quiet_shift = "QUIET" in pulse.get("sessionCode", "") or pulse.get("sessionCode") == "US_PRECLOSE"
-    is_manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    is_quiet_shift = "QUIET" in pulse.get("sessionCode", "")
 
     # Push immediately on ANY 20-min tick if simulated trades executed OR new Boss buy/sell signals emerged!
-    if is_quiet_shift and not trades and not new_boss_signals and not is_manual:
+    if is_quiet_shift and not trades and not new_boss_signals and not is_manual_override:
         print("[TG-INTRADAY] 20m scan: 0 new trades & 0 new Boss signals — updated web silently without spamming TG.")
-        return
+        return False
 
     m = pulse["marketPulse"]
     f_nav = pulse.get("fundLiveSummary", {})
@@ -661,8 +660,8 @@ def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict]) -> None:
         f"🧭 <b>盤中策略</b>：{html.escape(pulse['overallStrategy'])}",
     ])
 
-    # On scheduled milestone checks (or if no new_boss_signals block was printed yet), show concise summary
-    if not is_quiet_shift or is_manual:
+    # On scheduled milestone checks (or manual override), show concise summary
+    if not is_quiet_shift or is_manual_override:
         hot_watch = [w for w in pulse["watchlistAdvices"] if w["priority"] <= 2]
         lines.append("")
         lines.append("<b>🎯 盤中新買進候選雷達（好球帶監測）</b>")
@@ -686,7 +685,7 @@ def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict]) -> None:
                     f"• <b>{html.escape(b['code'])} {html.escape(b['name'])}</b> <code>{b['intradayPrice']}</code> (<code>{b['dayChangePct']:+.2f}%</code>) ➔ <b>{html.escape(b['badge'])}</b> [守{b['defenseStop']} / 壓{b['resistanceOrTrim']}]"
                 )
 
-    lines.extend(["", f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 大 Boss 處方箋 ↗</a>'])
+    lines.extend(["", f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ＆ 20m 巡檢流水帳 ↗</a>'])
     text = "\n".join(lines)
     if len(text) > 3900:
         text = text[:3840] + "\n...\n" + f'🔗 <a href="{WARROOM_URL}?tab=boss">開啟戰情網 ↗</a>'
@@ -704,23 +703,29 @@ def send_telegram_intraday(pulse: dict, new_boss_signals: list[dict]) -> None:
         if not res.get("ok"):
             raise RuntimeError(f"Telegram error: {res}")
     print(f"[TG-INTRADAY] Sent intraday advice push ({len(text)} chars).")
+    return True
 
 
 def main() -> None:
     pf = json.loads(PORTFOLIO_PATH.read_text(encoding="utf-8"))
     now_tw = datetime.now(TZ_TW)
     today_str = now_tw.strftime("%Y-%m-%d")
+    time_hms = now_tw.strftime("%H:%M:%S")
     ts_str = now_tw.strftime("%Y-%m-%d %H:%M:%S (台灣時間)")
     session_code, session_label = detect_session_checkpoint(now_tw)
 
-    # Load today's already-alerted signal keys so 20-min loop never spams duplicate alerts
+    # Load today's already-alerted signal keys & today's 20-minute scan history
     prev_alerted_keys: set[str] = set()
+    prev_history: list[dict] = []
     if OUT_PATH.exists():
         try:
             prev_pulse = json.loads(OUT_PATH.read_text(encoding="utf-8"))
             at = prev_pulse.get("alertedToday", {})
             if at.get("date") == today_str:
                 prev_alerted_keys = set(at.get("keys") or [])
+            sh = prev_pulse.get("scanHistoryToday", {})
+            if isinstance(sh, dict) and sh.get("date") == today_str:
+                prev_history = list(sh.get("runs") or [])
         except Exception:
             pass
 
@@ -756,10 +761,12 @@ def main() -> None:
     boss_advices = evaluate_boss_watchlist(boss_items, quotes, session_code)
 
     all_boss_signals = extract_boss_actionable_signals(watch_advices, boss_advices, now_tw)
-    is_manual_dispatch = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    trigger_src = os.environ.get("TRIGGER_SOURCE", "").strip()
+    is_manual_override = (os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch") and (trigger_src != "auto_20m")
     has_tg_secrets = bool(os.environ.get("TELEGRAM_BOT_TOKEN", "").strip() and os.environ.get("TELEGRAM_CHAT_ID", "").strip())
+
     new_boss_signals = [s for s in all_boss_signals if s["key"] not in prev_alerted_keys]
-    if is_manual_dispatch and not new_boss_signals:
+    if is_manual_override and not new_boss_signals:
         new_boss_signals = list(all_boss_signals)
     updated_alerted_keys = (
         sorted(prev_alerted_keys | {s["key"] for s in all_boss_signals})
@@ -774,6 +781,8 @@ def main() -> None:
         overall = f"🚨 盤中已即時撮合成交 {len(executed_trades)} 筆指令！（{executed_trades[0]}）"
     elif new_boss_signals:
         overall = f"🎯 盤中浮現 {len(new_boss_signals)} 檔大 Boss 可執行買賣／防守訊號，請查看建議明細！"
+    elif all_boss_signals:
+        overall = f"🟢 盤中持續追蹤 {len(all_boss_signals)} 檔大 Boss 買賣訊號（今日稍早已知會 TG，不重複洗版），每 20 分鐘自動刷新報價中。"
     elif urgent_stops > 0:
         overall = f"🚨 盤中有 {urgent_stops} 檔持股觸及停損警戒區！嚴禁攤平，鎖定 13:20 尾盤確認是否執行停損。"
     elif hot_triggers > 0:
@@ -787,6 +796,8 @@ def main() -> None:
 
     pulse = {
         "updatedAt": ts_str,
+        "updatedEpochMs": int(now_tw.timestamp() * 1000),
+        "intervalMinutes": 20,
         "sessionCode": session_code,
         "checkpointLabel": session_label,
         "overallStrategy": overall,
@@ -815,15 +826,47 @@ def main() -> None:
         "bossWatchAdvices": boss_advices,
     }
 
+    tg_sent = send_telegram_intraday(pulse, new_boss_signals, is_manual_override=is_manual_override)
+
+    if executed_trades:
+        run_note = f"⚡ 即時成交 {len(executed_trades)} 筆（{executed_trades[0]}）"
+    elif new_boss_signals:
+        run_note = f"🎯 觸發 {len(new_boss_signals)} 筆新買賣建議（{new_boss_signals[0]['title']}）"
+    elif tg_sent:
+        run_note = f"📡 整點／關鍵哨推播完畢｜巡檢 {len(quotes)} 檔即時報價"
+    else:
+        run_note = f"✅ 巡檢 {len(quotes)} 檔報價正常｜無新增訊號（靜默更新網頁，不洗版 TG）"
+
+    run_entry = {
+        "time": time_hms,
+        "label": session_label,
+        "twiiPrice": twii_px,
+        "twiiChangePct": twii_chg,
+        "navTwd": pf["summary"]["navTwd"],
+        "alphaPct": pf["summary"].get("alphaVs0050Pct", 0.0),
+        "quotesChecked": len(quotes),
+        "tradesCount": len(executed_trades),
+        "activeBossSignals": len(all_boss_signals),
+        "newBossSignals": len(new_boss_signals),
+        "tgPushed": tg_sent,
+        "note": run_note,
+    }
+    updated_runs = ([run_entry] + prev_history)[:36]
+    pulse["scanHistoryToday"] = {
+        "date": today_str,
+        "totalRuns": len(updated_runs),
+        "runs": updated_runs,
+    }
+
     OUT_PATH.write_text(json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if IDEA_COPY.parent.exists():
         IDEA_COPY.write_text(json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     print(
         f"[INTRADAY-20M] {session_label} | NAV=NT${pf['summary']['navTwd']:,} "
-        f"(Alpha {pf['summary'].get('alphaVs0050Pct', 0):+.2f}%) | Trades={len(executed_trades)} | NewBossSignals={len(new_boss_signals)}"
+        f"(Alpha {pf['summary'].get('alphaVs0050Pct', 0):+.2f}%) | Trades={len(executed_trades)} | "
+        f"NewBossSignals={len(new_boss_signals)} | TG={tg_sent} | TodayRuns={len(updated_runs)}"
     )
-    send_telegram_intraday(pulse, new_boss_signals)
 
 
 if __name__ == "__main__":
