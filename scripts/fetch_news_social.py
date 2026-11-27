@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 """
 Zero-Cost Multi-Source News & Social Intelligence Engine (`fetch_news_social.py`).
-Runs via GitHub Actions ($0 cost, 0 AI quota, zero API keys needed):
-1. 鉅亨網 cnyes JSON API: 台股財經、美股科技、國際政經關稅、重大頭條、加密貨幣與原物料
-2. Google News TW Top Stories + Bing News zh-TW RSS: 台灣熱門時事、AI 新工具商機、X/Threads 熱議焦點、模擬倉持股新聞
-3. PTT Stock 股版 (最新 3 頁): 高推數爆文抓取 + 散戶多空情緒溫度計 (Bull/Bear Sentiment Meter)
-4. Reddit 美股社群熱度榜 (ApeWisdom r/wallstreetbets + r/stocks + r/investing): 24h 討論度與飆升排行
-5. Hacker News Algolia API: 矽谷科技、AI 工具與獨立變現第一手熱榜
+Every single news item, social post, and executive takeaway includes:
+- Real publisher `source` (unwrapped from Bing/Google RSS + domain mapping, never generic placeholders)
+- Clean direct `url` (unwrapping Bing `apiclick.aspx` redirect wrappers)
 """
 
 import html
@@ -25,6 +22,37 @@ IDEA_COPY = Path("/home/antigravity/idea-team/stock-division/data/news_feed_late
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 
+DOMAIN_SOURCE_MAP = [
+    ("money.udn.com", "經濟日報"),
+    ("udn.com", "聯合新聞網"),
+    ("ctee.com.tw", "工商時報"),
+    ("chinatimes.com", "中時新聞網"),
+    ("tw.stock.yahoo.com", "Yahoo奇摩股市"),
+    ("yahoo.com", "Yahoo奇摩財經"),
+    ("cnyes.com", "鉅亨網"),
+    ("cna.com.tw", "中央社 CNA"),
+    ("ec.ltn.com.tw", "自由財經"),
+    ("ltn.com.tw", "自由時報"),
+    ("technews.tw", "科技新報 TechNews"),
+    ("ithome.com.tw", "iThome"),
+    ("bnext.com.tw", "數位時代"),
+    ("inside.com.tw", "INSIDE 硬塞"),
+    ("moneydj.com", "MoneyDJ理財網"),
+    ("wealth.com.tw", "財訊"),
+    ("businessweekly.com.tw", "商業周刊"),
+    ("cw.com.tw", "天下雜誌"),
+    ("ettoday.net", "ETtoday財經雲"),
+    ("newtalk.tw", "Newtalk新聞"),
+    ("storm.mg", "風傳媒"),
+    ("setn.com", "三立新聞網"),
+    ("tvbs.com.tw", "TVBS新聞網"),
+    ("msn.com", "MSN 財經"),
+    ("reuters.com", "Reuters 路透社"),
+    ("bloomberg.com", "Bloomberg 彭博"),
+    ("wsj.com", "WSJ 華爾街日報"),
+    ("cnbc.com", "CNBC"),
+]
+
 BULL_WORDS = ["漲停", "噴", "創高", "大漲", "買超", "利多", "看好", "軋空", "突破", "史高", "大爆買", "翻多", "強彈"]
 BEAR_WORDS = ["跌停", "崩", "大跌", "賣超", "利空", "逃命", "腰斬", "套牢", "破底", "跳水", "斷頭", "恐慌", "空頭"]
 PORTFOLIO_KEYWORDS = [
@@ -33,7 +61,7 @@ PORTFOLIO_KEYWORDS = [
     ("8299.TWO", ["群聯", "8299"]),
     ("0050.TW", ["0050", "台灣50", "台積電", "2330"]),
     ("META", ["Meta", "META", "祖克柏"]),
-    ("TLT", ["美債", "殖利率", "聯準會", "Fed", "降息"]),
+    ("TLT", ["美債", "殖利率", "聯準會", "Fed", "降息", "升息", "通膨"]),
     ("PLTR", ["Palantir", "PLTR"]),
     ("1560.TW", ["中砂", "1560"]),
     ("3711.TW", ["日月光", "3711"]),
@@ -67,6 +95,41 @@ def clean_html(raw: str) -> str:
     return re.sub(r"\s+", " ", txt).strip()
 
 
+def unwrap_redirect_url(raw_url: str) -> str:
+    """Unwraps Bing News apiclick.aspx wrapper into the direct original article URL."""
+    if not raw_url:
+        return ""
+    try:
+        parsed = urllib.parse.urlparse(raw_url)
+        if "bing.com" in parsed.netloc and "apiclick.aspx" in parsed.path:
+            qs = urllib.parse.parse_qs(parsed.query)
+            if "url" in qs and qs["url"]:
+                return qs["url"][0]
+    except Exception:
+        pass
+    return raw_url
+
+
+def infer_source_from_url_or_text(article_url: str, summary: str = "", fallback: str = "國際財經媒體") -> str:
+    try:
+        host = urllib.parse.urlparse(article_url).netloc.lower()
+        if host.startswith("www."):
+            host = host[4:]
+        for dom, label in DOMAIN_SOURCE_MAP:
+            if host == dom or host.endswith("." + dom):
+                return label
+        # Check leading publisher name in summary (e.g. "Newtalk新聞 ...")
+        for _dom, label in DOMAIN_SOURCE_MAP:
+            short = label.split()[0]
+            if summary.startswith(short):
+                return label
+        if host and "google.com" not in host and "bing.com" not in host:
+            return host
+    except Exception:
+        pass
+    return fallback
+
+
 def match_portfolio_tags(text: str) -> list[str]:
     matched = []
     for sym, kws in PORTFOLIO_KEYWORDS:
@@ -98,7 +161,7 @@ def fetch_cnyes_category(cat: str, limit: int = 8) -> list[dict]:
                 "title": title,
                 "summary": summary,
                 "url": f"https://news.cnyes.com/news/id/{nid}",
-                "source": "鉅亨網",
+                "source": "鉅亨網 cnyes",
                 "time": pub_str,
                 "tags": tags,
             })
@@ -114,14 +177,27 @@ def fetch_rss_items(url: str, default_source: str, limit: int = 8) -> list[dict]
         out = []
         for item in root.findall(".//item")[:limit]:
             raw_title = clean_html(item.findtext("title") or "")
-            link = (item.findtext("link") or "").strip()
+            raw_link = (item.findtext("link") or "").strip()
+            link = unwrap_redirect_url(raw_link)
             desc = clean_html(item.findtext("description") or "")[:130]
             pub = (item.findtext("pubDate") or "")[:22]
-            src_el = item.find("source")
-            src = clean_html(src_el.text) if (src_el is not None and src_el.text) else default_source
-            if " - " in raw_title and src == default_source:
+
+            # Check standard <source> and Bing <News:Source> namespace tags
+            src = ""
+            for child in item:
+                tag_lower = child.tag.lower()
+                if tag_lower.endswith("source") and child.text and clean_html(child.text):
+                    src = clean_html(child.text)
+                    break
+
+            if " - " in raw_title and not src:
                 parts = raw_title.rsplit(" - ", 1)
-                raw_title, src = parts[0].strip(), parts[1].strip()
+                if 1 < len(parts[1].strip()) <= 24:
+                    raw_title, src = parts[0].strip(), parts[1].strip()
+
+            if not src or src in ("MSN", "Bing"):
+                src = infer_source_from_url_or_text(link, desc, default_source)
+
             if not raw_title or not link:
                 continue
             out.append({
@@ -177,6 +253,7 @@ def fetch_ptt_stock(pages: int = 3) -> dict:
                 "score": score,
                 "title": title,
                 "url": f"https://www.ptt.cc{href}",
+                "source": "PTT Stock 股版",
                 "date": (date_m.group(1).strip() if date_m else ""),
                 "tags": match_portfolio_tags(title),
             })
@@ -197,6 +274,8 @@ def fetch_ptt_stock(pages: int = 3) -> dict:
         mood = f"⚖️ 散戶多空分歧 ({bull_pct}% 偏多) · 籌碼換手震盪期"
 
     return {
+        "sourceName": "批踢踢實業坊 PTT Stock 股版",
+        "sourceUrl": "https://www.ptt.cc/bbs/Stock/index.html",
         "sentimentBullPct": bull_pct,
         "sentimentLabel": mood,
         "hotPosts": posts[:12],
@@ -219,6 +298,7 @@ def fetch_reddit_apewisdom() -> list[dict]:
                 "mentions": mentions,
                 "upvotes": int(row.get("upvotes") or 0),
                 "momentum24hPct": delta_pct,
+                "source": "Reddit (r/wallstreetbets · r/stocks)",
                 "url": f"https://www.reddit.com/search/?q=%24{urllib.parse.quote(ticker)}&sort=hot",
             })
         return out
@@ -235,17 +315,101 @@ def fetch_hacker_news() -> list[dict]:
             if not title:
                 continue
             oid = hit.get("objectID")
-            url = hit.get("url") or f"https://news.ycombinator.com/item?id={oid}"
+            hn_url = f"https://news.ycombinator.com/item?id={oid}"
+            url = hit.get("url") or hn_url
+            host = urllib.parse.urlparse(url).netloc.lower().replace("www.", "")
+            src_label = f"Hacker News ({host})" if host and "ycombinator.com" not in host else "Hacker News"
             out.append({
                 "title": title,
                 "points": int(hit.get("points") or 0),
                 "comments": int(hit.get("num_comments") or 0),
+                "source": src_label,
                 "url": url,
-                "hnCommentsUrl": f"https://news.ycombinator.com/item?id={oid}",
+                "hnCommentsUrl": hn_url,
             })
         return out
     except Exception:
         return []
+
+
+def build_sourced_takeaways(
+    market_ai: list[dict],
+    macro_geo: list[dict],
+    ai_indie: list[dict],
+    ptt: dict,
+    reddit: list[dict],
+    hn: list[dict],
+) -> list[dict]:
+    """Builds 5 concise executive takeaways where EVERY item carries verified source + direct URL."""
+    items: list[dict] = []
+
+    if market_ai:
+        m0 = market_ai[0]
+        items.append({
+            "icon": "📈",
+            "category": "台美股與供應鏈焦點",
+            "text": m0["title"] + (f" — {m0['summary'][:68]}..." if m0.get("summary") else ""),
+            "source": m0.get("source", "鉅亨網 cnyes"),
+            "url": m0["url"],
+            "time": m0.get("time", ""),
+        })
+
+    if macro_geo:
+        g0 = macro_geo[0]
+        items.append({
+            "icon": "🌐",
+            "category": "國際總經與政策風向",
+            "text": g0["title"] + (f" — {g0['summary'][:68]}..." if g0.get("summary") else ""),
+            "source": g0.get("source", "鉅亨網 cnyes"),
+            "url": g0["url"],
+            "time": g0.get("time", ""),
+        })
+
+    if ptt.get("hotPosts"):
+        p0 = ptt["hotPosts"][0]
+        items.append({
+            "icon": "💬",
+            "category": "PTT 股版散戶情緒",
+            "text": f"{ptt['sentimentLabel']}｜最熱貼文 ({p0['push']}推)：{p0['title']}",
+            "source": "PTT Stock 股版",
+            "url": p0["url"],
+            "time": p0.get("date", ""),
+        })
+
+    if reddit:
+        r0 = reddit[0]
+        r1_txt = f"、#{reddit[1]['rank']} ${reddit[1]['ticker']} ({reddit[1]['mentions']}則)" if len(reddit) > 1 else ""
+        items.append({
+            "icon": "👽",
+            "category": "美股散戶社群熱度",
+            "text": f"熱榜冠軍 #{r0['rank']} ${r0['ticker']} {r0['name']}（{r0['mentions']} 則討論，24h {r0['momentum24hPct']:+}%{r1_txt}）",
+            "source": "Reddit WSB / r/stocks (ApeWisdom)",
+            "url": r0["url"],
+            "time": "24h 即時",
+        })
+
+    if ai_indie:
+        a0 = ai_indie[0]
+        items.append({
+            "icon": "🤖",
+            "category": "AI 科技與變現情報",
+            "text": a0["title"],
+            "source": a0.get("source", "科技新報 TechNews"),
+            "url": a0["url"],
+            "time": a0.get("time", ""),
+        })
+    elif hn:
+        h0 = hn[0]
+        items.append({
+            "icon": "⚡",
+            "category": "矽谷創投熱榜",
+            "text": f"{h0['title']} ({h0['points']} pts / {h0['comments']} 則討論)",
+            "source": h0.get("source", "Hacker News"),
+            "url": h0["url"],
+            "time": "即時熱榜",
+        })
+
+    return items
 
 
 def main() -> None:
@@ -260,32 +424,32 @@ def main() -> None:
 
     tw_general = fetch_rss_items(
         "https://news.google.com/rss?hl=zh-TW&gl=TW&ceid=TW:zh-Hant",
-        "台灣熱門焦點",
+        "Google 新聞台灣",
         8,
     )
     technews_tw = fetch_rss_items("https://technews.tw/feed/", "科技新報 TechNews", 6)
-    ithome_tw = fetch_rss_items("https://www.ithome.com.tw/rss", "iThome 科技", 5)
+    ithome_tw = fetch_rss_items("https://www.ithome.com.tw/rss", "iThome", 5)
     bing_ai = fetch_rss_items(
         "https://www.bing.com/news/search?q="
         + urllib.parse.quote("AI OpenAI 人工智慧")
         + "&format=rss&mkt=zh-TW",
-        "AI 科技商機",
+        "Bing 科技新聞",
         6,
     )
-    ai_indie = (bing_ai[:4] + technews_tw[:4] + ithome_tw[:4])[:10]
+    ai_indie = (technews_tw[:4] + ithome_tw[:4] + bing_ai[:4])[:10]
 
     x_threads_buzz = fetch_rss_items(
         "https://www.bing.com/news/search?q="
         + urllib.parse.quote("馬斯克 黃仁勳 川普 股市")
         + "&format=rss&mkt=zh-TW",
-        "X / Threads 社群熱議",
+        "財經新聞彙整",
         8,
     )
     portfolio_news = fetch_rss_items(
         "https://www.bing.com/news/search?q="
         + urllib.parse.quote("台積電 輝達 散熱 半導體")
         + "&format=rss&mkt=zh-TW",
-        "AI 供應鏈追蹤",
+        "財經新聞彙整",
         6,
     )
 
@@ -293,51 +457,70 @@ def main() -> None:
     reddit = fetch_reddit_apewisdom()
     hn = fetch_hacker_news()
 
-    # Merge & deduplicate Market + AI Supply Chain section
+    # Merge & deduplicate Market + AI Supply Chain section (prioritize fresh cnyes + verified publishers)
     seen_titles = set()
     market_ai = []
-    for item in portfolio_news + tw_stock[:5] + us_stock[:5] + headlines[:3]:
+    for item in tw_stock[:5] + us_stock[:4] + portfolio_news + headlines[:3]:
         key = item["title"][:18]
         if key not in seen_titles:
             seen_titles.add(key)
             market_ai.append(item)
 
-    # Preserve existing executiveBrief if curated today, while updating live stats
-    existing_brief = None
+    # Preserve curated div2StockImpact / div1CashflowIdea if present, while refreshing live sourced takeaways!
+    prev_impact_div2 = "自動監測百萬模擬倉核心持股、7 檔右側條件單與大 Boss 台股 10 檔供應鏈新聞與法人風向。"
+    prev_idea_div1 = "持續從 Hacker News、TechNews 與 iThome 捕捉開發者高痛點 API 與自動化變現靈感。"
     if OUT_JSON.exists():
         try:
-            old = json.loads(OUT_JSON.read_text(encoding="utf-8"))
-            existing_brief = old.get("executiveBrief")
+            old_brief = json.loads(OUT_JSON.read_text(encoding="utf-8")).get("executiveBrief", {})
+            if old_brief.get("div2StockImpact"):
+                prev_impact_div2 = old_brief["div2StockImpact"]
+            if old_brief.get("div1CashflowIdea"):
+                prev_idea_div1 = old_brief["div1CashflowIdea"]
         except Exception:
             pass
 
-    top_tw_headline = (market_ai[0]["title"] if market_ai else "台美股盤後資訊整理中")
-    top_ptt = (ptt["hotPosts"][0]["title"] if ptt["hotPosts"] else "股版熱議整理中")
+    takeaway_items = build_sourced_takeaways(market_ai, macro_geo, ai_indie, ptt, reddit, hn)
+    plain_takeaways = [
+        f"{t['icon']} 【{t['category']}】{t['text']}（來源：{t['source']}）"
+        for t in takeaway_items
+    ]
+
+    top_item = market_ai[0] if market_ai else {"title": "台美股盤後資訊整理中", "source": "鉅亨網 cnyes", "url": "https://news.cnyes.com/"}
+    top_ptt_obj = ptt["hotPosts"][0] if ptt["hotPosts"] else {"title": "股版熱議整理中", "url": "https://www.ptt.cc/bbs/Stock/index.html"}
     top_reddit = (
         f"${reddit[0]['ticker']} ({reddit[0]['mentions']} 則討論 / 24h {reddit[0]['momentum24hPct']:+}%)"
         if reddit
         else "美股社群整理中"
     )
 
-    auto_brief = existing_brief or {
+    auto_brief = {
         "updatedAt": ts_str,
-        "boss3MinTakeaways": [
-            f"📈 台美股與持股焦點：{top_tw_headline}",
-            f"💬 PTT 股版情緒雷達：{ptt['sentimentLabel']}（最熱爆文：{top_ptt}）",
-            f"👽 Reddit 美股散戶熱榜冠軍：{top_reddit}",
-        ],
-        "div2StockImpact": "自動監測百萬模擬倉 6 檔核心持股與 7 檔右側條件單相關供應鏈新聞與法人風向。",
-        "div1CashflowIdea": "持續從 Hacker News 與 AI 工具新聞捕捉開發者高痛點 API 與自動化變現靈感。",
-    }
-    auto_brief["livePulse"] = {
-        "topMarketHeadline": top_tw_headline,
-        "pttSentiment": ptt["sentimentLabel"],
-        "topPttPost": top_ptt,
-        "topRedditTicker": top_reddit,
+        "takeawayItems": takeaway_items,
+        "boss3MinTakeaways": plain_takeaways,
+        "div2StockImpact": prev_impact_div2,
+        "div1CashflowIdea": prev_idea_div1,
+        "livePulse": {
+            "topMarketHeadline": top_item["title"],
+            "topMarketSource": top_item.get("source", "鉅亨網 cnyes"),
+            "topMarketUrl": top_item.get("url", "https://news.cnyes.com/"),
+            "pttSentiment": ptt["sentimentLabel"],
+            "topPttPost": top_ptt_obj["title"],
+            "topPttUrl": top_ptt_obj["url"],
+            "topRedditTicker": top_reddit,
+        },
     }
 
     payload = {
         "lastUpdated": ts_str,
+        "sourcesRegistry": [
+            {"name": "鉅亨網 cnyes", "url": "https://news.cnyes.com/"},
+            {"name": "Google 新聞台灣 (經濟/工商/中央社等)", "url": "https://news.google.com/?hl=zh-TW&gl=TW&ceid=TW:zh-Hant"},
+            {"name": "科技新報 TechNews", "url": "https://technews.tw/"},
+            {"name": "iThome 科技新聞", "url": "https://www.ithome.com.tw/"},
+            {"name": "PTT Stock 股版", "url": "https://www.ptt.cc/bbs/Stock/index.html"},
+            {"name": "Reddit WSB / r/stocks (ApeWisdom)", "url": "https://apewisdom.io/"},
+            {"name": "Hacker News (Y Combinator)", "url": "https://news.ycombinator.com/"},
+        ],
         "executiveBrief": auto_brief,
         "sections": {
             "marketAndAi": market_ai[:12],

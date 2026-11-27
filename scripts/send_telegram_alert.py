@@ -43,6 +43,7 @@ def fmt_pct(val: float | int | None) -> str:
 
 def build_premarket_message(pf: dict, news: dict, now_tw: datetime, is_us: bool = False) -> str:
     brief = news.get("executiveBrief", {})
+    t_items = brief.get("takeawayItems", [])[:5]
     takeaways = brief.get("boss3MinTakeaways", [])[:5]
     social = news.get("social", {})
     ptt = social.get("pttStock", {})
@@ -59,9 +60,17 @@ def build_premarket_message(pf: dict, news: dict, now_tw: datetime, is_us: bool 
         header,
         f"🕒 <code>{now_tw.strftime('%Y-%m-%d %H:%M')} (台灣時間 · 開盤前專報)</code>",
         "",
-        "<b>📌 盤前 5 大核心情報重點</b>",
+        "<b>📌 盤前核心情報重點（皆附媒體來源）</b>",
     ]
-    if takeaways:
+    if t_items:
+        for idx, it in enumerate(t_items, 1):
+            src = html.escape(str(it.get("source", "財經媒體")))
+            url = html.escape(str(it.get("url", "")))
+            cat = html.escape(str(it.get("category", "")))
+            txt = html.escape(str(it.get("text", "")))
+            src_tag = f'<a href="{url}">{src} ↗</a>' if url else src
+            lines.append(f"{idx}. {it.get('icon', '•')} <b>{cat}</b>：{txt} ［來源：{src_tag}］")
+    elif takeaways:
         for idx, t in enumerate(takeaways, 1):
             lines.append(f"{idx}. {html.escape(str(t))}")
     else:
@@ -69,14 +78,15 @@ def build_premarket_message(pf: dict, news: dict, now_tw: datetime, is_us: bool 
 
     lines.append("")
     ptt_label = html.escape(str(ptt.get("sentimentLabel", "情緒監測中")))
-    lines.append(f"<b>💬 PTT 股版散戶溫度計</b>：{ptt_label}")
+    ptt_url = html.escape(str(ptt.get("sourceUrl", "https://www.ptt.cc/bbs/Stock/index.html")))
+    lines.append(f'<b>💬 PTT 股版散戶溫度計</b>：{ptt_label} ［來源：<a href="{ptt_url}">PTT Stock 股版 ↗</a>］')
 
     if reddit:
         top3 = " ｜ ".join(
-            f"<b>${html.escape(str(r.get('ticker', '')))}</b> ({r.get('mentions', 0)}則, {float(r.get('momentum24hPct', 0)):+.0f}%)"
+            f'<a href="{html.escape(str(r.get("url", "")))}"><b>${html.escape(str(r.get("ticker", "")))}</b></a> ({r.get("mentions", 0)}則, {float(r.get("momentum24hPct", 0)):+.0f}%)'
             for r in reddit[:3]
         )
-        lines.append(f"<b>👽 Reddit 美股熱議</b>：{top3}")
+        lines.append(f"<b>👽 美股社群熱議</b>：{top3} ［來源：Reddit WSB/r/stocks］")
 
     # Pre-market actionable buy zones for the upcoming session
     pending = [
@@ -163,12 +173,21 @@ def build_settle_message(pf: dict, news: dict, now_tw: datetime) -> str:
     brief = news.get("executiveBrief", {})
     live_pulse = brief.get("livePulse", {})
     top_headline = live_pulse.get("topMarketHeadline")
+    top_src = live_pulse.get("topMarketSource", "")
+    top_url = live_pulse.get("topMarketUrl", "")
     if not top_headline:
         market_items = news.get("sections", {}).get("marketAndAi", [])
         if market_items:
             top_headline = market_items[0].get("title", "")
+            top_src = market_items[0].get("source", "財經媒體")
+            top_url = market_items[0].get("url", "")
     if top_headline:
-        lines.extend(["", f"📰 <b>最新市場頭條</b>：{html.escape(str(top_headline))}"])
+        src_html = (
+            f' ［來源：<a href="{html.escape(str(top_url))}">{html.escape(str(top_src or "原文"))} ↗</a>］'
+            if top_url
+            else (f" ［來源：{html.escape(str(top_src))}］" if top_src else "")
+        )
+        lines.extend(["", f"📰 <b>最新市場頭條</b>：{html.escape(str(top_headline))}{src_html}"])
 
     pulse = load_json(INTRADAY_PULSE_PATH)
     boss_advices = pulse.get("bossWatchAdvices") or []

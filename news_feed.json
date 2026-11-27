@@ -1,13 +1,55 @@
 {
   "lastUpdated": "2026-11-27 16:28:54 (台灣時間)",
   "executiveBrief": {
-    "updatedAt": "2026-11-27 06:50:00 (台灣時間)",
+    "updatedAt": "2026-11-27 19:31:14 (台灣時間)",
+    "takeawayItems": [
+      {
+        "icon": "📈",
+        "category": "台美股與供應鏈焦點",
+        "text": "友達華亞廠找到新買家 售予矽品處分利益估104億元",
+        "source": "鉅亨網 cnyes",
+        "url": "https://news.cnyes.com/news/id/6674033",
+        "time": "11-27 19:26"
+      },
+      {
+        "icon": "🌐",
+        "category": "國際總經與政策風向",
+        "text": "倫敦期銅盤中反彈近4%洋山溢價較高點降36%、上海庫存續增",
+        "source": "鉅亨網 cnyes",
+        "url": "https://news.cnyes.com/news/id/6674027",
+        "time": "11-27 19:00"
+      },
+      {
+        "icon": "💬",
+        "category": "PTT 股版散戶情緒",
+        "text": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (20推)：[情報] 2646星宇航空 現增價15.5元",
+        "source": "PTT Stock 股版",
+        "url": "https://www.ptt.cc/bbs/Stock/M.1795777031.A.5FB.html",
+        "time": "11/27"
+      },
+      {
+        "icon": "👽",
+        "category": "美股散戶社群熱度",
+        "text": "熱榜冠軍 #1 $NVDA NVIDIA（175 則討論，24h -66%、#2 $SPY (101則)）",
+        "source": "Reddit WSB / r/stocks (ApeWisdom)",
+        "url": "https://www.reddit.com/search/?q=%24NVDA&sort=hot",
+        "time": "24h 即時"
+      },
+      {
+        "icon": "🤖",
+        "category": "AI 科技與變現情報",
+        "text": "AI 仍供不應求，主計總處估明年出口破 1 兆美元創新高",
+        "source": "科技新報 TechNews",
+        "url": "https://finance.technews.tw/2026/11/27/ai-supply-shortage-dgbass-forecasts-next-year-exports-1-trillion-record-high/",
+        "time": "Fri, 27 Nov 2026 10:10"
+      }
+    ],
     "boss3MinTakeaways": [
-      "🏦 利率警報再起：美國 10 月核心通膨年增 3.3% 令 Fed 主席華許陷政策兩難、12 月仍有升息壓力，華南金亦示警台美央行年底前不排除升息，緊盯美債殖利率反彈風險。",
-      "💾 AI 記憶體缺貨燒到 2028 年：AI 資料中心搶爆 DRAM／儲存產能（部分晶片年漲 10 倍），強勢利多群聯與 AI 材料鏈；但荷蘭阻擋 ASML 對中出口、BIS 卡關輝達交期與美國 301 關稅（台擬議最高 15%）讓硬體震盪加劇。",
-      "🥶 社群情緒反指標：PTT 股版偏多度急凍至 0%（連 20 年老手都喊「這兩週最刺激」、信用統計衝上爆文），屬短線清洗浮額低點訊號；Reddit 美股散戶長假縮手，3 倍半導體 $SOXL 熱度暴跌 80%、資金討論轉向全球 ETF $VT (+25%)。",
-      "🤖 矽谷 AI 風向轉向控管成本：HN 熱議 OpenAI 進入「成本控管模式」與 OpenRouter 替代品 Moat，同時 Anthropic 破發與 OpenAI IPO 賣壓浮現，開發者從無腦燒錢轉向精算推論成本。",
-      "🔐 資安與台美時事焦點：1Password 驚傳後端遭入侵（源碼與客戶資料被盜）、2026 Web3 駭客頻傳；美眾議院推進戰略比特幣儲備法案（20 年不得出售 BTC），台灣週末急凍探 12°C 迎九合一投票日。"
+      "📈 【台美股與供應鏈焦點】友達華亞廠找到新買家 售予矽品處分利益估104億元（來源：鉅亨網 cnyes）",
+      "🌐 【國際總經與政策風向】倫敦期銅盤中反彈近4%洋山溢價較高點降36%、上海庫存續增（來源：鉅亨網 cnyes）",
+      "💬 【PTT 股版散戶情緒】🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (20推)：[情報] 2646星宇航空 現增價15.5元（來源：PTT Stock 股版）",
+      "👽 【美股散戶社群熱度】熱榜冠軍 #1 $NVDA NVIDIA（175 則討論，24h -66%、#2 $SPY (101則)）（來源：Reddit WSB / r/stocks (ApeWisdom)）",
+      "🤖 【AI 科技與變現情報】AI 仍供不應求，主計總處估明年出口破 1 兆美元創新高（來源：科技新報 TechNews）"
     ],
     "div2StockImpact": "🔴 一級警戒 TLT ($82.24)：通膨 3.3% 與年底升息預期威脅債市，跌破 US$80.1 立即機械停損。🟢 正向催化 8299.TWO 群聯 & 3661.TW 世芯-KY：記憶體缺貨至 2028 支撐儲存族群，BIS 交期延長倒逼 CSP 加速自研 ASIC；3017.TW 奇鋐與 7 檔右側掛單（PLTR / 1560 / 3711 / 3665 / 2454 / ANET / 6223）嚴守收盤突破＋匯率／VIX 濾網。",
     "div1CashflowIdea": "① 開發「自託管 LLM API 路由與防爆成本閘道器」（切中 HN 熱榜 Moat + OpenAI Cost Control Mode + Minipg 單檔打包痛點，賣 $29~$79 買斷 / B2B 訂閱）；②「台廠 301 關稅 (15%) × BIS 合規試算＋DevSecOps 金鑰外洩雷達」輕量 SaaS（對應 1Password 入侵與台企導入 OpenAI 資安痛點）。",
@@ -267,6 +309,40 @@
         "source": "科技新報 TechNews",
         "time": "Fri, 27 Nov 2026 07:50",
         "tags": []
+      },
+      {
+        "title": "西班牙要求大型資料中心符合能源與水效率標準，強化AI算力基礎建設的永續監管",
+        "summary": "西班牙政府近期通過《Real Decreto 1032/2026》，以規範資料中心的能源永續、環境要求、韌性與數位主權條件，並由西班牙生態轉型與人口挑戰部（MITECO）公布相關內容。新的法規要求大型資料中心必須符合新的能源與環境標準，才能取得電網接入資格，適",
+        "url": "https://www.ithome.com.tw/news/180859",
+        "source": "iThome",
+        "time": "2026-11-27  06:11:32",
+        "tags": []
+      },
+      {
+        "title": "【資安週報】1123～1127，網銀盜轉手法曝光，第三方資訊服務供應商資安事件延燒至物流與電子發票服務",
+        "summary": "國內網銀交易安全近期備受關注，除了11月初永豐銀行異常轉帳事件，刑事局近日也公布其他網銀盜轉案件的調查進展，指出警方已受理逾百起案件，其中部分案件涉及民眾從非官方管道下載偽冒短劇App，歹徒藉此散布Android木馬，濫用無障礙權限盜轉存款；刑事局另揭露詐騙集",
+        "url": "https://www.ithome.com.tw/news/180857",
+        "source": "iThome",
+        "time": "2026-11-27  04:11:04",
+        "tags": []
+      },
+      {
+        "title": "假求職測驗暗藏惡意NuGet套件，駭客藉開發人員應徵流程散布惡意軟體",
+        "summary": "資安公司Socket發現針對.NET開發人員的惡意程式散布活動，攻擊者偽造求職技術測驗，誘使應徵者下載GitHub專案，並使用Visual Studio建置、執行程式，進而利用惡意NuGet套件植入惡意程式。Socket總計發現13個惡意NuGet套件，分布於",
+        "url": "https://www.ithome.com.tw/news/180860",
+        "source": "iThome",
+        "time": "2026-11-27  04:11:49",
+        "tags": []
+      },
+      {
+        "title": "北韓駭客從事供應鏈攻擊PolinRider，污染逾375個GitHub儲存庫以散布惡意軟體",
+        "summary": "資安公司SafeDep於11月24日揭露，北韓駭客從事名為PolinRider的惡意軟體攻擊活動近期出現變化，開始將攻擊範圍擴大至Python專案，駭客透過竄改GitHub儲存庫，植入惡意Python載入程式，並利用以太坊區塊鏈交易資料傳遞JavaScript",
+        "url": "https://www.ithome.com.tw/news/180858",
+        "source": "iThome",
+        "time": "2026-11-27  04:11:03",
+        "tags": [
+          "TLT"
+        ]
       }
     ],
     "twTrendingCrypto": [
@@ -369,11 +445,39 @@
         "source": "X / Threads 社群熱議",
         "time": "Thu, 26 Nov 2026 05:37",
         "tags": []
+      },
+      {
+        "title": "川普力促黃仁勳復職、范斯介入給出保證，輝達董事會「周日提前告知白宮」",
+        "summary": "美國總統川普深度介入並促成輝達 CEO 黃仁勳復職。報導指出，川普透過指派副總統范斯協調，並由司法部保證黃仁勳無違法行為，以消除董事會對國家安全風險的顧慮。此次復職背後動機在於保護美國 AI 領先地位、支持開放權重模型以避免封閉模型壟斷，且受到馬斯克等矽谷人士",
+        "url": "https://hao.cnyes.com/post/279899",
+        "source": "鉅亨號",
+        "time": "Mon, 23 Nov 2026 16:52",
+        "tags": []
+      },
+      {
+        "title": "川普談仁勳大嘆氣 馬斯克質疑董事會決策",
+        "summary": "川普接受專訪時繼續力挺黃仁勳，稱讚他是一位非常出色的人才，做到了中國及其他人都無法模仿的事。當主持人問到黃仁勳應不應該下台時，川普長嘆了一口氣。川普指出，關鍵在於該名女子是否為間諜，目前他還不清楚此事是否已有定論。他認為，如果女子確實是間諜，那麼黃仁勳下台是應",
+        "url": "https://news.ebc.net.tw/news/business/580813",
+        "source": "東森新聞",
+        "time": "Sun, 15 Nov 2026 07:44",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳「王者歸來」馬斯克嗨翻! 祖克柏、貝佐斯為何不表態? 他解釋了",
+        "summary": "輝達創辦人黃仁勳因婚外情風波請辭，時隔11天重返執行長職位，消息一出，矽谷科技圈掀起一陣歡呼，不少人形容「王者歸來」，更有人將他比喻為耶穌基督。不過，相較於全球首富馬斯克（Elon Musk）、OpenAI執行長奧特曼（Sam Altman）高調慶祝，Meta",
+        "url": "https://www.msn.com/zh-tw/money/%E7%A7%91%E6%8A%80/%E9%BB%83%E4%BB%81%E5%8B%B3-%E7%8E%8B%E8%80%85%E6%AD%B8%E4%BE%86-%E9%A6%AC%E6%96%AF%E5%85%8B%E5%97%A8%E7%BF%BB-%E7%A5%96%E5%85%8B%E6%9F%8F-%E8%B2%9D%E4%BD%90%E6%96%AF%E7%82%BA%E4%BD%95%E4%B8%8D%E8%A1%A8%E6%85%8B-%E4%BB%96%E8%A7%A3%E9%87%8B%E4%BA%86/ar-AA2ilX4f",
+        "source": "鏡週刊 on MSN",
+        "time": "Fri, 27 Nov 2026 01:41",
+        "tags": [
+          "META"
+        ]
       }
     ]
   },
   "social": {
     "pttStock": {
+      "sourceName": "批踢踢實業坊 PTT Stock 股版",
+      "sourceUrl": "https://www.ptt.cc/bbs/Stock/index.html",
       "sentimentBullPct": 0,
       "sentimentLabel": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
       "hotPosts": [
