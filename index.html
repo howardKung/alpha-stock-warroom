@@ -226,7 +226,7 @@
     <!-- Navigation Tabs -->
     <div class="tabs">
       <button class="tab-btn active" data-tab="holdings">🎯 分析結果 vs 預期目標 vs 實際績效</button>
-      <button class="tab-btn" data-tab="boss">👑 大 Boss 台股 10 檔診斷雷達</button>
+      <button class="tab-btn tab-btn-news" data-tab="boss">👑 大 Boss 10 檔 PRO 處方箋</button>
       <button class="tab-btn" data-tab="daily">📅 每日投資結果報告 (Daily Reports)</button>
       <button class="tab-btn" data-tab="research">🏛️ 二部總經・供應鏈・風控研報摘要</button>
       <button class="tab-btn tab-btn-news" data-tab="news">📰 大 Boss 情報早報 ＆ 社群輿情站</button>
@@ -312,35 +312,52 @@
       </div>
     </section>
 
-    <!-- Tab 1.5: Boss 10 TW Watchlist Diagnostic Radar (Privacy-Safe) -->
+    <!-- Tab 1.5: Boss 10 TW Watchlist PRO Prescription & Diagnostic Radar -->
     <section id="tab-boss" class="hidden">
-      <div class="card" style="border-color: rgba(245, 158, 11, 0.45); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(40, 28, 12, 0.35));">
+      <div class="card" style="border-color: rgba(245, 158, 11, 0.55); background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(45, 28, 10, 0.42));">
         <div class="card-title">
-          <span>👑 大 Boss 台股 10 檔診斷雷達（常態技術追蹤 · 隱私保護去識別化公開版）</span>
-          <span id="boss-sync-badge" class="tag tag-gold">載入診斷雷達中...</span>
+          <span>👑 大 Boss 台股 10 檔 PRO 毒舌風控處方箋 ＆ 即時盯盤雷達</span>
+          <span id="boss-sync-badge" class="tag tag-gold">載入處方箋中...</span>
         </div>
-        <div id="boss-privacy-note" class="impact-box gold" style="margin-bottom: 12px;">
-          🛡️ <strong>隱私保護鐵律</strong>：公開戰情網僅呈現股票代號、名稱、盤中／收盤價位、漲跌幅、20MA/200MA 均線位階、關鍵防守價、反彈減碼／停利觀察價與二部即時操作建議，絕不揭露任何個人股數與台幣總損益金額。
-        </div>
+        <div id="boss-xray-box" style="margin-bottom: 14px;"></div>
         <div id="boss-summary-pills" class="bench-pills" style="margin-bottom: 14px;"></div>
-        <table>
-          <thead>
-            <tr>
-              <th>代號 / 名稱</th>
-              <th>產業定位</th>
-              <th class="num">最新市價</th>
-              <th class="num">當日漲跌%</th>
-              <th class="num">20MA 月線 (乖離%)</th>
-              <th class="num">200MA 年線 (乖離%)</th>
-              <th class="num">關鍵防守價</th>
-              <th class="num">減碼 / 停利觀察價</th>
-              <th>二部即時診斷與操作建議</th>
-            </tr>
-          </thead>
-          <tbody id="boss-watch-body"></tbody>
-        </table>
+
+        <!-- Quadrant Filter Pills -->
+        <div id="boss-quad-filters" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;">
+          <button class="tab-btn active" data-quad="ALL" style="padding:6px 12px; font-size:12px;">📋 全部 10 檔處方箋</button>
+          <button class="tab-btn" data-quad="Q1" style="padding:6px 12px; font-size:12px;">🟢 Q1 強勢領頭羊</button>
+          <button class="tab-btn" data-quad="Q2" style="padding:6px 12px; font-size:12px;">💰 Q2 獲利鎖利組</button>
+          <button class="tab-btn" data-quad="Q3" style="padding:6px 12px; font-size:12px;">🛡️ Q3 防禦／ETF組</button>
+          <button class="tab-btn" data-quad="Q4" style="padding:6px 12px; font-size:12px;">🚨 Q4 瘦身換股組</button>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>象限 / 標的</th>
+                <th class="num">最新市價 (今日%)</th>
+                <th class="num">20MA 月線</th>
+                <th>🛡️ 軌道 ①：下檔鐵血防守死線</th>
+                <th>🎯 軌道 ②：上檔反彈減碼／停利價</th>
+                <th>⚡ PRO 風控官一句話實戰處方箋</th>
+              </tr>
+            </thead>
+            <tbody id="boss-watch-body"></tbody>
+          </table>
+        </div>
       </div>
-      <div id="boss-cards-grid" class="grid-2"></div>
+
+      <div style="font-size:14px; font-weight:800; color:var(--gold); margin: 4px 0 10px;">🔎 逐檔財報籌碼 X 光診斷卡（TWSE Q3 財報 × 10 月營收 × 近 10 日外資投信籌碼）</div>
+      <div id="boss-cards-grid" class="grid-2" style="margin-bottom: 16px;"></div>
+
+      <div class="card" style="border-color: rgba(56, 189, 248, 0.45);">
+        <div class="card-title">
+          <span>🔄 資金活化三步曲（趁反彈抽回活水後之配置藍圖）</span>
+          <span class="tag">拒絕砍在恐慌地板 · 逢反彈分批汰弱換強</span>
+        </div>
+        <div id="boss-activation-box" class="grid-2"></div>
+      </div>
     </section>
 
     <!-- Tab 2: Daily Investment Reports -->
@@ -891,16 +908,30 @@
       renderNewsList("news-twcrypto-box", sec.twTrendingCrypto);
     }
 
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const target = btn.dataset.tab;
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
-        ["holdings", "boss", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
-      });
+    function activateMainTab(target) {
+      if (!["holdings", "boss", "daily", "research", "news"].includes(target)) return;
+      document.querySelectorAll(".tabs .tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === target));
+      ["holdings", "boss", "daily", "research", "news"].forEach(t => document.getElementById("tab-" + t).classList.toggle("hidden", t !== target));
+    }
+
+    document.querySelectorAll(".tabs .tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => activateMainTab(btn.dataset.tab));
     });
+
+    const urlTab = new URLSearchParams(window.location.search).get("tab");
+    if (urlTab) activateMainTab(urlTab);
 
     let BOSS_CFG = null;
     let PULSE_DATA = null;
+    let selectedQuad = "ALL";
+
+    document.querySelectorAll("#boss-quad-filters button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedQuad = btn.dataset.quad || "ALL";
+        document.querySelectorAll("#boss-quad-filters button").forEach(b => b.classList.toggle("active", b.dataset.quad === selectedQuad));
+        renderBossRadar();
+      });
+    });
 
     async function fetchJsonWithFallback(repoPath) {
       let res = await fetch(
@@ -914,10 +945,19 @@
       return await res.json();
     }
 
+    function quadColor(q) {
+      if (q === "Q1") return "#10b981";
+      if (q === "Q2") return "#f59e0b";
+      if (q === "Q3") return "#38bdf8";
+      return "#f87171";
+    }
+
     function renderBossRadar() {
       const tbody = document.getElementById("boss-watch-body");
       const cardsEl = document.getElementById("boss-cards-grid");
       const pillsEl = document.getElementById("boss-summary-pills");
+      const xrayEl = document.getElementById("boss-xray-box");
+      const actEl = document.getElementById("boss-activation-box");
       const badgeEl = document.getElementById("boss-sync-badge");
       if (!tbody || !cardsEl || !pillsEl) return;
 
@@ -925,8 +965,29 @@
       const advices = (PULSE_DATA && PULSE_DATA.bossWatchAdvices) || [];
       const advMap = new Map(advices.map(a => [a.symbol, a]));
 
+      if (xrayEl && BOSS_CFG?.portfolioXray) {
+        const xr = BOSS_CFG.portfolioXray;
+        xrayEl.innerHTML = `
+          <div class="impact-box gold">
+            <div style="font-size:13.5px; font-weight:800; color:#fef08a; margin-bottom:6px;">${escHtml(xr.headline || "")}</div>
+            <ul style="margin:0; padding-left:18px; color:#e2e8f0; font-size:12.5px; display:grid; gap:4px;">
+              ${(xr.bullets || []).map(b => `<li>${escHtml(b)}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (actEl && BOSS_CFG?.portfolioXray?.activationSteps) {
+        actEl.innerHTML = BOSS_CFG.portfolioXray.activationSteps.map(st => `
+          <div class="report-card" style="margin:0;">
+            <div style="font-weight:800; color:var(--gold); font-size:13px; margin-bottom:4px;">${escHtml(st.step)}</div>
+            <div style="font-size:12px; color:#cbd5e1; line-height:1.5;">${escHtml(st.desc)}</div>
+          </div>
+        `).join("");
+      }
+
       if (!items.length && !advices.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="color:var(--muted);">尚無追蹤清單資料</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="color:var(--muted);">尚無處方箋資料</td></tr>`;
         return;
       }
 
@@ -934,14 +995,15 @@
         const live = advMap.get(it.symbol) || {};
         const px = live.intradayPrice ?? null;
         const chg = live.dayChangePct ?? null;
-        const ma20 = Number(live.ma20 ?? it.ma20 ?? 0);
-        const ma200 = Number(live.ma200 ?? it.ma200 ?? 0);
+        const ma20 = Number(it.ma20 ?? live.ma20 ?? 0);
+        const ma200 = Number(it.ma200 ?? live.ma200 ?? 0);
         const vsMa20 = live.vsMa20Pct ?? (px && ma20 ? Number((((px - ma20) / ma20) * 100).toFixed(2)) : null);
-        const vsMa200 = live.vsMa200Pct ?? (px && ma200 ? Number((((px - ma200) / ma200) * 100).toFixed(2)) : null);
         return {
           symbol: it.symbol,
           code: it.code || live.code || String(it.symbol || "").split(".")[0],
           name: it.name || live.name || "",
+          quadrant: it.quadrant || "Q3",
+          quadrantLabel: it.quadrantLabel || "常態追蹤",
           sector: it.sector || live.sector || "",
           price: px,
           dayChangePct: chg,
@@ -949,96 +1011,112 @@
           ma50: Number(it.ma50 ?? live.ma50 ?? 0),
           ma200,
           vsMa20Pct: vsMa20,
-          vsMa200Pct: vsMa200,
-          defenseStop: Number(live.defenseStop ?? it.defenseStop ?? 0),
-          resistanceOrTrim: Number(live.resistanceOrTrim ?? it.resistanceOrTrim ?? 0),
-          badge: live.badge || "📡 等待盤中即時報價",
+          defenseStop: Number(it.defenseStop ?? live.defenseStop ?? 0),
+          defenseDetail: it.defenseDetail || String(it.defenseStop || ""),
+          resistanceOrTrim: Number(it.resistanceOrTrim ?? live.resistanceOrTrim ?? 0),
+          trimDetail: it.trimDetail || String(it.resistanceOrTrim || ""),
+          fundamentalXray: it.fundamentalXray || "",
+          croOneLiner: it.croOneLiner || it.tacticalNote || "",
+          badge: live.badge || "📡 雙軌盯盤中",
           advice: live.advice || it.tacticalNote || "",
-          tacticalNote: it.tacticalNote || "",
           priority: live.priority ?? 4,
         };
       });
 
       const aboveMa20Cnt = merged.filter(x => x.price && x.ma20 && x.price >= x.ma20).length;
-      const alertCnt = merged.filter(x => x.priority === 1).length;
+      const alertCnt = merged.filter(x => x.priority <= 2).length;
       const upCnt = merged.filter(x => x.dayChangePct !== null && x.dayChangePct > 0).length;
       const bestMover = merged.slice().sort((a, b) => (b.dayChangePct ?? -999) - (a.dayChangePct ?? -999))[0];
 
       if (badgeEl) {
         badgeEl.textContent = PULSE_DATA && PULSE_DATA.updatedAt
-          ? `即時報價：${PULSE_DATA.updatedAt}`
-          : `基準更新：${(BOSS_CFG && BOSS_CFG.updatedAt) || "--"}`;
+          ? `盤中即時對照：${PULSE_DATA.updatedAt}`
+          : `處方簽核：${(BOSS_CFG && BOSS_CFG.updatedAt) || "--"}`;
       }
 
       pillsEl.innerHTML = `
         <div class="bench-pill">
-          <div class="bench-pill-label">📊 常態追蹤總檔數</div>
-          <div class="bench-pill-val" style="color:var(--gold);">${merged.length} 檔台股</div>
+          <div class="bench-pill-label">🟢 站上 20MA 月線領頭羊</div>
+          <div class="bench-pill-val" style="color:#10b981;">${aboveMa20Cnt} / ${merged.length} 檔（8112 至上）</div>
         </div>
         <div class="bench-pill">
-          <div class="bench-pill-label">🟢 站上 20MA 月線檔數</div>
-          <div class="bench-pill-val" style="color:var(--primary);">${aboveMa20Cnt} / ${merged.length} 檔</div>
+          <div class="bench-pill-label">⚡ 貼近防守 / 減碼警戒區</div>
+          <div class="bench-pill-val" style="color:${alertCnt > 0 ? '#fbbf24' : '#34d399'};">${alertCnt} 檔重點盯盤</div>
         </div>
         <div class="bench-pill">
-          <div class="bench-pill-label">⚡ 觸及防守 / 壓力警戒</div>
-          <div class="bench-pill-val" style="color:${alertCnt > 0 ? '#f87171' : '#34d399'};">${alertCnt} 檔重點盯盤</div>
+          <div class="bench-pill-label">🔥 今日盤中紅盤強勢王</div>
+          <div class="bench-pill-val">${upCnt} 檔紅盤${bestMover && bestMover.dayChangePct !== null ? ` · ${escHtml(bestMover.code)} ${fmtPct(bestMover.dayChangePct)}` : ""}</div>
         </div>
         <div class="bench-pill">
-          <div class="bench-pill-label">🔥 今日盤中紅盤 / 強勢王</div>
-          <div class="bench-pill-val">${upCnt} 紅盤${bestMover && bestMover.dayChangePct !== null ? ` · ${escHtml(bestMover.code)} ${fmtPct(bestMover.dayChangePct)}` : ""}</div>
+          <div class="bench-pill-label">🛡️ 最高操作鐵律</div>
+          <div class="bench-pill-val" style="color:var(--gold); font-size:13px;">不砍阿呆谷 · 破底止血 / 彈月線瘦身</div>
         </div>
       `;
 
-      tbody.innerHTML = merged.map(b => {
+      const filtered = selectedQuad === "ALL" ? merged : merged.filter(x => x.quadrant === selectedQuad);
+
+      tbody.innerHTML = filtered.map(b => {
         const chgCls = b.dayChangePct === null ? "" : (b.dayChangePct >= 0 ? "pos" : "neg");
         const ma20Cls = b.vsMa20Pct === null ? "" : (b.vsMa20Pct >= 0 ? "pos" : "neg");
-        const ma200Cls = b.vsMa200Pct === null ? "" : (b.vsMa200Pct >= 0 ? "pos" : "neg");
+        const qCol = quadColor(b.quadrant);
+        const span = Math.max(0.01, b.resistanceOrTrim - b.defenseStop);
+        const posPct = b.price !== null ? Math.max(2, Math.min(98, ((b.price - b.defenseStop) / span) * 100)) : 50;
         return `
           <tr>
-            <td>
+            <td style="min-width:140px;">
+              <span class="tag" style="border:1px solid ${qCol}; color:${qCol}; font-weight:800; margin-bottom:3px;">${escHtml(b.quadrantLabel)}</span><br/>
               <strong>${escHtml(b.code)}</strong> · ${escHtml(b.name)}
-              <div style="font-size:11px; color:var(--muted);">${escHtml(b.symbol)}</div>
             </td>
-            <td style="max-width:210px; font-size:12px; color:#cbd5e1;">${escHtml(b.sector)}</td>
-            <td class="num"><strong>${b.price !== null ? b.price.toLocaleString() : "--"}</strong></td>
-            <td class="num ${chgCls}">${b.dayChangePct !== null ? fmtPct(b.dayChangePct) : "--"}</td>
-            <td class="num">
+            <td class="num" style="white-space:nowrap;">
+              <strong style="font-size:14px;">${b.price !== null ? b.price.toLocaleString() : "--"}</strong>
+              <div class="${chgCls}" style="font-size:11.5px;">${b.dayChangePct !== null ? fmtPct(b.dayChangePct) : "--"}</div>
+              <div class="prog-wrap" title="左端防守死線 ➔ 右端減碼/停利觀察價" style="margin-top:4px; background:#1e293b;">
+                <div class="prog-bar" style="width:${posPct}%; background:linear-gradient(90deg, #ef4444, #f59e0b, #10b981);"></div>
+              </div>
+            </td>
+            <td class="num" style="white-space:nowrap;">
               ${b.ma20 ? b.ma20.toLocaleString() : "--"}
               <div class="${ma20Cls}" style="font-size:11px;">${b.vsMa20Pct !== null ? fmtPct(b.vsMa20Pct) : "--"}</div>
             </td>
-            <td class="num">
-              ${b.ma200 ? b.ma200.toLocaleString() : "--"}
-              <div class="${ma200Cls}" style="font-size:11px;">${b.vsMa200Pct !== null ? fmtPct(b.vsMa200Pct) : "--"}</div>
+            <td style="min-width:190px; font-size:12px; color:#fca5a5;">
+              ${escHtml(b.defenseDetail)}
             </td>
-            <td class="num" style="color:#f87171;">${b.defenseStop ? b.defenseStop.toLocaleString() : "--"}</td>
-            <td class="num" style="color:var(--gold);">${b.resistanceOrTrim ? b.resistanceOrTrim.toLocaleString() : "--"}</td>
+            <td style="min-width:210px; font-size:12px; color:#fde68a;">
+              ${escHtml(b.trimDetail)}
+            </td>
             <td style="min-width:240px;">
-              <div style="font-weight:800; color:var(--gold); font-size:12px;">${escHtml(b.badge)}</div>
-              <div style="font-size:11.5px; color:#cbd5e1; margin-top:2px;">${escHtml(b.advice)}</div>
+              <div style="font-weight:800; color:#f8fafc; font-size:12.5px;">${escHtml(b.croOneLiner)}</div>
+              <div style="font-size:11.5px; color:var(--primary); margin-top:3px;">即時訊號：${escHtml(b.badge)}</div>
             </td>
           </tr>
         `;
       }).join("");
 
-      cardsEl.innerHTML = merged.map(b => {
+      cardsEl.innerHTML = filtered.map(b => {
         const chgCls = b.dayChangePct === null ? "" : (b.dayChangePct >= 0 ? "pos" : "neg");
+        const qCol = quadColor(b.quadrant);
         return `
-          <div class="card" style="margin-bottom:0;">
+          <div class="card" style="margin-bottom:0; border-left: 3px solid ${qCol};">
             <div class="card-title">
-              <span><strong>${escHtml(b.code)} ${escHtml(b.name)}</strong> <span class="tag">${escHtml(b.symbol)}</span></span>
+              <span><strong>${escHtml(b.code)} ${escHtml(b.name)}</strong> <span class="tag" style="color:${qCol}; border:1px solid ${qCol};">${escHtml(b.quadrantLabel)}</span></span>
               <span style="font-size:12px; font-weight:800; color:var(--gold);">${escHtml(b.badge)}</span>
             </div>
             <div style="font-size:12px; color:var(--muted); margin-bottom:6px;">${escHtml(b.sector)}</div>
-            <div style="font-family:ui-monospace, monospace; font-size:12px; margin-bottom:6px;">
+            <div style="font-family:ui-monospace, monospace; font-size:12.5px; margin-bottom:8px; background:#0b1220; padding:6px 10px; border-radius:6px;">
               現價 <strong>${b.price !== null ? b.price.toLocaleString() : "--"}</strong>
               (<span class="${chgCls}">${b.dayChangePct !== null ? fmtPct(b.dayChangePct) : "--"}</span>) ｜
-              月線 ${b.ma20} ｜ 年線 ${b.ma200}
+              20MA ${b.ma20} ｜ 50MA ${b.ma50} ｜ 200MA ${b.ma200}
             </div>
-            <div style="font-family:ui-monospace, monospace; font-size:12px; color:var(--primary); margin-bottom:6px;">
-              🛡️ 防守價 ${b.defenseStop} ｜ 🎯 減碼/停利觀察價 ${b.resistanceOrTrim}
+            <div style="font-size:12px; color:#fca5a5; margin-bottom:5px;">
+              <strong>🛡️ 下檔鐵血死線：</strong>${escHtml(b.defenseDetail)}
             </div>
-            <div style="font-size:12px; color:#e2e8f0;">${escHtml(b.advice)}</div>
-            ${b.tacticalNote && b.tacticalNote !== b.advice ? `<div style="font-size:11.5px; color:var(--muted); margin-top:4px;">📌 策略備註：${escHtml(b.tacticalNote)}</div>` : ""}
+            <div style="font-size:12px; color:#fde68a; margin-bottom:8px;">
+              <strong>🎯 上檔減碼／停利：</strong>${escHtml(b.trimDetail)}
+            </div>
+            <div class="impact-box" style="margin-bottom:8px; font-size:12px;">
+              <strong>🔬 財報＆法人籌碼 X 光：</strong>${escHtml(b.fundamentalXray)}
+            </div>
+            <div style="font-size:12.5px; font-weight:700; color:#ffffff;">⚡ PRO 處方箋：${escHtml(b.croOneLiner)}</div>
           </div>
         `;
       }).join("");
