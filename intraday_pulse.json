@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-11-28 06:19:18 (台灣時間)",
-  "updatedEpochMs": 1795817958895,
+  "updatedAt": "2026-11-28 06:28:41 (台灣時間)",
+  "updatedEpochMs": 1795818521995,
   "intervalMinutes": 20,
   "sessionCode": "OFF_HOURS",
   "checkpointLabel": "📡 盤中策略雷達快照",
@@ -414,8 +414,22 @@
   ],
   "scanHistoryToday": {
     "date": "2026-11-28",
-    "totalRuns": 1,
+    "totalRuns": 2,
     "runs": [
+      {
+        "time": "06:28:41",
+        "label": "📡 盤中策略雷達快照",
+        "twiiPrice": 39308.08,
+        "twiiChangePct": 2.91,
+        "navTwd": 993146,
+        "alphaPct": -0.06,
+        "quotesChecked": 26,
+        "tradesCount": 0,
+        "activeBossSignals": 0,
+        "newBossSignals": 0,
+        "tgPushed": true,
+        "note": "📡 整點／關鍵哨推播完畢｜巡檢 26 檔即時報價"
+      },
       {
         "time": "06:19:18",
         "label": "📡 盤中策略雷達快照",
