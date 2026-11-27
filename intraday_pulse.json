@@ -1,31 +1,21 @@
 {
-  "updatedAt": "2026-11-27 22:40:32 (台灣時間)",
-  "updatedEpochMs": 1795790432113,
+  "updatedAt": "2026-11-28 06:19:18 (台灣時間)",
+  "updatedEpochMs": 1795817958895,
   "intervalMinutes": 20,
-  "sessionCode": "US_QUIET_SCAN",
-  "checkpointLabel": "🔎 美股盤中 20m 巡檢撮合 (22:40)",
-  "overallStrategy": "🎯 盤中浮現 1 檔大 Boss 可執行買賣／防守訊號，請查看建議明細！",
+  "sessionCode": "OFF_HOURS",
+  "checkpointLabel": "📡 盤中策略雷達快照",
+  "overallStrategy": "🔥 大盤盤中強勢 (+2.91%)，強勢股續抱讓獲利奔跑，留意突破好球帶買點！",
   "executedTrades": [],
-  "bossActionableSignals": [
-    {
-      "key": "NEWBUY:PLTR:NEAR",
-      "type": "👀 新買進逼近好球帶",
-      "title": "PLTR Palantir Technologies 現價 165.51（距買點 167.5 僅差 1.2%）",
-      "detail": "現價 165.51（+1.18%）距右側突破價 167.5 僅差 1.2%！隨時可能點火攻關，列入今日頭號觀察名單。"
-    }
-  ],
+  "bossActionableSignals": [],
   "alertedToday": {
-    "date": "2026-11-27",
-    "keys": [
-      "BOSS:8112:PULLBACK_ADD",
-      "NEWBUY:PLTR:NEAR"
-    ]
+    "date": "2026-11-28",
+    "keys": []
   },
   "fundLiveSummary": {
-    "navTwd": 992814,
-    "totalReturnPct": -0.72,
-    "alphaVs0050Pct": -0.09,
-    "cashTwd": 321347
+    "navTwd": 993146,
+    "totalReturnPct": -0.69,
+    "alphaVs0050Pct": -0.06,
+    "cashTwd": 264908
   },
   "marketPulse": {
     "twiiPrice": 39308.08,
@@ -33,9 +23,24 @@
     "tw0050Price": 92.4,
     "tw0050ChangePct": -0.48,
     "usdTwd": 32.98,
-    "vix": 25.99
+    "vix": 23.81
   },
   "positionAdvices": [
+    {
+      "symbol": "TLT",
+      "name": "iShares 20+Y Treasury",
+      "market": "US_ETF",
+      "entryPrice": 82.24,
+      "intradayPrice": 81.27,
+      "dayChangePct": -1.18,
+      "pnlFromEntryPct": -1.18,
+      "stopLoss": 80.1,
+      "targetPrice": 88.5,
+      "distToStopPct": 1.44,
+      "badge": "🟠 逼近防守線",
+      "advice": "距停損價 80.1 僅剩 1.44%，盤中嚴禁逢低攤平加碼，觀察尾盤低檔承接力道。",
+      "priority": 2
+    },
     {
       "symbol": "3017.TW",
       "name": "奇鋐",
@@ -101,49 +106,33 @@
       "name": "Meta Platforms",
       "market": "US",
       "entryPrice": 609.89,
-      "intradayPrice": 624.42,
-      "dayChangePct": 2.38,
-      "pnlFromEntryPct": 2.38,
+      "intradayPrice": 628.96,
+      "dayChangePct": 3.13,
+      "pnlFromEntryPct": 3.13,
       "stopLoss": 584.0,
       "targetPrice": 715.0,
-      "distToStopPct": 6.47,
-      "badge": "🔵 正常震盪・紀律續抱",
-      "advice": "盤中 +2.38% 溫和整理，距停損 584.0 尚有 6.47% 安全緩衝，維持原計畫續抱。",
+      "distToStopPct": 7.15,
+      "badge": "🟢 強於大盤・安心續抱",
+      "advice": "盤中 +3.13% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 584.0）。",
       "priority": 4
     },
-    {
-      "symbol": "TLT",
-      "name": "iShares 20+Y Treasury",
-      "market": "US_ETF",
-      "entryPrice": 82.24,
-      "intradayPrice": 81.91,
-      "dayChangePct": -0.4,
-      "pnlFromEntryPct": -0.4,
-      "stopLoss": 80.1,
-      "targetPrice": 88.5,
-      "distToStopPct": 2.21,
-      "badge": "🔵 正常震盪・紀律續抱",
-      "advice": "盤中 -0.40% 溫和整理，距停損 80.1 尚有 2.21% 安全緩衝，維持原計畫續抱。",
-      "priority": 4
-    }
-  ],
-  "watchlistAdvices": [
     {
       "symbol": "PLTR",
       "name": "Palantir Technologies",
       "market": "US",
-      "intradayPrice": 165.51,
-      "dayChangePct": 1.18,
-      "breakoutBuyAbove": 167.5,
-      "pullbackBuyBelow": null,
-      "gapToTriggerPct": 1.2,
-      "shares": 10,
+      "entryPrice": 170.91,
+      "intradayPrice": 172.17,
+      "dayChangePct": 5.24,
+      "pnlFromEntryPct": 0.74,
       "stopLoss": 157.5,
       "targetPrice": 198.0,
-      "badge": "👀 兵臨城下・重點盯盤",
-      "advice": "現價 165.51（+1.18%）距右側突破價 167.5 僅差 1.2%！隨時可能點火攻關，列入今日頭號觀察名單。",
-      "priority": 2
-    },
+      "distToStopPct": 8.52,
+      "badge": "🟢 強於大盤・安心續抱",
+      "advice": "盤中 +5.24% 表現優於／穩於大盤，多方結構穩健，續抱讓獲利奔跑（防守線守 157.5）。",
+      "priority": 4
+    }
+  ],
+  "watchlistAdvices": [
     {
       "symbol": "2454.TW",
       "name": "聯發科",
@@ -159,6 +148,22 @@
       "badge": "👀 兵臨城下・重點盯盤",
       "advice": "現價 3680.0（-0.67%）距右側突破價 3780.0 僅差 2.72%！隨時可能點火攻關，列入今日頭號觀察名單。",
       "priority": 2
+    },
+    {
+      "symbol": "ANET",
+      "name": "Arista Networks",
+      "market": "US",
+      "intradayPrice": 174.73,
+      "dayChangePct": 6.55,
+      "breakoutBuyAbove": 181.5,
+      "pullbackBuyBelow": null,
+      "gapToTriggerPct": 3.87,
+      "shares": 9,
+      "stopLoss": 170.0,
+      "targetPrice": 212.0,
+      "badge": "⏳ 尚未進射程・觀望",
+      "advice": "現價 174.73（+6.55%）距突破門檻 181.5 尚差 3.87%，靜待右側轉強，盤中不摸底。",
+      "priority": 4
     },
     {
       "symbol": "1560.TW",
@@ -190,22 +195,6 @@
       "targetPrice": 4950.0,
       "badge": "⏳ 尚未進射程・觀望",
       "advice": "現價 3930.0（-4.50%）距突破門檻 4200.0 尚差 6.87%，靜待右側轉強，盤中不摸底。",
-      "priority": 4
-    },
-    {
-      "symbol": "ANET",
-      "name": "Arista Networks",
-      "market": "US",
-      "intradayPrice": 168.08,
-      "dayChangePct": 2.5,
-      "breakoutBuyAbove": 181.5,
-      "pullbackBuyBelow": null,
-      "gapToTriggerPct": 7.98,
-      "shares": 9,
-      "stopLoss": 170.0,
-      "targetPrice": 212.0,
-      "badge": "⏳ 尚未進射程・觀望",
-      "advice": "現價 168.08（+2.50%）距突破門檻 181.5 尚差 7.98%，靜待右側轉強，盤中不摸底。",
       "priority": 4
     },
     {
@@ -424,50 +413,22 @@
     }
   ],
   "scanHistoryToday": {
-    "date": "2026-11-27",
-    "totalRuns": 3,
+    "date": "2026-11-28",
+    "totalRuns": 1,
     "runs": [
       {
-        "time": "22:40:32",
-        "label": "🔎 美股盤中 20m 巡檢撮合 (22:40)",
+        "time": "06:19:18",
+        "label": "📡 盤中策略雷達快照",
         "twiiPrice": 39308.08,
         "twiiChangePct": 2.91,
-        "navTwd": 992814,
-        "alphaPct": -0.09,
-        "quotesChecked": 26,
-        "tradesCount": 0,
-        "activeBossSignals": 1,
-        "newBossSignals": 1,
-        "tgPushed": true,
-        "note": "🎯 觸發 1 筆新買賣建議（PLTR Palantir Technologies 現價 165.51（距買點 167.5 僅差 1.2%））"
-      },
-      {
-        "time": "22:00:12",
-        "label": "🔎 美股盤中 20m 巡檢撮合 (22:00)",
-        "twiiPrice": 39308.08,
-        "twiiChangePct": 2.91,
-        "navTwd": 990690,
-        "alphaPct": -0.3,
+        "navTwd": 993146,
+        "alphaPct": -0.06,
         "quotesChecked": 26,
         "tradesCount": 0,
         "activeBossSignals": 0,
         "newBossSignals": 0,
-        "tgPushed": false,
-        "note": "✅ 巡檢 26 檔報價正常｜無新增訊號（靜默更新網頁，不洗版 TG）"
-      },
-      {
-        "time": "12:12:33",
-        "label": "🔎 台股盤中 20m 巡檢撮合 (12:12)",
-        "twiiPrice": 39387.68,
-        "twiiChangePct": 3.12,
-        "navTwd": 995740,
-        "alphaPct": -0.13,
-        "quotesChecked": 26,
-        "tradesCount": 0,
-        "activeBossSignals": 1,
-        "newBossSignals": 0,
-        "tgPushed": false,
-        "note": "✅ 巡檢 26 檔報價正常｜無新增訊號（靜默更新網頁，不洗版 TG）"
+        "tgPushed": true,
+        "note": "📡 整點／關鍵哨推播完畢｜巡檢 26 檔即時報價"
       }
     ]
   }
