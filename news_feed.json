@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-27 11:43:39 (台灣時間)",
+  "lastUpdated": "2026-11-27 16:28:54 (台灣時間)",
   "executiveBrief": {
     "updatedAt": "2026-11-27 06:50:00 (台灣時間)",
     "boss3MinTakeaways": [
@@ -12,18 +12,39 @@
     "div2StockImpact": "🔴 一級警戒 TLT ($82.24)：通膨 3.3% 與年底升息預期威脅債市，跌破 US$80.1 立即機械停損。🟢 正向催化 8299.TWO 群聯 & 3661.TW 世芯-KY：記憶體缺貨至 2028 支撐儲存族群，BIS 交期延長倒逼 CSP 加速自研 ASIC；3017.TW 奇鋐與 7 檔右側掛單（PLTR / 1560 / 3711 / 3665 / 2454 / ANET / 6223）嚴守收盤突破＋匯率／VIX 濾網。",
     "div1CashflowIdea": "① 開發「自託管 LLM API 路由與防爆成本閘道器」（切中 HN 熱榜 Moat + OpenAI Cost Control Mode + Minipg 單檔打包痛點，賣 $29~$79 買斷 / B2B 訂閱）；②「台廠 301 關稅 (15%) × BIS 合規試算＋DevSecOps 金鑰外洩雷達」輕量 SaaS（對應 1Password 入侵與台企導入 OpenAI 資安痛點）。",
     "livePulse": {
-      "topMarketHeadline": "台股選前39,000點拉鋸！川普曬半導體投資、台積電美廠活動倒數",
+      "topMarketHeadline": "台積電法說遇輝達財報 AI行情的關鍵48小時 MSCI半年度調整出爐 AI伺服器供電散熱誰最強？緯穎台達電奇鋐雙鴻11月17至18日法說見真章 ...",
       "pttSentiment": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
-      "topPttPost": "[新聞] 法人研判 台股最壞情況已過",
-      "topRedditTicker": "$NVDA (160 則討論 / 24h -72%)"
+      "topPttPost": "[情報] 1127 上市外資買賣超排行",
+      "topRedditTicker": "$NVDA (161 則討論 / 24h -71%)"
     }
   },
   "sections": {
     "marketAndAi": [
       {
+        "title": "台積電法說遇輝達財報 AI行情的關鍵48小時 MSCI半年度調整出爐 AI伺服器供電散熱誰最強？緯穎台達電奇鋐雙鴻11月17至18日法說見真章 ...",
+        "summary": "本周【投資早知道】聚焦在台積電法說遇輝達財報，AI行情的關鍵48小時；MSCI半年度調整出爐，11月30日前3升4降，哪些股要動？AI伺服器供電散熱誰最強？緯穎台達電奇鋐雙鴻11月17至18日法說見真章；以及油價連8凍漲！中油11月16日再宣布持平。",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2f%25E5%258F%25B0%25E7%25A9%258D%25E9%259B%25BB%25E6%25B3%2595%25E8%25AA%25AA%25E9%2581%2587%25E8%25BC%259D%25E9%2581%2594%25E8%25B2%25A1%25E5%25A0%25B1-ai%25E8%25A1%258C%25E6%2583%2585%25E7%259A%2584%25E9%2597%259C%25E9%258D%25B548%25E5%25B0%258F%25E6%2599%2582-msci%25E5%258D%258A%25E5%25B9%25B4%25E5%25BA%25A6%25E8%25AA%25BF%25E6%2595%25B4%25E5%2587%25BA%25E7%2588%2590-ai%25E4%25BC%25BA%25E6%259C%258D%25E5%2599%25A8%25E4%25BE%259B%25E9%259B%25BB%25E6%2595%25A3%25E7%2586%25B1%25E8%25AA%25B0%25E6%259C%2580%25E5%25BC%25B7%25EF%25BC%259F%25E7%25B7%25AF%25E7%25A9%258E%25E5%258F%25B0%25E9%2581%2594%25E9%259B%25BB%25E5%25A5%2587%25E9%258B%2590%25E9%259B%2599%25E9%25B4%25BB11%25E6%259C%258817%25E8%2587%25B318%25E6%2597%25A5%25E6%25B3%2595%25E8%25AA%25AA%25E8%25A6%258B%25E7%259C%259F%25E7%25AB%25A0-%25E4%25B8%25AD%25E6%25B2%25B9%25E6%25B2%25B9%25E5%2583%25B9%25E9%2580%25A38%25E5%2587%258D%25E6%25BC%25B2%25EF%25BD%259C%25E6%258A%2595%25E8%25B3%2587%25E6%2597%25A9%25E7%259F%25A5%25E9%2581%2593-131833690.html&c=8885814247928917843&mkt=zh-tw",
+        "source": "AI 供應鏈追蹤",
+        "time": "Sat, 14 Nov 2026 05:18",
+        "tags": [
+          "3017.TW",
+          "0050.TW"
+        ]
+      },
+      {
+        "title": "輝達風暴牽連台股狂瀉2635點 AI供應鏈成重災區台積電失守2300元",
+        "summary": "輝達（NVIDIA）創辦人黃仁勳辭任執行長引發的市場震盪持續延燒，加上美國半導體股重挫、通膨升溫及利率疑慮，台股今日遭遇新一波恐慌性賣壓。加權指數盤狂寫2635點，寫下史上第二大跌點，面臨41000保衛戰，AI伺服器、散熱、PCB、IC載板及半導體族群全面遭到",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5607%2f9881766&c=12280023467230461101&mkt=zh-tw",
+        "source": "AI 供應鏈追蹤",
+        "time": "Mon, 16 Nov 2026 06:45",
+        "tags": [
+          "0050.TW"
+        ]
+      },
+      {
         "title": "台股選前39,000點拉鋸！川普曬半導體投資、台積電美廠活動倒數",
         "summary": "美股因感恩節休市，台股27日又逢選前最後交易日及周五，早盤多空交戰，加權指數一度跌破39,000點，隨後拉回平盤附近。早盤目前指數報39,261點、小漲112點，台積電（2330）、聯發科（2454）、日月光投控（3711）撐盤，市場同時關注川普最新談話，以及",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5607%2f9905192&c=12870589118153955770&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5607%2f9905192&c=12870589118153955770&mkt=zh-tw",
         "source": "AI 供應鏈追蹤",
         "time": "Thu, 26 Nov 2026 12:21",
         "tags": [
@@ -33,40 +54,9 @@
         ]
       },
       {
-        "title": "輝達風暴牽連台股狂瀉2635點 AI供應鏈成重災區台積電失守2300元",
-        "summary": "輝達（NVIDIA）創辦人黃仁勳辭任執行長引發的市場震盪持續延燒，加上美國半導體股重挫、通膨升溫及利率疑慮，台股今日遭遇新一波恐慌性賣壓。加權指數盤狂寫2635點，寫下史上第二大跌點，面臨41000保衛戰，AI伺服器、散熱、PCB、IC載板及半導體族群全面遭到",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5607%2f9881766&c=12280023467230461101&mkt=zh-tw",
-        "source": "AI 供應鏈追蹤",
-        "time": "Mon, 16 Nov 2026 06:45",
-        "tags": [
-          "0050.TW"
-        ]
-      },
-      {
-        "title": "台積電法說遇輝達財報 AI行情的關鍵48小時 MSCI半年度調整出爐 AI伺服器供電散熱誰最強？緯穎台達電奇鋐雙鴻11月17至18日法說見真章 ...",
-        "summary": "本周【投資早知道】聚焦在台積電法說遇輝達財報，AI行情的關鍵48小時；MSCI半年度調整出爐，11月30日前3升4降，哪些股要動？AI伺服器供電散熱誰最強？緯穎台達電奇鋐雙鴻11月17至18日法說見真章；以及油價連8凍漲！中油11月16日再宣布持平。",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2f%25E5%258F%25B0%25E7%25A9%258D%25E9%259B%25BB%25E6%25B3%2595%25E8%25AA%25AA%25E9%2581%2587%25E8%25BC%259D%25E9%2581%2594%25E8%25B2%25A1%25E5%25A0%25B1-ai%25E8%25A1%258C%25E6%2583%2585%25E7%259A%2584%25E9%2597%259C%25E9%258D%25B548%25E5%25B0%258F%25E6%2599%2582-msci%25E5%258D%258A%25E5%25B9%25B4%25E5%25BA%25A6%25E8%25AA%25BF%25E6%2595%25B4%25E5%2587%25BA%25E7%2588%2590-ai%25E4%25BC%25BA%25E6%259C%258D%25E5%2599%25A8%25E4%25BE%259B%25E9%259B%25BB%25E6%2595%25A3%25E7%2586%25B1%25E8%25AA%25B0%25E6%259C%2580%25E5%25BC%25B7%25EF%25BC%259F%25E7%25B7%25AF%25E7%25A9%258E%25E5%258F%25B0%25E9%2581%2594%25E9%259B%25BB%25E5%25A5%2587%25E9%258B%2590%25E9%259B%2599%25E9%25B4%25BB11%25E6%259C%258817%25E8%2587%25B318%25E6%2597%25A5%25E6%25B3%2595%25E8%25AA%25AA%25E8%25A6%258B%25E7%259C%259F%25E7%25AB%25A0-%25E4%25B8%25AD%25E6%25B2%25B9%25E6%25B2%25B9%25E5%2583%25B9%25E9%2580%25A38%25E5%2587%258D%25E6%25BC%25B2%25EF%25BD%259C%25E6%258A%2595%25E8%25B3%2587%25E6%2597%25A9%25E7%259F%25A5%25E9%2581%2593-131833690.html&c=8885814247928917843&mkt=zh-tw",
-        "source": "AI 供應鏈追蹤",
-        "time": "Sat, 14 Nov 2026 05:18",
-        "tags": [
-          "3017.TW",
-          "0050.TW"
-        ]
-      },
-      {
-        "title": "台積電CoWoS優勢再擴大 法人維持強力買進",
-        "summary": "Newtalk新聞 台股產業輪動持續，AI需求仍是市場關注焦點，從半導體先進封裝、IC設計、被動元件，到衛星通訊與AI資料中心，相關供應鏈陸續迎來新成長契機。 國泰證期顧問最新盤點指出，儒鴻受惠產品組合優化及產能擴充，東元、長榮航太受惠海外工程與航空維修需求升",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2fwww.msn.com%2fzh-tw%2fmoney%2ftopstories%2f%25E5%258F%25B0%25E7%25A9%258D%25E9%259B%25BBcowos%25E5%2584%25AA%25E5%258B%25A2%25E5%2586%258D%25E6%2593%25B4%25E5%25A4%25A7-%25E6%25B3%2595%25E4%25BA%25BA%25E7%25B6%25AD%25E6%258C%2581%25E5%25BC%25B7%25E5%258A%259B%25E8%25B2%25B7%25E9%2580%25B2%2far-AA2ikkiK&c=2455412419192551861&mkt=zh-tw",
-        "source": "AI 供應鏈追蹤",
-        "time": "Thu, 26 Nov 2026 19:01",
-        "tags": [
-          "0050.TW"
-        ]
-      },
-      {
         "title": "沒有黃仁勳的輝達 擴大美國製造會讓台廠掉單？專家解析3種情境、7大環節",
         "summary": "台灣半導體產業不只有台積電，而是過去三十年累積的強大生態鏈。從矽晶圓、光罩、高階特用化學品到後段測試設備，這需要龐大的中小企業群支援。台積電或許能吸收赴美建廠的成本，但規模較小的本土設備與材料供應商在美國落地幾乎沒有成本競爭力。",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2fwww.ctee.com.tw%2fnews%2f20261121700012-430502&c=1166426077123737130&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2fwww.ctee.com.tw%2fnews%2f20261121700012-430502&c=1166426077123737130&mkt=zh-tw",
         "source": "AI 供應鏈追蹤",
         "time": "Fri, 20 Nov 2026 22:58",
         "tags": [
@@ -76,7 +66,7 @@
       {
         "title": "黃仁勳離開輝達台北總部還保得住？曾獻瑩揭台灣不會被取代的優勢",
         "summary": "輝達（NVIDIA）創辦人黃仁勳請辭執行長，引發外界關注台北總部計畫是否生變的疑慮。曾任台積電工程師的台北市議員曾獻瑩接受廣播專訪時指出，輝達選擇台北，關鍵在於台灣完整的半導體供應鏈，以及與台積電密切合作的需求。他研判，即使未來更換執行長，輝達撤出台北的機率仍",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc70394342469fd056a20d759f92&url=https%3a%2f%2fwww.chinatimes.com%2frealtimenews%2f20261121003389-260407&c=15640145186377339613&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2fwww.chinatimes.com%2frealtimenews%2f20261121003389-260407&c=15640145186377339613&mkt=zh-tw",
         "source": "AI 供應鏈追蹤",
         "time": "Sat, 21 Nov 2026 07:35",
         "tags": [
@@ -84,273 +74,258 @@
         ]
       },
       {
-        "title": "〈房產〉小宅化+囤房稅效應 全台一人宅暴增62.8萬以台中增幅最大",
-        "summary": "全台第二季一人宅達261.8萬宅，較2022年同期增62.8萬宅，占比升至32.6%。 六都以台中市增約10.5萬宅最多；新北市52.1萬宅、占比35.2%居六都之冠。 業者指少子化、房價高與囤房稅等，推升小宅化與一人宅，購屋族須留意同質性過高。",
-        "url": "https://news.cnyes.com/news/id/6673587",
-        "source": "鉅亨網",
-        "time": "11-27 11:18",
-        "tags": []
-      },
-      {
-        "title": "〈台股開盤〉台積電扮演撐盤神山 領台股盤中一度漲逾300點收復10日線",
-        "summary": "台股今開盤多空震盪，一度大跌261點後翻紅，盤中暫報39,263點漲111點，震幅逾500點、成交量估7,022億元。 台積電漲1.4%站回10日線，鴻海、日月光投控、聯發科翻紅；信驊受庫藏股帶動漲2.8%以上，權值股漲跌互見。 散熱與低軌衛星族群走強，健策、奇鋐、萊德光電-KY",
-        "url": "https://news.cnyes.com/news/id/6673590",
-        "source": "鉅亨網",
-        "time": "11-27 11:18",
+        "title": "半導體股拋售潮是買點？外媒點名5檔趁崩跌布局：台積電上榜",
+        "summary": "台股本波最低殺至46163點，相較10月初創下49968.92點歷史新高點位，已大幅回檔逾3800點，尤其半導體類股承受龐大賣壓。外媒《The Motley Fool》撰文指出，近期部分半導體股票浮現逢低布局的機會，並點名以下5檔值得 ...",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51cd6d4012821544b94e5e859f&url=https%3a%2f%2fwww.chinatimes.com%2frealtimenews%2f20261021002442-260410&c=3340212055064756987&mkt=zh-tw",
+        "source": "AI 供應鏈追蹤",
+        "time": "Tue, 20 Oct 2026 21:35",
         "tags": [
-          "3017.TW",
-          "0050.TW",
-          "3711.TW"
+          "0050.TW"
         ]
       },
       {
-        "title": "〈房產〉全台十大重劃區待售案量拉警報壓力也大 這個縣市最受考驗",
-        "summary": "全台前十大待售重劃區預售、新成屋待售量達2.2萬戶，近200案在線銷售。 桃園客運園區待售2,911戶居首，高雄大學特區2,895戶居次，皆面臨去化壓力。 淡海、林口、二重、A20、A7、草漯與台中捷運機廠、十三期也上榜，低價紅利消退後買氣轉趨保守。",
-        "url": "https://news.cnyes.com/news/id/6673574",
+        "title": "量縮至6千億遇十日線反壓！大漲卻不見融資追價，12月行情藏了什麼玄機？",
+        "summary": "台股終場漲156.27點收39308.08點，成交金額縮至6661億元，量縮消化十日線反壓。 上市融資餘額僅增3.46億元，籌碼沉澱；12月季節性上漲機率較高，有利反彈延續。 AWS供應鏈智邦、貿聯-KY、世芯-KY、金像電高檔換手，資金轉向低位階補漲股。",
+        "url": "https://news.cnyes.com/news/id/6673830",
         "source": "鉅亨網",
-        "time": "11-27 11:03",
-        "tags": []
-      },
-      {
-        "title": "台灣11月消費者信心、投資股票信心均降至3個月來低",
-        "summary": "台灣11月消費者信心指數CCI為65.91點，月減0.36點，降至3個月低點。 六項分項中僅投資股票時機下滑至32.86點，月減3.0點，反映台股大幅修正壓抑市場信心。 未來半年物價、就業、家庭經濟與國內景氣指標皆上升，顯示通膨預期緩和。",
-        "url": "https://news.cnyes.com/news/id/6673575",
-        "source": "鉅亨網",
-        "time": "11-27 11:02",
-        "tags": []
-      },
-      {
-        "title": "美AI晶片禁令升級！惠譽示警亞太AIDC融資趨緊 這類業者壓力最大",
-        "summary": "惠譽指美國收緊先進AI晶片與算力管制，亞太資料中心投資將放緩。 新雲端業者最受衝擊，晶片取得、終端用戶受限致營收能見度降、融資壓力升。 馬來西亞等東南亞專案恐分化，放款將更重視發起人、長約與客戶資格。",
-        "url": "https://news.cnyes.com/news/id/6673563",
-        "source": "鉅亨網",
-        "time": "11-27 10:52",
-        "tags": []
-      },
-      {
-        "title": "比特幣黃金先跌、股市慢半拍 策略師揭示這波資金退潮順序",
-        "summary": "霍威爾稱全球流動性已於2025年底見頂，資金轉向實體經濟與AI投資，金融市場恐已步入熊市。 他指比特幣今年初約12.5萬美元觸頂後已跌逾一半，黃金、白銀隨後回落，驗證資金退潮。 他看美債殖利率受企業融資需求推升，認為股市可能一路承壓至2027年上半年。",
-        "url": "https://news.cnyes.com/news/id/6673485",
-        "source": "鉅亨網",
-        "time": "11-27 11:10",
+        "time": "11-27 16:26",
         "tags": [
-          "TLT"
+          "3661.TW",
+          "3665.TW"
         ]
+      },
+      {
+        "title": "〈智邦法說〉AI重點筆記2026/11/27",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673829",
+        "source": "鉅亨網",
+        "time": "11-27 16:25",
+        "tags": []
+      },
+      {
+        "title": "一篇給融資新手與老手的教育文 融資維持率120% 新制的雙面刃",
+        "summary": "證交所11月24日起將信用交易追繳標準自130%降至120%，並取消新制前追繳紀錄、不處分擔保品。 此舉為1998年亞洲金融風暴後約28年再度動用，目的在緩解台股急跌下的融資追繳壓力。 專家提醒新制只是暫時措施，追繳緩衝增加但虧損可能放大，融資前應評估資金、停損與波動承受度。",
+        "url": "https://news.cnyes.com/news/id/6673824",
+        "source": "鉅亨網",
+        "time": "11-27 16:22",
+        "tags": []
+      },
+      {
+        "title": "〈智邦法說〉領先同業出貨1.6T全液冷交換器 明年灣區設研發中心卡位光通訊與800V商機",
+        "summary": "智邦今召開法說，揭露次世代藍圖，宣布今年初已領先同業出貨全液冷1.6T交換器系統。 明年將在美國舊金山灣區設全新先進研發實驗室，支援德州新廠並卡位液冷散熱、光通訊與800V高壓直流機櫃。 李國泰指CPO與NPO將並存，智邦並推進OCS、OWS及DPU/網卡驗證平台，強化AI資料中",
+        "url": "https://news.cnyes.com/news/id/6673825",
+        "source": "鉅亨網",
+        "time": "11-27 16:20",
+        "tags": []
+      },
+      {
+        "title": "〈國泰金法說〉國壽9、10月提前大減碼股票 股市震盪下淨值比仍穩守11.2%以上",
+        "summary": "國壽前9月新契約CSM 852億元、CSM餘額5,678億元，FYP達2,859億元、年增111%。 國壽前3季稅後純益601億元，保險服務結果321億元、財務結果517億元，對保留盈餘影響數1,741億元。 國壽9、10月提前減碼股票，11月股市回檔下淨值比仍達11.2%，TI",
+        "url": "https://news.cnyes.com/news/id/6673788",
+        "source": "鉅亨網",
+        "time": "11-27 16:16",
+        "tags": []
+      },
+      {
+        "title": "不是賣鏟人是地基！ASML執行長：AI資料中心取決於我司擴產速度 用「代差槓桿」綁住陸半導體",
+        "summary": "Fouquet稱ASML今年EUV產量較去年增50%，預計交付65台，明年目標上看80台以上 EUV擴產瓶頸在蔡司反射鏡、Cymer光源等先進光學供應鏈，需求看到2030年但交付跟不上 Fouquet反對對陸DUV禁運，稱EUV未交付中國、維護若禁將失控，陸EUV實用化仍落後10",
+        "url": "https://news.cnyes.com/news/id/6673452",
+        "source": "鉅亨網",
+        "time": "11-27 15:20",
+        "tags": []
       }
     ],
     "globalMacroTariff": [
       {
-        "title": "誰在拋售黃金？俄羅斯連續10個月減持",
+        "title": "歐股盤前／科技股反彈延續歐洲兩大股指期貨上漲，市場等法國通膨",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673420",
+        "url": "https://news.cnyes.com/news/id/6673793",
         "source": "鉅亨網",
-        "time": "11-27 11:42",
+        "time": "11-27 16:00",
         "tags": []
       },
       {
-        "title": "牛彈琴：這個建議一出 德國人吵翻了",
-        "summary": "世間最尷尬的場景，莫過於你昔日師傅當著你的面，把自己擺上貨架要給你。 最近基爾世界經濟研究所所長莫里茨·舒拉里克一個建議，震撼了整個德國和世界汽車界。 舒拉里克說：「趁著還能賣個好價錢，把沃爾夫斯堡的某家大型企業賣給中國人，也不失為一個好主意。」",
-        "url": "https://news.cnyes.com/news/id/6673425",
-        "source": "鉅亨網",
-        "time": "11-27 09:38",
-        "tags": []
-      },
-      {
-        "title": "川普：已敦促俄羅斯儘快達成協議",
-        "summary": "川普26日在社交媒體發文，稱他日前在與普丁的會談中敦促他儘快與烏克蘭達成協議，結束烏克蘭戰爭。 川普表示，他25日晚在佛羅里達州海湖莊園會見NATO秘書長呂特時，通報了他與普丁的談話內容。 烏克蘭空軍說，25日晚至26日上午俄軍使用飛彈和無人機對境內多地發動襲擊，造成人員傷亡。",
-        "url": "https://news.cnyes.com/news/id/6673419",
-        "source": "鉅亨網",
-        "time": "11-27 09:00",
-        "tags": []
-      },
-      {
-        "title": "俄羅斯發動大規模襲擊 烏克蘭26處遭襲",
-        "summary": "烏克蘭空軍26日說，俄軍使用飛彈和無人機對境內多地發動襲擊。 烏克蘭空軍說，境內26處地點遭襲，俄軍從布良斯克州和庫爾斯克州向境內發射「伊斯坎德爾-M」彈道飛彈、「鋯石」高超音速飛彈和113架無人機。 烏克蘭國家緊急情況局說，截至26日上午，俄軍空襲已造成基輔市7人受傷，有建築物",
-        "url": "https://news.cnyes.com/news/id/6673442",
-        "source": "鉅亨網",
-        "time": "11-27 08:51",
-        "tags": []
-      },
-      {
-        "title": "日本JERA洽談Anthropic、Meta以電廠直供電力招攬AI資料中心客戶",
+        "title": "京瓷加碼1,600億日圓擴產AI伺服器用MLCC將在日本、馬來西亞增產",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673464",
+        "url": "https://news.cnyes.com/news/id/6673792",
         "source": "鉅亨網",
-        "time": "11-27 08:30",
+        "time": "11-27 16:00",
+        "tags": []
+      },
+      {
+        "title": "從「石油美元」到「晶片美元」 全球晶片出口額首度超越油氣",
+        "summary": "德銀稱全球半導體出口額今年首度超越石油與天然氣，2026年Q1達1.61兆美元。 Jim Reid指「晶片美元」或取代「石油美元」，亞洲半導體順差可能回流美國科技股、新創與資料中心。 AI與算力需求推升晶片需求，但晶片股遭拋售；若資金持續流向科技投資，恐加劇資產波動並推升殖利率。",
+        "url": "https://news.cnyes.com/news/id/6673730",
+        "source": "鉅亨網",
+        "time": "11-27 16:00",
         "tags": [
-          "META"
+          "TLT"
         ]
       },
       {
-        "title": "荷蘭Budel鋅廠11月底停產能源成本壓垮冶煉，鋅價一度漲逾5%",
+        "title": "泰雷茲擬取得雷射廠Lumibird過半股權光子事業估值4.4億歐元",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673463",
+        "url": "https://news.cnyes.com/news/id/6673754",
         "source": "鉅亨網",
-        "time": "11-27 08:30",
+        "time": "11-27 15:30",
         "tags": []
       },
       {
-        "title": "歐元區領袖支持德科斯接掌歐洲央行仍待正式任命",
+        "title": "日股收盤／日經漲2.11%、本週回升4%半導體股領漲",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673427",
+        "url": "https://news.cnyes.com/news/id/6673753",
         "source": "鉅亨網",
-        "time": "11-27 08:00",
+        "time": "11-27 15:30",
         "tags": []
       },
       {
-        "title": "鎧俠攜輝達用144顆SSD擴充GPU可用容量AI資料不必全擠進HBM",
+        "title": "新加坡回應輝達晶片轉運疑雲：正與美磋商維護先進半導體供應",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673426",
+        "url": "https://news.cnyes.com/news/id/6673676",
         "source": "鉅亨網",
-        "time": "11-27 08:00",
+        "time": "11-27 15:10",
+        "tags": []
+      },
+      {
+        "title": "日股｜外資上週賣超日股5,716億日圓單週賣超創九週新高",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673657",
+        "source": "鉅亨網",
+        "time": "11-27 13:01",
+        "tags": []
+      },
+      {
+        "title": "美國今年聖誕網購2,750億美元 借貸消費佔213億再創新高",
+        "summary": "美國消費者在年底購物季的借貸消費規模預估將創下歷史新高，而且「先買後付」工具的使用量持續攀升。 在11月1日至12月31日期間，美國消費者使用「先買後付」的在線借貸消費支出將達到213億美元，刷新歷史紀錄。 上述支出在「網購星期一」預計將達到10.9億美元，連續第二年突破10億美",
+        "url": "https://news.cnyes.com/news/id/6673599",
+        "source": "鉅亨網",
+        "time": "11-27 12:37",
         "tags": []
       }
     ],
     "aiToolsCashflow": [
       {
-        "title": "OpenAI傳打造AI原生智慧型手機 最快2027上半年量產",
-        "summary": "圖／示意圖商傳媒｜責任編輯／綜合外電報導人工智慧巨頭OpenAI傳出將跨足硬體市場，自主開發一款以人工智慧為核心的全新智慧型手機，最快預計於2027年上半年進入量產，正面挑戰蘋果與三星長期主導的行動裝置版圖。 根據外媒報導，這款正在研發中的手機與現行主流產品最",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc6ff3004178b992d26fdacf50e5&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2fopenai%25E5%2582%25B3%25E6%2589%2593%25E9%2580%25A0ai%25E5%258E%259F%25E7%2594%259F%25E6%2599%25BA%25E6%2585%25A7%25E5%259E%258B%25E6%2589%258B%25E6%25A9%259F-%25E6%259C%2580%25E5%25BF%25AB2027%25E4%25B8%258A%25E5%258D%258A%25E5%25B9%25B4%25E9%2587%258F%25E7%2594%25A2-081246442.html&c=12735539556201611182&mkt=zh-tw",
+        "title": "思科攜手OpenAI推開源資安專案 打造AI自主防禦架構",
+        "summary": "OpenAI總裁兼共同創辦人Greg Brockman指出，即使透過AI模型快速識別漏洞，也不代表所有系統都能立即完成修補。此次與思科合作，主要目的即是協助企業在開發及部署修復方案期間，維持系統安全運作，並透過開源模式，讓不同企業及資安團隊共享防禦成果。",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f500852448583c3fe3e293b5391&url=https%3a%2f%2fwww.ctee.com.tw%2fnews%2f20261127701202-430704&c=6513415742760336710&mkt=zh-tw",
         "source": "AI 科技商機",
-        "time": "Sat, 21 Nov 2026 00:12",
+        "time": "Thu, 26 Nov 2026 16:00",
         "tags": []
       },
       {
         "title": "臺灣人工網路智慧公司取得OpenAI夥伴資格 攜手推動台灣企業 AI 轉型新時代",
         "summary": "隨著生成式人工智慧快速改變全球產業競爭格局，臺灣人工網路智慧有限公司宣布，已正式完成 OpenAI Partner Network 相關程序，取得 OpenAI Partner Network 夥伴資格，為公司推動企業人工智慧應用與數位轉型寫下重要里程碑。 此",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc6ff3004178b992d26fdacf50e5&url=https%3a%2f%2fwww.yesmedia.com.tw%2f%25e8%2587%25ba%25e7%2581%25a3%25e4%25ba%25ba%25e5%25b7%25a5%25e7%25b6%25b2%25e8%25b7%25af%25e6%2599%25ba%25e6%2585%25a7%25e5%2585%25ac%25e5%258f%25b8%25e5%258f%2596%25e5%25be%2597openai%25e5%25a4%25a5%25e4%25bc%25b4%25e8%25b3%2587%25e6%25a0%25bc-%25e6%2594%259c%25e6%2589%258b%25e6%258e%25a8%25e5%258b%2595%25e5%258f%25b0%2f&c=7097124846241906821&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f500852448583c3fe3e293b5391&url=https%3a%2f%2fwww.yesmedia.com.tw%2f%25e8%2587%25ba%25e7%2581%25a3%25e4%25ba%25ba%25e5%25b7%25a5%25e7%25b6%25b2%25e8%25b7%25af%25e6%2599%25ba%25e6%2585%25a7%25e5%2585%25ac%25e5%258f%25b8%25e5%258f%2596%25e5%25be%2597openai%25e5%25a4%25a5%25e4%25bc%25b4%25e8%25b3%2587%25e6%25a0%25bc-%25e6%2594%259c%25e6%2589%258b%25e6%258e%25a8%25e5%258b%2595%25e5%258f%25b0%2f&c=7097124846241906821&mkt=zh-tw",
         "source": "AI 科技商機",
         "time": "Thu, 19 Nov 2026 00:32",
         "tags": []
       },
       {
+        "title": "OpenAI傳打造AI原生智慧型手機 最快2027上半年量產",
+        "summary": "圖／示意圖商傳媒｜責任編輯／綜合外電報導人工智慧巨頭OpenAI傳出將跨足硬體市場，自主開發一款以人工智慧為核心的全新智慧型手機，最快預計於2027年上半年進入量產，正面挑戰蘋果與三星長期主導的行動裝置版圖。 根據外媒報導，這款正在研發中的手機與現行主流產品最",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f500852448583c3fe3e293b5391&url=https%3a%2f%2ftw.stock.yahoo.com%2fnews%2fopenai%25E5%2582%25B3%25E6%2589%2593%25E9%2580%25A0ai%25E5%258E%259F%25E7%2594%259F%25E6%2599%25BA%25E6%2585%25A7%25E5%259E%258B%25E6%2589%258B%25E6%25A9%259F-%25E6%259C%2580%25E5%25BF%25AB2027%25E4%25B8%258A%25E5%258D%258A%25E5%25B9%25B4%25E9%2587%258F%25E7%2594%25A2-081246442.html&c=12735539556201611182&mkt=zh-tw",
+        "source": "AI 科技商機",
+        "time": "Sat, 21 Nov 2026 00:12",
+        "tags": []
+      },
+      {
         "title": "臺灣人工網路智慧公司正式取得 OpenAI Partner Network 夥伴資格 攜手推動台灣企業 AI 轉型新時代",
         "summary": "隨著生成式人工智慧快速改變全球產業競爭格局，臺灣人工網路智慧有限公司宣布，已正式完成 OpenAI Partner Network 相關程序，取得 OpenAI Partner Network 夥伴資格，為公司推動企業人工智慧應用與數位轉型寫下重要里程碑。 此",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc6ff3004178b992d26fdacf50e5&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5635%2f9888914&c=13435440731432310396&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f500852448583c3fe3e293b5391&url=https%3a%2f%2fmoney.udn.com%2fmoney%2fstory%2f5635%2f9888914&c=13435440731432310396&mkt=zh-tw",
         "source": "AI 科技商機",
         "time": "Thu, 19 Nov 2026 08:02",
         "tags": []
       },
       {
-        "title": "OpenAI提議為AI發展設共同限制！盼以「困惑度」衡量模型進展、奧特曼支持",
-        "summary": "OpenAI首席科學家Jakub Pachocki主張，業界應為AI模型能力設共同門檻。 他提議以「困惑度」作通用指標，並在監控與安全機制達里程碑前不跨越限制。 Sam Altman表態支持，稱此類限制有助確保AI安全與可控性。",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc6ff3004178b992d26fdacf50e5&url=https%3a%2f%2fnews.cnyes.com%2fnews%2fid%2f6669908&c=1726360051716325247&mkt=zh-tw",
-        "source": "AI 科技商機",
-        "time": "Mon, 23 Nov 2026 02:30",
+        "title": "哈佛開發微型紫外光晶片，輸出功率提升 120 倍、助量子電腦微縮",
+        "summary": "哈佛大學領銜的研究團隊近日展示一款微型光子裝置，能在晶片內直接將紅光轉換為紫外光，輸出功率約為先前同類薄膜鈮酸 […]",
+        "url": "https://technews.tw/2026/11/27/harvard-micro-uv-chip/",
+        "source": "科技新報 TechNews",
+        "time": "Fri, 27 Nov 2026 08:20",
         "tags": []
       },
       {
-        "title": "人類排乾泥炭地 200 多年，影響約占人為暖化效應的 2.7%",
-        "summary": "《自然》（Nature）期刊一篇新研究以模型估算，自 1800 年以來人類排乾泥炭地所造成的效應，到 2020 […]",
-        "url": "https://technews.tw/2026/11/27/draining-peatlands-is-responsible-for-a-few-percent-of-our-global-warming/",
+        "title": "日本提國防 AI 願景，判斷與責任由人類承擔",
+        "summary": "日本防衛省（相當於國防部）今天上午發布運用人工智慧（AI）有關的基本方針「防衛 AI 願景」，內容強調，在軍事 […]",
+        "url": "https://technews.tw/2026/11/27/japan-defense-ai-vision-human-judgment-responsibility/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 03:40",
+        "time": "Fri, 27 Nov 2026 08:10",
         "tags": []
       },
       {
-        "title": "〈GTA 6〉帶旺 PS5 日本銷量飆增 2.7 倍、首超 Switch 2",
-        "summary": "遊戲大作〈俠盜獵車手 6〉（GTA 6）11 月 19 日開賣，帶旺 Sony PS5 遊戲機上週日本銷售量飆 […]",
-        "url": "https://ccc.technews.tw/2026/11/27/gta-6-boosts-ps5-sales-past-switch-2-in-japan-for-the-first-time/",
+        "title": "專訪》第四代核能來敲門，X-energy 眼中台灣的新機會",
+        "summary": "核電廠變小了，核能面臨的問題也會跟著縮小嗎？第四代核能及小型模組化反應爐（SMR）近年受到國際關注，但新一代核 […]",
+        "url": "https://technews.tw/2026/11/27/exclusive-interview-fourth-generation-nuclear-energy-x-energy-taiwan-new-opportunities/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 03:30",
+        "time": "Fri, 27 Nov 2026 08:00",
         "tags": []
       },
       {
-        "title": "從造車到國防工業，底特律將成無人機製造重鎮",
-        "summary": "隨著無人機改變現代戰爭型態，全球軍事競爭正從傳統武器性能，延伸至工業量產能力。美國五角大廈正與通用汽車、福特汽 […]",
-        "url": "https://technews.tw/2026/11/27/from-automaking-to-defense-detroit-set-to-become-a-major-hub-for-drone-manufacturing/",
+        "title": "半導體晶片成為新石油，全球出口總值首度超越油氣",
+        "summary": "美國財經媒體 CNBC 報導，德意志銀行分析國際貿易中心（International Trade Centre […]",
+        "url": "https://technews.tw/2026/11/27/semiconductor-chips-are-the-new-oil/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 03:21",
-        "tags": []
-      },
-      {
-        "title": "奧馳亞評估併購帝國菸草 傳日本菸草有意聯手",
-        "summary": "萬寶路母公司、美國菸草巨頭奧馳亞（Altria）正在考慮以全現金交易收購英國同業帝國菸草（Imperial B […]",
-        "url": "https://finance.technews.tw/2026/11/27/marlboro-maker-altria-explores-takeover-of-uks-imperial-brands/",
-        "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 03:20",
+        "time": "Fri, 27 Nov 2026 07:50",
         "tags": []
       }
     ],
     "twTrendingCrypto": [
       {
-        "title": "蔣萬安又成箭靶？沈政男酸沈伯洋「晚會搞成政治秀」 用6字諷不適合選市長 - UDN",
-        "summary": "蔣萬安又成箭靶？沈政男酸沈伯洋「晚會搞成政治秀」 用6字諷不適合選市長 UDN 搶走北平東路是誰？ 律師點破殷瑋「裝傻」話術：如果不知道對方是誰怎麼收保證金？ Yahoo新聞 路權爭議...陳文茜轉發文問「說好的行政中立？」蔣萬安回應了| 台北市長拉鋸戰| 要",
-        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBkMEJtbUk0S29lOTF1dDBzT1ppRnlMT1RIMHQtT05LNDhaMU56UElfOUotcFRvNXU5bGVrbmt5SGlWUWJnMzFvRU8zVmFBbUxCLWRj0gFYQVVfeXFMT1FwVHNpLU5HOTNXZTdkVW9TYjVvdzU1QVItV3BSbGpHcFN1X2E4U0JNdnRqaFEtU2tUSWFJdk5ydEk1X3U0T19rdHhJUm9XWThteVhkUFlFMQ?oc=5",
-        "source": "UDN",
-        "time": "Thu, 26 Nov 2026 07:54",
-        "tags": []
-      },
-      {
-        "title": "最後一次候選人身分自介！沈伯洋掃街前曬催淚影片：請讓我成為你的市長 - Yahoo新聞",
-        "summary": "最後一次候選人身分自介！沈伯洋掃街前曬催淚影片：請讓我成為你的市長 Yahoo新聞 台北市長選戰／直播空戰升溫 蔣萬安分享車掃收穫 沈伯洋預告神秘嘉賓 Rti 中央廣播電臺 最後一波全市大車掃！沈伯洋聲音沙啞透露女兒因「這件事」哭了 自由時報 沈伯洋選前加碼台",
-        "url": "https://news.google.com/rss/articles/CBMivwNBVV95cUxPc1R0WVVEWmJkczZkU1JLQ3N1RkdMcTdmSW5xYmpzNnJsWmZVMUhra2JUV2d2b1Bjd3lxLTY2UFdyVXlCMEpTblJTQ1dvajNDdzg4YjF5QUlsVkkzVk9FdWI5QkxIc1NaYWdWWGk1aXA0dGlXU2ZqUkR3c3ZnTnpyTmJOdjRGeVB1TGwtYjQtUkVLak1XVGxNX3N1RzdaWWJ4ME0yZjB2UGswbU4zUVYxOTVRa2s5V0dLM3ZkaU9JQnBpRXZMdHNUYjN2akgxRF9KTDVPUmFrZktOd3Q2YzlMdk9EcnVTa0J5SEtFY1lnM1dONUgwYWlQekhha0EyWXpqZG5ManJjOFpTalB4QWpJcVJzam9Mazl3N3lJXzhiVzYyUWV2TGt6WEVzYmFKeU5zMG85ekdVdkVLU0VRU2F0Mkl6MXFkQlpMMkFNa2NHNnQ4Ml9IaHBBVnVUQ1hHaG5kVGoyejUxZjd6c0lIQy1pdUU4VDkzZURNQ0Z0aGNVNnJjaXhCWm9JUEdaQ0k5blpSa0NBb1NoeWg1WVJwUUtHcTFIeVktNm9tdlE0UklzYzVQWkFLMk93S2s0cGFpWTg?oc=5",
-        "source": "Yahoo新聞",
-        "time": "Fri, 27 Nov 2026 01:34",
-        "tags": []
-      },
-      {
-        "title": "蔣萬安「勝選之夜」明凱道登場 郝龍斌、韓國瑜將登台助講 - Yahoo新聞",
-        "summary": "蔣萬安「勝選之夜」明凱道登場 郝龍斌、韓國瑜將登台助講 Yahoo新聞 圖輯》蔣萬安凱道選前之夜昨晚起交管34小時、22條公車改道 今早周邊塞爆 自由時報 羅智強預告選前之夜有「超級彩蛋」 蔣萬安賣關子：看電影最怕爆雷 UDN 蔣萬安「勝選之夜」27日凱道登場",
-        "url": "https://news.google.com/rss/articles/CBMijANBVV95cUxQSW5IVVluU1RaMy11SUgySElCTTFhS2VUb2dLQkc2eFA3Wk1qM19PY0k4ODBIWGRsenZvcGxVd1VqZ0w2RkFMZFdhNkt2LVhBMzhha2N5UkxMME5FOUZUVjQtYjh3ZUpTb2Y0Q0ZZOXVoTmk1YnczOTZyQkVGV0pIc2k3N1hTUllpSHZxSXNmQnRBN29KcjhpVFFYYktmZGFoWFZsRHhJQzVfTGZOV3dueHJJZ2dnb2pJMlVSdWdqc1MzYjRyMklYa1M1dE5ycTJCdE96cW43MFJUa19rRGhoMFVNckI3eDF5VHl6Y004MEx5RmxpaEZfQ18wRm5yWUp0WWZjVmswcC1aRjdJVW5CdDM4RURrVlNtd3NVRkF2V2prbnByM1hJMENuMWJUOHZfanFlU0xiSXlBZk5PVjFIR01sTU56UUZWenBuVXJkT0VZRi1CQVhUSl8xLXE4cm85MFBzbmhHVU1BTTdtdFlWTEd2UG44a2JvSXNCaHhuVjl2dUlkRTd1SERVbFk?oc=5",
-        "source": "Yahoo新聞",
-        "time": "Thu, 26 Nov 2026 12:26",
-        "tags": []
-      },
-      {
-        "title": "台灣高鐵南港、台北、板橋3站今晚自由座進站管制 排隊恐等1小時 - UDN",
-        "summary": "台灣高鐵南港、台北、板橋3站今晚自由座進站管制 排隊恐等1小時 UDN 高鐵27日超尖峰 台北等3站管制自由座進站 Rti 中央廣播電臺 離島返鄉投票「11／27加開航班」！ 航港局：還有空位 三立新聞 高鐵新制今天11/27上路！自由座「不是先到就能進站」，",
-        "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5hbEJOZmhXU1ZEU1FWemE2d3FPLUFZa2djaEN1UzlPVXVjSWRQb1E0cWJ4RzBtQk9oYkpyQjR6LXB6Z0VGSnZDb3VFcld6bXhn0gFWQVVfeXFMTklwclVyQ0xkaE5OTGpDbFQxelN4TnhHQ2N3Rk5TdFAxRmNFWnI1UHh4Y2V0WXM5TFJtM3UyYnJXd2EwcmFzNUFjemliOGNzNXRQT1lLaXc?oc=5",
-        "source": "UDN",
-        "time": "Fri, 27 Nov 2026 00:11",
-        "tags": []
-      },
-      {
-        "title": "新北護理之家設鐵柵欄涉拘禁逾百人超收住民詐逾億安置費| 社會 - 中央社 CNA",
-        "summary": "新北護理之家設鐵柵欄涉拘禁逾百人超收住民詐逾億安置費| 社會 中央社 CNA 過去已有違規！蘆洲精神護理之家涉虐2死 衛生局怒了：今廢照並追究責任 Yahoo新聞 即溶咖啡包藏囚禁名單！老翁寫吸血鬼死諫帶出訊息 揭新北黑心護理之家 自由時報 新北「敏金護理之家",
-        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBVZENVNWt6enI3RXJLSEJ0UnZQZlN4dzZLUUFpOWt0QjVTZEhJeUptRlMyNlJyc2ZUb1FtajZJRlFCam5SR0UzSEpvVjhSNUdRWXpjaEpabXpRbDMweHNn?oc=5",
-        "source": "中央社 CNA",
-        "time": "Thu, 26 Nov 2026 18:46",
-        "tags": []
-      },
-      {
-        "title": "金庫無恙 鑰匙已失 - 90 天 86 起機構安全事件逐條核對",
+        "title": "AI交易降溫，比特幣還要跌多久？Bankless拆解流動性與信用風險",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673579",
+        "url": "https://news.cnyes.com/news/id/6673797",
         "source": "鉅亨網",
-        "time": "11-27 11:00",
+        "time": "11-27 16:00",
         "tags": []
       },
       {
-        "title": "誰在替中國大廠買卡",
+        "title": "AI導演和剪輯OG：影音演示不難 按時穩定交片才是核心",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673526",
+        "url": "https://news.cnyes.com/news/id/6673796",
         "source": "鉅亨網",
-        "time": "11-27 10:00",
+        "time": "11-27 16:00",
         "tags": []
       },
       {
-        "title": "2026年11月25-26日區塊鏈24小時最新資訊鏈共識（鏈新聞）",
+        "title": "GCSA洞察: 全球17個國家和地區24台Check Point管理服務器遭入侵",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673512",
+        "url": "https://news.cnyes.com/news/id/6673794",
         "source": "鉅亨網",
-        "time": "11-27 09:30",
+        "time": "11-27 16:00",
         "tags": []
       },
       {
-        "title": "悅盈：11.26比特幣以太坊晚間分析及策略",
+        "title": "熊市播種 牛市收穫？",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6673511",
+        "url": "https://news.cnyes.com/news/id/6673752",
         "source": "鉅亨網",
-        "time": "11-27 09:30",
+        "time": "11-27 15:30",
         "tags": []
       }
     ],
     "xThreadsBuzz": [
       {
+        "title": "黃仁勳回鍋輝達！華郵指馬斯克鋪路 專家：執行長像羅馬皇帝為所欲為",
+        "summary": "輝達執行長黃仁勳使公司陷入危機，外界一度質疑他能否回鍋。華盛頓郵報指出，世界首富馬斯克數年前也曾面臨失去旗下商業帝國掌控權的危機，但兩人最終都掌握公司大權。企業治理專家表示，科技業似乎已摒棄過去曾讓Uber共同創辦人卡蘭尼克等矽谷領袖為不當行為付出較明確代價的",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fudn.com%2fnews%2fstory%2f125066%2f9905834&c=10158686755468192452&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Thu, 26 Nov 2026 16:08",
+        "tags": []
+      },
+      {
+        "title": "再提黃仁勳「會沒事的」 川普：樂於一起出席台積電工廠動土禮",
+        "summary": "美國總統川普本週稍早出手介入輝達執行長黃仁勳的復職案。川普週四（11/26）表示，黃仁勳重返工作崗位後還沒與他通過電話。川普同時強調，沒有情報顯示黃仁勳危害國安，還說希望能在下周和黃仁勳一起參加台積電亞利桑那工廠的動土典禮。",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2ftw.news.yahoo.com%2f%25E5%2586%258D%25E6%258F%2590%25E9%25BB%2583%25E4%25BB%2581%25E5%258B%25B3-%25E6%259C%2583%25E6%25B2%2592%25E4%25BA%258B%25E7%259A%2584-%25E5%25B7%259D%25E6%2599%25AE-%25E6%25A8%2582%25E6%2596%25BC-%25E8%25B5%25B7%25E5%2587%25BA%25E5%25B8%25AD%25E5%258F%25B0%25E7%25A9%258D%25E9%259B%25BB%25E5%25B7%25A5%25E5%25BB%25A0%25E5%258B%2595%25E5%259C%259F%25E7%25A6%25AE-023648946.html&c=8844316192427294557&mkt=zh-tw",
+        "source": "X / Threads 社群熱議",
+        "time": "Thu, 26 Nov 2026 16:00",
+        "tags": [
+          "0050.TW"
+        ]
+      },
+      {
         "title": "黃仁勳面子裡子全贏，身家單日暴增1兆，馬斯克也1兆！「莊家」川普擁37萬股輝達增值4.7億…要被調查？",
         "summary": "輝達董事會於台灣時間23日22時左右恢復黃仁勳的執行長職務，消息一出立即為科技股注入強心針，不僅費半指數漲14.03%，輝達更是暴漲31.48%，創下2003年以來的最大單日漲幅，而美國總統川普也成為這次美股反彈的最大受益者之一。 據《金融時報》推算，川普可能",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fwww.businesstoday.com.tw%2farticle%2fcategory%2f183025%2fpost%2f202611240007%2f&c=14052861229249600327&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fwww.businesstoday.com.tw%2farticle%2fcategory%2f183025%2fpost%2f202611240007%2f&c=14052861229249600327&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
         "time": "Tue, 24 Nov 2026 02:46",
         "tags": []
@@ -358,7 +333,7 @@
       {
         "title": "黃仁勳還有3關卡 「川普、馬斯克力挺」各界反應一次看",
         "summary": "輝達（NVIDIA）創辦人黃仁勳回鍋執行長，包括美國總統川普、特斯拉執行長馬斯克都力挺，《ETtoday新聞雲》整理各界反應。外媒報導，黃接下來仍面臨3個關鍵考驗，包括預定12月赴國會聽證、股東集體訴訟仍在進行，以及美國司法部已接手調查Megaspeed晶片走",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fwww.ettoday.net%2fnews%2f20261124%2f3277433.htm&c=13295095200031620015&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fwww.ettoday.net%2fnews%2f20261124%2f3277433.htm&c=13295095200031620015&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
         "time": "Tue, 24 Nov 2026 02:53",
         "tags": []
@@ -366,49 +341,33 @@
       {
         "title": "黃仁勳復職給員工分發三明治，他身家一夜暴漲超2400億元，輝達市值暴增6.3兆元，馬斯克發聲、川普P圖慶祝",
         "summary": "輝達CEO黃仁勳在辭職11天後閃電復職，引發全球市場劇烈震盪。11月23日輝達股價單日飆升31.5%，市值重回4兆美元大關，黃仁勳個人財富暴增366億美元。董事會表示復職符合股東與客戶最佳利益，並已與美國政府高層確認無國家安全風險。此次回歸不僅獲得員工、馬斯克",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279975&c=16540720914132352277&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279975&c=16540720914132352277&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
         "time": "Mon, 23 Nov 2026 21:36",
         "tags": []
       },
       {
-        "title": "患難見真情！馬斯克攜子現身輝達挺黃仁勳",
-        "summary": "輝達執行長黃仁勳歷經風波後重返工作崗位，不僅獲得特斯拉執行長馬斯克親自現身總部相挺，美國副總統范斯也公開澄清其未受調查。然而，儘管有政商大咖的雙重背書，華爾街投資人信心仍未完全恢復，美股25日科技類股普遍走弱，輝達股價下跌近4%。市場專家分析指出，這顯示單靠執",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fwww.setn.com%2fnews%2f1945257&c=14483021031263775162&mkt=zh-tw",
+        "title": "馬斯克能助黃仁勳回鍋？分析師指晶片訂單可成籌碼",
+        "summary": "輝達共同創辦人黃仁勳因婚外情風波辭去執行長後，復出聲浪未歇。Seaport Research Partners分析師高德柏格（Jay Goldberg）認為，馬斯克旗下企業龐大的AI晶片需求，可能成為促使輝達董事會重新考慮黃仁勳回任的籌碼。",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fnews.nextapple.com%2finternational%2f20261123%2fF7827554B95C7B8C7810D9B85290C2E5&c=18002967541724999254&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
-        "time": "Thu, 26 Nov 2026 05:37",
-        "tags": []
-      },
-      {
-        "title": "黃仁勳復職看各界反應！川普、馬斯克叫好 美國兩黨議員齊轟：國安疑慮未解",
-        "summary": "美國人工智慧晶片大廠輝達23日宣布恢復黃仁勳的執行長職務，消息不僅帶動公司股價大漲，也引發美國政界及科技業領袖兩極反應。美國總統川普公開力挺，稱讚輝達董事會做出正確決定，並透露自己曾親自向董事會施壓，要求讓黃仁勳回鍋。特斯拉執行長馬斯克也發文表示「錯誤已經獲得",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2ftw.news.yahoo.com%2f%25E9%25BB%2583%25E4%25BB%2581%25E5%258B%25B3%25E5%25BE%25A9%25E8%2581%25B7%25E7%259C%258B%25E5%2590%2584%25E7%2595%258C%25E5%258F%258D%25E6%2587%2589-%25E5%25B7%259D%25E6%2599%25AE-%25E9%25A6%25AC%25E6%2596%25AF%25E5%2585%258B%25E5%258F%25AB%25E5%25A5%25BD-%25E7%25BE%258E%25E5%259C%258B%25E5%2585%25A9%25E9%25BB%25A8%25E8%25AD%25B0%25E5%2593%25A1%25E9%25BD%258A%25E8%25BD%259F-%25E5%259C%258B%25E5%25AE%2589%25E7%2596%2591%25E6%2585%25AE%25E6%259C%25AA%25E8%25A7%25A3-010000132.html&c=8586279281094910888&mkt=zh-tw",
-        "source": "X / Threads 社群熱議",
-        "time": "Mon, 23 Nov 2026 16:00",
+        "time": "Mon, 23 Nov 2026 13:31",
         "tags": []
       },
       {
         "title": "川普力促黃仁勳復職、范斯介入給出保證，輝達董事會「周日提前告知白宮」",
         "summary": "美國總統川普深度介入並促成輝達 CEO 黃仁勳復職。報導指出，川普透過指派副總統范斯協調，並由司法部保證黃仁勳無違法行為，以消除董事會對國家安全風險的顧慮。此次復職背後動機在於保護美國 AI 領先地位、支持開放權重模型以避免封閉模型壟斷，且受到馬斯克等矽谷人士",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279899&c=379520055276677867&mkt=zh-tw",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fhao.cnyes.com%2fpost%2f279899&c=379520055276677867&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
         "time": "Mon, 23 Nov 2026 16:52",
         "tags": []
       },
       {
-        "title": "川普出手保黃仁勳 復刻「收服馬斯克」劇本？",
-        "summary": "黃仁勳傳出請辭11天後閃電回歸，全球AI產業振奮，川普也在24日一早發文，表示司法部長布蘭希已確認，美國政府並未掌握任何顯示黃仁勳從事違法行為的證據，在眾議院聽證會前率先表明立場。",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fnews.ebc.net.tw%2fnews%2fworld%2f582307&c=1088988665582938825&mkt=zh-tw",
+        "title": "患難見真情！馬斯克攜子現身輝達挺黃仁勳",
+        "summary": "輝達執行長黃仁勳歷經風波後重返工作崗位，不僅獲得特斯拉執行長馬斯克親自現身總部相挺，美國副總統范斯也公開澄清其未受調查。然而，儘管有政商大咖的雙重背書，華爾街投資人信心仍未完全恢復，美股25日科技類股普遍走弱，輝達股價下跌近4%。市場專家分析指出，這顯示單靠執",
+        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b093f51979b42de87de3f8b0b5cd610&url=https%3a%2f%2fwww.setn.com%2fnews%2f1945257&c=14483021031263775162&mkt=zh-tw",
         "source": "X / Threads 社群熱議",
-        "time": "Tue, 24 Nov 2026 12:12",
-        "tags": []
-      },
-      {
-        "title": "馬斯克能助黃仁勳回鍋？分析師指晶片訂單可成籌碼",
-        "summary": "輝達共同創辦人黃仁勳因婚外情風波辭去執行長後，復出聲浪未歇。Seaport Research Partners分析師高德柏格（Jay Goldberg）認為，馬斯克旗下企業龐大的AI晶片需求，可能成為促使輝達董事會重新考慮黃仁勳回任的籌碼。",
-        "url": "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=6b08fc7086b845d3be36eb526416ad67&url=https%3a%2f%2fnews.nextapple.com%2finternational%2f20261123%2fF7827554B95C7B8C7810D9B85290C2E5&c=18002967541724999254&mkt=zh-tw",
-        "source": "X / Threads 社群熱議",
-        "time": "Mon, 23 Nov 2026 13:31",
+        "time": "Thu, 26 Nov 2026 05:37",
         "tags": []
       }
     ]
@@ -419,66 +378,74 @@
       "sentimentLabel": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
       "hotPosts": [
         {
-          "push": "爆",
-          "score": 100,
-          "title": "[新聞] 法人研判 台股最壞情況已過",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795744725.A.FEC.html",
-          "date": "11/27",
-          "tags": []
-        },
-        {
-          "push": "69",
-          "score": 69,
-          "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795744142.A.D4A.html",
-          "date": "11/27",
-          "tags": []
-        },
-        {
-          "push": "53",
-          "score": 53,
-          "title": "[新聞] 富邦投顧：選後台股漲聲響",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795743400.A.603.html",
-          "date": "11/27",
-          "tags": []
-        },
-        {
-          "push": "35",
-          "score": 35,
-          "title": "Re: [新聞] 選前護盤 國家隊拚滿江紅",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795747749.A.2A8.html",
-          "date": "11/27",
-          "tags": []
-        },
-        {
-          "push": "30",
-          "score": 30,
-          "title": "[新聞] 台股明年走「麥當勞型」行情！黃昭棠：第",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795747403.A.965.html",
+          "push": "37",
+          "score": 37,
+          "title": "[情報] 1127 上市外資買賣超排行",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795767076.A.15B.html",
           "date": "11/27",
           "tags": []
         },
         {
           "push": "23",
           "score": 23,
-          "title": "[新聞] 地上AI漲不動改飛向宇宙！低軌衛星台鏈",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795742511.A.658.html",
+          "title": "[情報] 2026年 10月份景氣燈號 紅燈 (40分)",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795766576.A.CB7.html",
           "date": "11/27",
           "tags": []
         },
         {
-          "push": "16",
-          "score": 16,
-          "title": "[新聞] 先鋒集團35年美股研究：高達75%個股落後",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795742811.A.F2D.html",
+          "push": "22",
+          "score": 22,
+          "title": "Re: [新聞] AI算力利空再來？SpaceX傳砍Blackwell租",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795765688.A.3BE.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "6",
+          "score": 6,
+          "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795767663.A.4DB.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "5",
+          "score": 5,
+          "title": "[請益] 外資放假中韓台護盤？",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795764930.A.09E.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "4",
+          "score": 4,
+          "title": "[創作] 放假了也要賣",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795766539.A.4F3.html",
           "date": "11/27",
           "tags": []
         },
         {
           "push": "3",
           "score": 3,
-          "title": "[新聞] 【2026亞股大車拚1】台股其實是「不幸中",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795750833.A.FB9.html",
+          "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795766090.A.A1E.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "1",
+          "score": 1,
+          "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795765604.A.EB7.html",
+          "date": "11/27",
+          "tags": []
+        },
+        {
+          "push": "1",
+          "score": 1,
+          "title": "[新聞] 中國「國家隊」入市護盤 學者：資本市場",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795767851.A.38B.html",
           "date": "11/27",
           "tags": []
         }
@@ -489,163 +456,163 @@
         "rank": 1,
         "ticker": "NVDA",
         "name": "NVIDIA",
-        "mentions": 160,
-        "upvotes": 22615,
-        "momentum24hPct": -72,
+        "mentions": 161,
+        "upvotes": 24033,
+        "momentum24hPct": -71,
         "url": "https://www.reddit.com/search/?q=%24NVDA&sort=hot"
       },
       {
         "rank": 2,
         "ticker": "SPY",
         "name": "SPDR S&P 500 ETF Trust",
-        "mentions": 89,
-        "upvotes": 483,
-        "momentum24hPct": -83,
+        "mentions": 94,
+        "upvotes": 499,
+        "momentum24hPct": -81,
         "url": "https://www.reddit.com/search/?q=%24SPY&sort=hot"
       },
       {
         "rank": 3,
         "ticker": "QQQ",
         "name": "Invesco QQQ ETF",
-        "mentions": 66,
-        "upvotes": 502,
-        "momentum24hPct": -76,
+        "mentions": 78,
+        "upvotes": 561,
+        "momentum24hPct": -70,
         "url": "https://www.reddit.com/search/?q=%24QQQ&sort=hot"
       },
       {
         "rank": 4,
-        "ticker": "VOO",
-        "name": "Vanguard S&P 500 ETF",
-        "mentions": 41,
-        "upvotes": 162,
-        "momentum24hPct": -56,
-        "url": "https://www.reddit.com/search/?q=%24VOO&sort=hot"
-      },
-      {
-        "rank": 5,
-        "ticker": "AMD",
-        "name": "AMD",
-        "mentions": 41,
-        "upvotes": 275,
-        "momentum24hPct": -64,
-        "url": "https://www.reddit.com/search/?q=%24AMD&sort=hot"
-      },
-      {
-        "rank": 6,
         "ticker": "MU",
         "name": "Micron Technology",
-        "mentions": 38,
-        "upvotes": 112,
-        "momentum24hPct": -77,
+        "mentions": 39,
+        "upvotes": 71,
+        "momentum24hPct": -75,
         "url": "https://www.reddit.com/search/?q=%24MU&sort=hot"
       },
       {
+        "rank": 5,
+        "ticker": "VOO",
+        "name": "Vanguard S&P 500 ETF",
+        "mentions": 38,
+        "upvotes": 51,
+        "momentum24hPct": -60,
+        "url": "https://www.reddit.com/search/?q=%24VOO&sort=hot"
+      },
+      {
+        "rank": 6,
+        "ticker": "AMD",
+        "name": "AMD",
+        "mentions": 31,
+        "upvotes": 197,
+        "momentum24hPct": -72,
+        "url": "https://www.reddit.com/search/?q=%24AMD&sort=hot"
+      },
+      {
         "rank": 7,
-        "ticker": "DTE",
-        "name": "DTE Energy",
-        "mentions": 28,
-        "upvotes": 316,
-        "momentum24hPct": -67,
-        "url": "https://www.reddit.com/search/?q=%24DTE&sort=hot"
+        "ticker": "SNDK",
+        "name": "Sandisk",
+        "mentions": 30,
+        "upvotes": 72,
+        "momentum24hPct": -73,
+        "url": "https://www.reddit.com/search/?q=%24SNDK&sort=hot"
       },
       {
         "rank": 8,
-        "ticker": "SNDK",
-        "name": "Sandisk",
-        "mentions": 26,
-        "upvotes": 62,
-        "momentum24hPct": -78,
-        "url": "https://www.reddit.com/search/?q=%24SNDK&sort=hot"
+        "ticker": "DTE",
+        "name": "DTE Energy",
+        "mentions": 30,
+        "upvotes": 258,
+        "momentum24hPct": -62,
+        "url": "https://www.reddit.com/search/?q=%24DTE&sort=hot"
       },
       {
         "rank": 9,
         "ticker": "SOXL",
         "name": "Direxion Shares ETF Trust - Direxion Daily Semiconductor Bull 3X Share",
-        "mentions": 23,
-        "upvotes": 89,
-        "momentum24hPct": -77,
+        "mentions": 29,
+        "upvotes": 82,
+        "momentum24hPct": -68,
         "url": "https://www.reddit.com/search/?q=%24SOXL&sort=hot"
       },
       {
         "rank": 10,
         "ticker": "VT",
         "name": "Vanguard Group, Inc. - Vanguard Total World Stock ETF",
-        "mentions": 21,
-        "upvotes": 28,
-        "momentum24hPct": 11,
+        "mentions": 19,
+        "upvotes": 24,
+        "momentum24hPct": 19,
         "url": "https://www.reddit.com/search/?q=%24VT&sort=hot"
       }
     ],
     "hackerNews": [
       {
-        "title": "Holy shit holy shit holy shit holy shit: The magnitude of what’s now happening",
-        "points": 2001,
-        "comments": 1823,
-        "url": "https://scottaaronson.blog/?p=10379",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50646108"
+        "title": "1Password Security Incident",
+        "points": 1660,
+        "comments": 712,
+        "url": "https://1password.com/blog/update-on-nov-2026-security-incident",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50644817"
       },
       {
         "title": "Tell HN: Happy Thanksgiving",
-        "points": 637,
-        "comments": 138,
+        "points": 688,
+        "comments": 145,
         "url": "https://news.ycombinator.com/item?id=50655664",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50655664"
       },
       {
+        "title": "AI made self-hosting fun again",
+        "points": 612,
+        "comments": 314,
+        "url": "https://janlukas.blog/posts/ai-self-hosting",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50660180"
+      },
+      {
         "title": "Intel One Mono font (2023)",
-        "points": 480,
-        "comments": 243,
+        "points": 514,
+        "comments": 249,
         "url": "https://github.com/intel/intel-one-mono",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50653667"
       },
       {
         "title": "Nextcloud Office Desktop app",
-        "points": 407,
-        "comments": 206,
+        "points": 426,
+        "comments": 220,
         "url": "https://nextcloud.com/blog/euro-office-comes-to-your-desktop-with-the-nextcloud-office-desktop-app/",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50654289"
       },
       {
-        "title": "AI made self-hosting fun again",
-        "points": 396,
-        "comments": 215,
-        "url": "https://janlukas.blog/posts/ai-self-hosting",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50660180"
-      },
-      {
-        "title": "AMD-specific fork of llama.cpp",
-        "points": 300,
-        "comments": 73,
-        "url": "https://devnull.land/amd-specific-llama-cpp",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657265"
-      },
-      {
         "title": "YouTube Ad Punisher – Auto-reloads YouTube pages when an ad plays",
-        "points": 295,
-        "comments": 377,
+        "points": 371,
+        "comments": 442,
         "url": "https://github.com/antonpictures/youtube-punisher",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657530"
       },
       {
-        "title": "OpenAI may be in cost control mode",
-        "points": 295,
-        "comments": 300,
-        "url": "https://micjm.com/blog/openai-is-in-cost-control-mode/",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50652527"
-      },
-      {
         "title": "Kamil Khan Mumtaz: Pakistani architect, admired at home, almost invisible abroad",
-        "points": 278,
-        "comments": 57,
+        "points": 351,
+        "comments": 84,
         "url": "https://worksinprogress.co/issue/the-greatest-architect-youve-never-heard-of-is-in-pakistan/",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50659841"
       },
       {
+        "title": "AMD-specific fork of llama.cpp",
+        "points": 340,
+        "comments": 82,
+        "url": "https://devnull.land/amd-specific-llama-cpp",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657265"
+      },
+      {
         "title": "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
-        "points": 268,
-        "comments": 224,
+        "points": 322,
+        "comments": 284,
         "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp/",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50653477"
+      },
+      {
+        "title": "Hard Drive pricing has gotten bad",
+        "points": 314,
+        "comments": 210,
+        "url": "https://blog.ktz.me/black-friday-hard-drive-prices-are-messed-up/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50661646"
       }
     ]
   }
