@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-28 05:48:14 (台灣時間)",
+  "lastUpdated": "2026-11-28 11:26:55 (台灣時間)",
   "sourcesRegistry": [
     {
       "name": "鉅亨網 cnyes",
@@ -31,15 +31,15 @@
     }
   ],
   "executiveBrief": {
-    "updatedAt": "2026-11-28 05:48:14 (台灣時間)",
+    "updatedAt": "2026-11-28 11:26:55 (台灣時間)",
     "takeawayItems": [
       {
         "icon": "📈",
         "category": "台美股與供應鏈焦點",
-        "text": "選前疏運運能創歷年新高 高鐵尖峰訂位近全滿、交長視察疏運狀況",
+        "text": "〈熱門股〉王品成資金避風港 穩居觀光餐旅股王 — 王品宣布今年尾牙席開近千桌，辦成演唱會級萬人盛會。 明年展店聚焦火鍋品類，並將招募逾1200人。 法人看好王品今明年獲利動能，股價為觀光...",
         "source": "鉅亨網 cnyes",
-        "url": "https://news.cnyes.com/news/id/6674092",
-        "time": "11-27 20:28"
+        "url": "https://news.cnyes.com/news/id/6674171",
+        "time": "11-28 11:20"
       },
       {
         "icon": "🌐",
@@ -52,15 +52,15 @@
       {
         "icon": "💬",
         "category": "PTT 股版散戶情緒",
-        "text": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (5推)：[新聞] 輝達高階Blackwell晶片流入大陸 出現在與",
+        "text": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (86推)：[新聞] DRAM價格漲勢恐提前反轉！TrendForce示",
         "source": "PTT Stock 股版",
-        "url": "https://www.ptt.cc/bbs/Stock/M.1795812862.A.CB5.html",
+        "url": "https://www.ptt.cc/bbs/Stock/M.1795822960.A.F78.html",
         "time": "11/28"
       },
       {
         "icon": "👽",
         "category": "美股散戶社群熱度",
-        "text": "熱榜冠軍 #1 $NVDA NVIDIA（343 則討論，24h +56%、#2 $SPY (208則)）",
+        "text": "熱榜冠軍 #1 $NVDA NVIDIA（335 則討論，24h +112%、#2 $SPY (203則)）",
         "source": "Reddit WSB / r/stocks (ApeWisdom)",
         "url": "https://www.reddit.com/search/?q=%24NVDA&sort=hot",
         "time": "24h 即時"
@@ -68,71 +68,99 @@
       {
         "icon": "🤖",
         "category": "AI 科技與變現情報",
-        "text": "改寫免疫療法認知，研究：穿孔素能單獨引發癌細胞「鐵死症」",
+        "text": "台積電宣布 A14 製程生態系就緒，0.9 版 PDK 登場並攜手兩大 EDA 廠完成驗證",
         "source": "科技新報 TechNews",
-        "url": "https://technews.tw/2026/11/28/new-discovery-perforin-anti-cancer-mechanism/",
-        "time": "Fri, 27 Nov 2026 16:00"
+        "url": "https://finance.technews.tw/2026/11/28/tsmc-announces-a14-process-ecosystem-is-ready/",
+        "time": "Sat, 28 Nov 2026 03:00"
       }
     ],
     "boss3MinTakeaways": [
-      "📈 【台美股與供應鏈焦點】選前疏運運能創歷年新高 高鐵尖峰訂位近全滿、交長視察疏運狀況（來源：鉅亨網 cnyes）",
+      "📈 【台美股與供應鏈焦點】〈熱門股〉王品成資金避風港 穩居觀光餐旅股王 — 王品宣布今年尾牙席開近千桌，辦成演唱會級萬人盛會。 明年展店聚焦火鍋品類，並將招募逾1200人。 法人看好王品今明年獲利動能，股價為觀光...（來源：鉅亨網 cnyes）",
       "🌐 【國際總經與政策風向】全球柴油2027年第二季恐再現缺口中東出口僅戰前三分之一（來源：鉅亨網 cnyes）",
-      "💬 【PTT 股版散戶情緒】🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (5推)：[新聞] 輝達高階Blackwell晶片流入大陸 出現在與（來源：PTT Stock 股版）",
-      "👽 【美股散戶社群熱度】熱榜冠軍 #1 $NVDA NVIDIA（343 則討論，24h +56%、#2 $SPY (208則)）（來源：Reddit WSB / r/stocks (ApeWisdom)）",
-      "🤖 【AI 科技與變現情報】改寫免疫療法認知，研究：穿孔素能單獨引發癌細胞「鐵死症」（來源：科技新報 TechNews）"
+      "💬 【PTT 股版散戶情緒】🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點｜最熱貼文 (86推)：[新聞] DRAM價格漲勢恐提前反轉！TrendForce示（來源：PTT Stock 股版）",
+      "👽 【美股散戶社群熱度】熱榜冠軍 #1 $NVDA NVIDIA（335 則討論，24h +112%、#2 $SPY (203則)）（來源：Reddit WSB / r/stocks (ApeWisdom)）",
+      "🤖 【AI 科技與變現情報】台積電宣布 A14 製程生態系就緒，0.9 版 PDK 登場並攜手兩大 EDA 廠完成驗證（來源：科技新報 TechNews）"
     ],
     "div2StockImpact": "🔴 一級警戒 TLT ($82.24)：通膨 3.3% 與年底升息預期威脅債市，跌破 US$80.1 立即機械停損。🟢 正向催化 8299.TWO 群聯 & 3661.TW 世芯-KY：記憶體缺貨至 2028 支撐儲存族群，BIS 交期延長倒逼 CSP 加速自研 ASIC；3017.TW 奇鋐與 7 檔右側掛單（PLTR / 1560 / 3711 / 3665 / 2454 / ANET / 6223）嚴守收盤突破＋匯率／VIX 濾網。",
     "div1CashflowIdea": "① 開發「自託管 LLM API 路由與防爆成本閘道器」（切中 HN 熱榜 Moat + OpenAI Cost Control Mode + Minipg 單檔打包痛點，賣 $29~$79 買斷 / B2B 訂閱）；②「台廠 301 關稅 (15%) × BIS 合規試算＋DevSecOps 金鑰外洩雷達」輕量 SaaS（對應 1Password 入侵與台企導入 OpenAI 資安痛點）。",
     "livePulse": {
-      "topMarketHeadline": "選前疏運運能創歷年新高 高鐵尖峰訂位近全滿、交長視察疏運狀況",
+      "topMarketHeadline": "〈熱門股〉王品成資金避風港 穩居觀光餐旅股王",
       "topMarketSource": "鉅亨網 cnyes",
-      "topMarketUrl": "https://news.cnyes.com/news/id/6674092",
+      "topMarketUrl": "https://news.cnyes.com/news/id/6674171",
       "pttSentiment": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
-      "topPttPost": "[新聞] 輝達高階Blackwell晶片流入大陸 出現在與",
-      "topPttUrl": "https://www.ptt.cc/bbs/Stock/M.1795812862.A.CB5.html",
-      "topRedditTicker": "$NVDA (343 則討論 / 24h +56%)"
+      "topPttPost": "[新聞] DRAM價格漲勢恐提前反轉！TrendForce示",
+      "topPttUrl": "https://www.ptt.cc/bbs/Stock/M.1795822960.A.F78.html",
+      "topRedditTicker": "$NVDA (335 則討論 / 24h +112%)"
     }
   },
   "sections": {
     "marketAndAi": [
       {
-        "title": "選前疏運運能創歷年新高 高鐵尖峰訂位近全滿、交長視察疏運狀況",
+        "title": "〈熱門股〉王品成資金避風港 穩居觀光餐旅股王",
+        "summary": "王品宣布今年尾牙席開近千桌，辦成演唱會級萬人盛會。 明年展店聚焦火鍋品類，並將招募逾1200人。 法人看好王品今明年獲利動能，股價為觀光餐旅業唯一站上200元。",
+        "url": "https://news.cnyes.com/news/id/6674171",
+        "source": "鉅亨網 cnyes",
+        "time": "11-28 11:20",
+        "tags": []
+      },
+      {
+        "title": "黃仁勳回鍋輝達CEO台股噴漲3310點創紀錄、富邦006208分割投票、融資維持率120%上路 本周大事回顧",
         "summary": "",
-        "url": "https://news.cnyes.com/news/id/6674092",
+        "url": "https://news.cnyes.com/news/id/6674177",
         "source": "鉅亨網 cnyes",
-        "time": "11-27 20:28",
+        "time": "11-28 11:10",
         "tags": []
       },
       {
-        "title": "正崴看好明年AI高速線出貨續成長 算力中心需求旺租金有調漲空間",
-        "summary": "正崴法說會表示，AI伺服器高速傳輸線已切入美系客戶，明年營收可望續增。 土城明權廠AI算力中心已達滿載，月營收約3000多萬元，租約到期後重新議價有望再升。 機器狗、美國德州據點與AI智慧視訊會議等布局，將成明年零組件與系統產品成長動能。",
-        "url": "https://news.cnyes.com/news/id/6674059",
+        "title": "〈台新新光金法說〉AI重點筆記2026/11/27",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6674366",
         "source": "鉅亨網 cnyes",
-        "time": "11-27 20:15",
+        "time": "11-28 10:54",
         "tags": []
       },
       {
-        "title": "〈第一金法說〉築底訊號出現？估房市將逐步止跌回穩 明年房貸穩健成長5%",
-        "summary": "六都買賣移轉棟數10月年增率轉正，房市交易量現初步回溫，明年可望止跌回穩。 一銀明年房貸業務目標成長4%至5%，主攻首購自住需求，受新青安3.0與央行選擇性信用管制調整支撐。 第一金明年總放款拚增5%至6%，中小企業放款估增10%，財管手續費收入目標增15%。",
-        "url": "https://news.cnyes.com/news/id/6674058",
+        "title": "〈國泰金法說〉AI重點筆記2026/11/27",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6673135",
         "source": "鉅亨網 cnyes",
-        "time": "11-27 20:11",
+        "time": "11-28 10:38",
         "tags": []
       },
       {
-        "title": "眾達-KY自結10月EPS淨損0.46元 單月虧損3200萬元",
-        "summary": "眾達-KY 10月稅後淨損3200萬元、每股淨損0.46元；2026年第3季稅後純益2.36億元、EPS 2.84元，年增194.11%。 第3季營運大躍升，受5月納入品固集團營收帶動，單季營收季增1.79倍。 眾達今股價重挫7.42%收131元，較11/18高點197元跌逾30",
-        "url": "https://news.cnyes.com/news/id/6674057",
+        "title": "〈熱門股〉健策三片式均熱片明年量產 周漲逾3成",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6674169",
         "source": "鉅亨網 cnyes",
-        "time": "11-27 19:55",
+        "time": "11-28 10:10",
         "tags": []
       },
       {
-        "title": "鴻海大語言模型FoxBrain 臺灣主權AI評測奪全球第二",
-        "summary": "鴻海研究院FoxBrain v2.1在AIEC「臺灣主權AI基礎評測指標」暫列全球第二，31B參數可部署於單台AI伺服器。 國學素養、公民素養、臺灣核心價值觀正確率96.20%、91.37%、98%，核心價值觀居彙整名單國際模型之冠。 鴻海AI布局由硬體製造延伸至模型研發與企業應",
-        "url": "https://news.cnyes.com/news/id/6674029",
+        "title": "台積電A14製程就緒！1.4奈米晶片設計啟動 2028下半年量產",
+        "summary": "台積電A14 PDK 0.9正式就緒，客戶可啟動晶片設計，2027年下半年風險試產、2028年下半年量產 A14採第二代奈米片電晶體與NanoFlex Pro，較N2P同功耗效能增14%，同效能功耗降23% Cadence、新思科技完成A14設計流程認證；台積電並公布A13路線，",
+        "url": "https://news.cnyes.com/news/id/6674317",
         "source": "鉅亨網 cnyes",
-        "time": "11-27 19:50",
+        "time": "11-28 10:57",
+        "tags": [
+          "0050.TW"
+        ]
+      },
+      {
+        "title": "前高盛策略師警告：風險資產將全面崩跌 逼得Fed 12月放棄升息",
+        "summary": "布魯克斯警告，聯準會若在油價下跌下仍升息，實質利率將續升，股市、商品與風險資產恐先崩跌 WTI跌至每桶79.25美元、美元指數升至104.5，標普500收6,882點，金價創逾40年最大60日跌幅 FOMC 12月8日至9日開會，11月28日起緘默期；CME FedWatch顯示",
+        "url": "https://news.cnyes.com/news/id/6673731",
+        "source": "鉅亨網 cnyes",
+        "time": "11-28 10:10",
+        "tags": [
+          "TLT"
+        ]
+      },
+      {
+        "title": "荷蘭抵制美國新規！反對擴大半導體曝光設備對中出口管制",
+        "summary": "荷蘭政府抵制美國MATCH法案，反對其限制曝光設備對中國出口的域外適用。 荷蘭貿易大臣Sjoerd Sjoerdsma稱，法案若通過將威脅歐洲曝光設備公司。 法案恐擴大對華限制至浸潤式DUV，因中國料占荷蘭曝光設備商今年營收20%。",
+        "url": "https://news.cnyes.com/news/id/6674316",
+        "source": "鉅亨網 cnyes",
+        "time": "11-28 08:43",
         "tags": []
       },
       {
@@ -141,34 +169,6 @@
         "url": "https://news.cnyes.com/news/id/6674256",
         "source": "鉅亨網 cnyes",
         "time": "11-28 04:20",
-        "tags": [
-          "TLT"
-        ]
-      },
-      {
-        "title": "美股收盤／晶片股領漲，那斯達克升2.31%標普創去年4月來最大單週漲幅",
-        "summary": "",
-        "url": "https://news.cnyes.com/news/id/6674265",
-        "source": "鉅亨網 cnyes",
-        "time": "11-28 03:30",
-        "tags": []
-      },
-      {
-        "title": "〈美股早盤〉AI買盤回流主要指數走揚 標普500拚4月以來最佳單周表現",
-        "summary": "美股感恩節後重啟交易開高，道瓊漲近330點、那指漲逾230點，AI股買盤回流帶動費半漲近1.6%。 道瓊朝2025年4月來最佳單周邁進，標普500也可望寫4月來最大周漲幅。 風險偏好回升壓低美債避險需求，10年期殖利率跌至4.9%，銅價反彈、油價走高，黃金與美元指數變動分歧。",
-        "url": "https://news.cnyes.com/news/id/6674170",
-        "source": "鉅亨網 cnyes",
-        "time": "11-27 23:32",
-        "tags": [
-          "TLT"
-        ]
-      },
-      {
-        "title": "惡劣天氣夾擊美國感恩節 強風豪雨釀大停電 全美數千航班延誤取消",
-        "summary": "感恩節遇罕見惡劣天氣，東岸強降雨大風致賓州等州停電逾百萬戶，紐約州、新澤西州宣布緊急狀態。 AAA估全美8150萬人假期出行，惡劣天氣釀數千航班延誤、數百班取消，梅西百貨感恩節大遊行首度延期。 高通膨與燃料成本壓抑黑色星期五買氣，NRF估1.83億人購物，59%消費者將用AI比價",
-        "url": "https://news.cnyes.com/news/id/6674099",
-        "source": "鉅亨網 cnyes",
-        "time": "11-27 20:44",
         "tags": [
           "TLT"
         ]
@@ -280,35 +280,37 @@
     ],
     "aiToolsCashflow": [
       {
-        "title": "改寫免疫療法認知，研究：穿孔素能單獨引發癌細胞「鐵死症」",
-        "summary": "免疫系統對抗癌症的機制，出現顛覆性新發現。由密西根大學健康羅格爾癌症中心（University of Mich […]",
-        "url": "https://technews.tw/2026/11/28/new-discovery-perforin-anti-cancer-mechanism/",
+        "title": "台積電宣布 A14 製程生態系就緒，0.9 版 PDK 登場並攜手兩大 EDA 廠完成驗證",
+        "summary": "根據外媒報導，台積電於本週舉辦的 2026 年歐洲開放創新平台（OIP）生態系研討會上正式宣布，旗下 1.4 […]",
+        "url": "https://finance.technews.tw/2026/11/28/tsmc-announces-a14-process-ecosystem-is-ready/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 16:00",
+        "time": "Sat, 28 Nov 2026 03:00",
+        "tags": [
+          "0050.TW"
+        ]
+      },
+      {
+        "title": "主動標示 AI、手寫 POP 留給店員！唐吉訶德如何靠「近藤愛」加速行銷，又不失招牌「店的味道」？",
+        "summary": "11 月 23 日是日本的勤勞感謝日，唐吉訶德母公司泛太平洋國際控股（PPIH）的 AI 社員「近藤愛」（近藤 […]",
+        "url": "https://technews.tw/2026/11/28/don-don-donki-launches-ai-employee-but-keeps-posters-handwritten/",
+        "source": "科技新報 TechNews",
+        "time": "Sat, 28 Nov 2026 03:00",
         "tags": []
       },
       {
-        "title": "小行星如何化身「迷你月亮」？解密 2026 QQ8 與地球短暫交會的引力之舞",
-        "summary": "國際天文聯合會小行星中心（MPC）於 10 月 29 日公布，軌道計算顯示，一顆編號為 2026 QQ8 的小 […]",
-        "url": "https://technews.tw/2026/11/28/earth-temporarily-captures-a-mini-moon-2026-qq8/",
+        "title": "正面撞擊腦傷風險最高降 83%，「複合金屬泡沫」成汽車輕量化防撞新解方",
+        "summary": "美國北卡羅來納州立大學的一項最新研究指出，原本探討用於軍用裝甲與防彈衣的「複合金屬泡沫」（CMF），未來可能成 […]",
+        "url": "https://technews.tw/2026/11/28/composite-foam-metal-enhances-vehicle-safety/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 16:00",
+        "time": "Sat, 28 Nov 2026 02:30",
         "tags": []
       },
       {
-        "title": "AI 仍供不應求，主計總處估明年出口破 1 兆美元創新高",
-        "summary": "主計總處今天公布最新經濟預測，儘管人工智慧（AI）產業發展存在變數，市場依舊供不應求，估今年商品出口突破 9, […]",
-        "url": "https://finance.technews.tw/2026/11/27/ai-supply-shortage-dgbass-forecasts-next-year-exports-1-trillion-record-high/",
+        "title": "渡邊太太搶日債、外資狂掃日股，日本股匯雙強行情要來了？",
+        "summary": "最近，日本出現一個罕見現象：「渡邊太太」們，居然搶起自家國債了！ 「渡邊太太」是國際金融圈對日本散戶的暱稱。過 […]",
+        "url": "https://finance.technews.tw/2026/11/28/watanabe-jgb-foreign-capital-japan-stocks-yen-dual-strength-rally/",
         "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 10:10",
-        "tags": []
-      },
-      {
-        "title": "20 年數據揭木衛二鈉雲長期穩定，暗示具獨立物質循環系統",
-        "summary": "木星大氣與周遭太空環境極為動盪，然而凱克天文台望遠鏡長達 20 年的觀測結果卻揭露一個出乎意料現象：木星大氣巨 […]",
-        "url": "https://technews.tw/2026/11/27/europa-saturn-moon-sodium-cloud/",
-        "source": "科技新報 TechNews",
-        "time": "Fri, 27 Nov 2026 10:06",
+        "time": "Sat, 28 Nov 2026 02:00",
         "tags": []
       },
       {
@@ -346,43 +348,51 @@
     ],
     "twTrendingCrypto": [
       {
-        "title": "沈伯洋競選總部前開始搭設舞台 準備開票之夜 - UDN",
-        "summary": "沈伯洋競選總部前開始搭設舞台 準備開票之夜 UDN 台北選前之夜兩種風景：沈伯洋直播喊破50萬人、全城自主串聯，蔣萬安凱道15萬人集結 TNL The News Lens 關鍵評論網 沈伯洋市民之夜攜「小麻糬」喊洋流破浪| 2026九合一選舉 UDN 「小麻糬",
-        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5qRXZmMXhBQzluaDQ3MTFPQVlwVVR0TGJ1M0I2b0FIQzRMR3BIdnBYQ2NzODkySjNnaE1Ka3piMUtxTHd4aXVVUE1SXzl2a0ZEUVZ30gFYQVVfeXFMT05jSE04VzB2QVE1V1lKcnNWV3k2WC1YVDlGZHVobC1yVGhkMVkyQ3ZNaENQNTUwMGtpbkYwRzcyeVZyWm55V2ZZTGRmb0trb2RKY1RuVGJ6ag?oc=5",
+        "title": "今投票日舒適微熱好天氣 吳德榮：下周一起暖陽如春 高溫升至30度以上 - UDN",
+        "summary": "今投票日舒適微熱好天氣 吳德榮：下周一起暖陽如春 高溫升至30度以上 UDN 投票日晴朗 吳德榮：明晨平地最低溫跌破12度 Rti 中央廣播電臺 天氣預報/冷空氣來了降溫變天！這天全台急凍轉冷「低溫跌破12度」， 投票日天氣曝光 Storm.mg 選舉日溫差大",
+        "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFAwLVdLMmcyQU02ck5pWE84UUxBSVFoRWNLU2tYSC01NDNiM3NYOUF2a3lpcVVpV3J5LS1qQ3ItTWhaQml2RU0yWWNTR3hLZVNt0gFWQVVfeXFMTUp0QWpRbF9HVDR3V2h1N0NxUGlPSHhWb0VYeTh2ZEpUUW40SGxtbk1SRUNkZHRPMEZaYmxvd1lhR05RZDktdExJazdzX0gxMVp2N3Q2dlE?oc=5",
         "source": "UDN",
-        "time": "Fri, 27 Nov 2026 05:46",
+        "time": "Fri, 27 Nov 2026 21:22",
         "tags": []
       },
       {
-        "title": "蔣萬安選前之夜／侯友宜感性「只有我能卸任」 李四川罕見辣嗆 - NOWnews今日新聞",
-        "summary": "蔣萬安選前之夜／侯友宜感性「只有我能卸任」 李四川罕見辣嗆 NOWnews今日新聞 國民黨三子合體！凱道景福門擠爆人潮 蔣萬安選前之夜破10萬人 UDN 台北市長選戰／台北選前之夜比拚 沈直播衝破50萬人次 蔣凱道集結破12萬人 Rti 中央廣播電臺 蔣萬安在",
-        "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE9KVERtMXNrYl9GcHJEZ05fanJJSTEyTFpJbFpMazRTSDBzS2VXNFlUUVVILTdTWF9GazFDck5uS04wWXR1S1NfQUFYdG7SAVJBVV95cUxPZ0pLSk1wUnJjSm14cG9rSDZtNXgwckczdlFKVGFuY3lIZi1hbDBOcGlwWGI1NmoxZXJmTEhFNUtVYmJJVkVZWWd0eDRTZWZFQ2l3?oc=5",
-        "source": "NOWnews今日新聞",
-        "time": "Fri, 27 Nov 2026 11:51",
-        "tags": []
-      },
-      {
-        "title": "新北敏金護理之家設鐵柵欄涉拘禁逾百人超收住民詐逾億安置費| 社會 - 中央社 CNA",
-        "summary": "新北敏金護理之家設鐵柵欄涉拘禁逾百人超收住民詐逾億安置費| 社會 中央社 CNA 精神護理之家疑虐死住民 障團籲設獨立人權監督及預防訪視機制 Rti 中央廣播電臺 20261127 公視晚間新聞 完整版（無網路版權內容除外）｜蘆洲護理之家非法超收詐領上億 住民",
-        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBVZENVNWt6enI3RXJLSEJ0UnZQZlN4dzZLUUFpOWt0QjVTZEhJeUptRlMyNlJyc2ZUb1FtajZJRlFCam5SR0UzSEpvVjhSNUdRWXpjaEpabXpRbDMweHNn?oc=5",
-        "source": "中央社 CNA",
-        "time": "Thu, 26 Nov 2026 18:46",
-        "tags": []
-      },
-      {
-        "title": "投票日天氣穩定 全台白天多雲到晴 入夜降溫中部以北及宜蘭下探16℃ - Yahoo新聞",
-        "summary": "投票日天氣穩定 全台白天多雲到晴 入夜降溫中部以北及宜蘭下探16℃ Yahoo新聞 投票日各地大致多雲到晴 29日低溫探14度 中央社 CNA 明天的天氣／把握好天氣！這天起變天「低溫跌破12度」，何時回暖？ 一周天氣一次看 Storm.mg 明天投票小心保暖",
-        "url": "https://news.google.com/rss/articles/CBMitANBVV95cUxQdUdKSGUyQlBBSXJmZmwwN0RORlE5Q0R4SW1OZFRaTXFaaTloSkZyTjRNZG9GZThXRDI3cC1fdW8tR1dzWTVDYjJVRWZaWTlYaWJsbTE1d1dwYlozRGVFeHFBTnNCQTJKa0xBMVdVVEJrM0JRYTRBNjlxSHVpOWVCVERjc3lkNVM0b3IzRk9DWUpTMElIODlFUGVMemQ1V0hYRGVscTN6c3BqNmg2d21ZcWlVNFhNRkhNMmpNeGJDand6NFNROHBkelkxbkQxdlpGamtNMllEbTBmcFUxSFJ0UXJBZWxaUXZwYjA2bW16clZfQ2VZeWIwUGJlR05WZ005TmZXN21DbURzUHg3XzNEM1NzTjF2TWhQVmVPZEJLRzNXelhkd1hKeVk2OXVfOGtSX3loakJlajJTcDVtRDRxMjJxcDNjeXp3a3M5Y2NIZ1RGVFFmX2RwV3ZrUjdkczlBcm5PRHh6cnBKSmxqMUplMDdQdlVTU05Pc0FEY29FNEY0ZDc0MTY0RHRtU2FqSzBwMThFWWxDRnlqUEFoVldEVTlkOUdUXzZKWGJpd0N6UlhzeGpf?oc=5",
+        "title": "今天投票！中天新聞全程轉播 蔣萬安、沈伯洋同時間各自投票 - Yahoo新聞",
+        "summary": "今天投票！中天新聞全程轉播 蔣萬安、沈伯洋同時間各自投票 Yahoo新聞 沈伯洋攜妻女現身投票！曝遲到半小時原因：小麻糬太興奮半夜才睡 自由時報 天氣好民眾出門意願高蔣萬安籲行使公民權| 2026九合一選舉 UDN 九合一選舉投票 蔣萬安：帶著愉快心情來投票 ",
+        "url": "https://news.google.com/rss/articles/CBMigwNBVV95cUxPbERENzFIV1pjRVJqMjhHam95bVlaZUJGWWtXT1JyQlZDekU0SmhTa0M0RDI2TFppeVFqOEctZm1yRm9nS2NJYnh6LXc0RHhCZzh1aHBqQ2RyYXFrUXcxZHFhSG1uM2w3OUZRY0M0RHY5ZXZ5dloxeHd6WTBQYjZHUXk5VGFKaGFTbEF4VGZuVFl1XzVFYUxkVDc4TzVvOUFKV0tvU2xOT3FLeU9pVlp6VzN1WXBsWTh3VDVpa1VldXVhS1RtdzBkcEFCZmJWR2NBRXdTdWtiOGFTNC11QzRIVzMyQ0NWaGdObWYwODBYSl9SWUNnWWJ4czAwcEFkNHR2S1JWNnVhSlNKNUYzcWNkVmZFSDM0ME1Fc0M5NWlXckZVaTlENDY1VmNhNGFVeGlZWTd0QkNTaElPZmE2ZmdBbXRtVllqTVZteGtPUDdJOVQzM2RrV3dsTllxaEFIX1lqMDg4bVEydk4zSUlQVEd4MWV3NnFxdlp3eWV5R1lZNnU1dTA?oc=5",
         "source": "Yahoo新聞",
-        "time": "Fri, 27 Nov 2026 10:33",
+        "time": "Fri, 27 Nov 2026 23:43",
+        "tags": []
+      },
+      {
+        "title": "2026九合一選舉明天投票！35大投票QA一次看懂：投票所查詢、22縣市長候選人名單、核電公投、最多領6 張票 - Storm.mg",
+        "summary": "2026九合一選舉明天投票！35大投票QA一次看懂：投票所查詢、22縣市長候選人名單、核電公投、最多領6 張票 Storm.mg 數據拆解九合一選民結構：22縣市僅剩5個「年輕」，60歲以上正式超越青壯年 TNL The News Lens 關鍵評論網 九合一",
+        "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE80QmM3YlEtLVYtWDU0RWN5SlRpbHY4V0ZwUW1WN2tpYTRScmpndmtaTEFKLXNUQWlrazVNTS16eWhnQlRhcWV2ODUzMGNwdWxo?oc=5",
+        "source": "Storm.mg",
+        "time": "Fri, 27 Nov 2026 06:42",
+        "tags": []
+      },
+      {
+        "title": "謝龍介一早投完票善化喝牛肉湯 投票率這樣看 - UDN",
+        "summary": "謝龍介一早投完票善化喝牛肉湯 投票率這樣看 UDN 南台南出發一路向北拚翻轉 謝龍介啟動路面戰誓拆光電板 中華新聞雲／中華日報 謝龍介全臺南車隊大掃街重申拆除烏山頭光電板、守護市民用水| 政治 Newtalk新聞 市長候選人謝龍介選完要大啖牛肉湯 | 中華日報",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9NQzg0Y2d4RV92bkhmZ2JHNUdBRG5GYlZWZE5JbGpfTW9sNDM5ejdoMHlEWDJFR3R4cWhid3BRekhrNmZ4R2QyTVBvVWx3NE1uZmFv0gFYQVVfeXFMTXpVVDh1WEpRaXJ6NHhWQU9WY2NLWGNnSkJnbG5iLXpCVHpUcGtrMTFiSVd4OHVWeW1nVm84YTlpTXJTbUQxUzU0cTFYNHg5Vkt5aHd0aFppYg?oc=5",
+        "source": "UDN",
+        "time": "Sat, 28 Nov 2026 01:03",
         "tags": []
       },
       {
         "title": "選前之夜大爆場！破5萬人湧板二熱情相挺 蘇巧慧、滅火器嗨唱成彩蛋 - 三立新聞",
-        "summary": "選前之夜大爆場！破5萬人湧板二熱情相挺 蘇巧慧、滅火器嗨唱成彩蛋 三立新聞 「一定要讓全台都羨慕」 蘇巧慧直呼給我4年：一定讓你說出「我大新北啦」 UDN 新北市長選戰／藍綠選前之夜板橋較勁 李四川、蘇巧慧最後催票 Rti 中央廣播電臺 讚蘇巧慧、沈伯洋就是「",
+        "summary": "選前之夜大爆場！破5萬人湧板二熱情相挺 蘇巧慧、滅火器嗨唱成彩蛋 三立新聞 蘇巧慧樹林投票讚台灣民主成熟籲踴躍投票| 政治 中央社 CNA 李四川提用40年經驗服務新北 蘇巧慧喊經濟、產業超越高雄 公視新聞 蕭美琴完成投票 要做家事緩解緊張心情 Rti 中央廣",
         "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5GcjlPX3Izc0lXa2FDV1dCTnExYVlFMHhGd0stSHpBS0ktQjBJaExGU0h3SktPSUJHQXpnLV80WVdDSVpyc0lESdIBTEFVX3lxTE9DdDE0blFSYnd0TFlNVjctLUU3cF9nQVZpV1ViaGZLYzhDV2wzQngzZW5EMk05QnVUcTNQMEJoZ29ZVHF0NmNIOU1NbGg?oc=5",
         "source": "三立新聞",
         "time": "Fri, 27 Nov 2026 13:35",
+        "tags": []
+      },
+      {
+        "title": "金色早報丨OKX Star闢謠交易所被盜 比特幣與黃金相關性今年創歷史新高",
+        "summary": "",
+        "url": "https://news.cnyes.com/news/id/6674346",
+        "source": "鉅亨網 cnyes",
+        "time": "11-28 10:00",
         "tags": []
       },
       {
@@ -408,14 +418,6 @@
         "source": "鉅亨網 cnyes",
         "time": "11-27 22:33",
         "tags": []
-      },
-      {
-        "title": "在Velio可以買到Hyperliquid上沒有的AI資產",
-        "summary": "",
-        "url": "https://news.cnyes.com/news/id/6674127",
-        "source": "鉅亨網 cnyes",
-        "time": "11-27 22:00",
-        "tags": []
       }
     ],
     "xThreadsBuzz": [
@@ -426,6 +428,16 @@
         "source": "今周刊",
         "time": "Tue, 24 Nov 2026 02:46",
         "tags": []
+      },
+      {
+        "title": "黃仁勳「王者歸來」馬斯克嗨翻！ 祖克柏、貝佐斯為何不表態？他解釋了",
+        "summary": "輝達創辦人黃仁勳因婚外情風波請辭，時隔11天重返執行長職位，消息一出，矽谷科技圈掀起一陣歡呼，不少人形容「王者歸來」，更有人將他比喻為耶穌基督。不過，相較於全球首富馬斯克（Elon Musk）、OpenAI執行長奧特曼（Sam Altman）高調慶祝，Meta",
+        "url": "https://tw.news.yahoo.com/%E9%BB%83%E4%BB%81%E5%8B%B3-%E7%8E%8B%E8%80%85%E6%AD%B8%E4%BE%86-%E9%A6%AC%E6%96%AF%E5%85%8B%E5%97%A8%E7%BF%BB-%E7%A5%96%E5%85%8B%E6%9F%8F-%E8%B2%9D%E4%BD%90%E6%96%AF%E7%82%BA%E4%BD%95%E4%B8%8D%E8%A1%A8%E6%85%8B-094100472.html",
+        "source": "Yahoo奇摩新聞",
+        "time": "Fri, 27 Nov 2026 01:41",
+        "tags": [
+          "META"
+        ]
       },
       {
         "title": "黃仁勳復職給員工分發三明治，他身家一夜暴漲超2400億元，輝達市值暴增6.3兆元，馬斯克發聲、川普P圖慶祝",
@@ -444,22 +456,12 @@
         "tags": []
       },
       {
-        "title": "黃仁勳回鍋輝達！華郵指馬斯克鋪路 專家：執行長像羅馬皇帝為所欲為",
-        "summary": "輝達執行長黃仁勳使公司陷入危機，外界一度質疑他能否回鍋。華盛頓郵報指出，世界首富馬斯克數年前也曾面臨失去旗下商業帝國掌控權的危機，但兩人最終都掌握公司大權。企業治理專家表示，科技業似乎已摒棄過去曾讓Uber共同創辦人卡蘭尼克等矽谷領袖為不當行為付出較明確代價的",
-        "url": "https://udn.com/news/story/125066/9905834",
-        "source": "聯合新聞網",
-        "time": "Fri, 27 Nov 2026 06:08",
+        "title": "川普出手保黃仁勳 復刻「收服馬斯克」劇本？",
+        "summary": "黃仁勳傳出請辭11天後閃電回歸，全球AI產業振奮，川普也在24日一早發文，表示司法部長布蘭希已確認，美國政府並未掌握任何顯示黃仁勳從事違法行為的證據，在眾議院聽證會前率先表明立場。",
+        "url": "https://news.ebc.net.tw/news/world/582307",
+        "source": "東森新聞",
+        "time": "Tue, 24 Nov 2026 12:12",
         "tags": []
-      },
-      {
-        "title": "再提黃仁勳「會沒事的」 川普：樂於一起出席台積電工廠動土禮",
-        "summary": "美國總統川普本週稍早出手介入輝達執行長黃仁勳的復職案。川普週四（11/26）表示，黃仁勳重返工作崗位後還沒與他通過電話。川普同時強調，沒有情報顯示黃仁勳危害國安，還說希望能在下周和黃仁勳一起參加台積電亞利桑那工廠的動土典禮。",
-        "url": "https://tw.news.yahoo.com/%E5%86%8D%E6%8F%90%E9%BB%83%E4%BB%81%E5%8B%B3-%E6%9C%83%E6%B2%92%E4%BA%8B%E7%9A%84-%E5%B7%9D%E6%99%AE-%E6%A8%82%E6%96%BC-%E8%B5%B7%E5%87%BA%E5%B8%AD%E5%8F%B0%E7%A9%8D%E9%9B%BB%E5%B7%A5%E5%BB%A0%E5%8B%95%E5%9C%9F%E7%A6%AE-023648946.html",
-        "source": "Yahoo奇摩新聞",
-        "time": "Thu, 26 Nov 2026 16:00",
-        "tags": [
-          "0050.TW"
-        ]
       },
       {
         "title": "馬斯克能助黃仁勳回鍋？分析師指晶片訂單可成籌碼",
@@ -478,12 +480,14 @@
         "tags": []
       },
       {
-        "title": "川普出手保黃仁勳 復刻「收服馬斯克」劇本？",
-        "summary": "黃仁勳傳出請辭11天後閃電回歸，全球AI產業振奮，川普也在24日一早發文，表示司法部長布蘭希已確認，美國政府並未掌握任何顯示黃仁勳從事違法行為的證據，在眾議院聽證會前率先表明立場。",
-        "url": "https://news.ebc.net.tw/news/world/582307",
-        "source": "東森新聞",
-        "time": "Tue, 24 Nov 2026 12:12",
-        "tags": []
+        "title": "再提黃仁勳「會沒事的」 川普：樂於一起出席台積電工廠動土禮",
+        "summary": "美國總統川普本週稍早出手介入輝達執行長黃仁勳的復職案。川普週四（11/26）表示，黃仁勳重返工作崗位後還沒與他通過電話。川普同時強調，沒有情報顯示黃仁勳危害國安，還說希望能在下周和黃仁勳一起參加台積電亞利桑那工廠的動土典禮。",
+        "url": "https://tw.news.yahoo.com/%E5%86%8D%E6%8F%90%E9%BB%83%E4%BB%81%E5%8B%B3-%E6%9C%83%E6%B2%92%E4%BA%8B%E7%9A%84-%E5%B7%9D%E6%99%AE-%E6%A8%82%E6%96%BC-%E8%B5%B7%E5%87%BA%E5%B8%AD%E5%8F%B0%E7%A9%8D%E9%9B%BB%E5%B7%A5%E5%BB%A0%E5%8B%95%E5%9C%9F%E7%A6%AE-023648946.html",
+        "source": "Yahoo奇摩新聞",
+        "time": "Thu, 26 Nov 2026 16:00",
+        "tags": [
+          "0050.TW"
+        ]
       }
     ]
   },
@@ -495,8 +499,17 @@
       "sentimentLabel": "🥶 散戶恐慌悲觀 (0% 偏多) · 往往對應短線清洗浮額低點",
       "hotPosts": [
         {
-          "push": "5",
-          "score": 5,
+          "push": "86",
+          "score": 86,
+          "title": "[新聞] DRAM價格漲勢恐提前反轉！TrendForce示",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795822960.A.F78.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "63",
+          "score": 63,
           "title": "[新聞] 輝達高階Blackwell晶片流入大陸 出現在與",
           "url": "https://www.ptt.cc/bbs/Stock/M.1795812862.A.CB5.html",
           "source": "PTT Stock 股版",
@@ -504,10 +517,55 @@
           "tags": []
         },
         {
-          "push": "1",
-          "score": 1,
+          "push": "45",
+          "score": 45,
+          "title": "[新聞] 華碩推頂級行動工作站筆電 配備輝達超級",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795829086.A.7FA.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "12",
+          "score": 12,
+          "title": "[新聞] 寧德時代深港股齊跌 A股市值跌破萬億關口",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795833016.A.792.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "11",
+          "score": 11,
+          "title": "[新聞] 前高盛策略師警告：風險資產將全面崩跌",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795835240.A.910.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "10",
+          "score": 10,
           "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
           "url": "https://www.ptt.cc/bbs/Stock/M.1795810456.A.A77.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "8",
+          "score": 8,
+          "title": "Re: [請益] 沒經歷過2008年熊市的投資人",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795828492.A.70D.html",
+          "source": "PTT Stock 股版",
+          "date": "11/28",
+          "tags": []
+        },
+        {
+          "push": "1",
+          "score": 1,
+          "title": "[情報] 主動ETF/外資共同買賣超排行 (11/27)",
+          "url": "https://www.ptt.cc/bbs/Stock/M.1795807836.A.8DA.html",
           "source": "PTT Stock 股版",
           "date": "11/28",
           "tags": []
@@ -520,15 +578,6 @@
           "source": "PTT Stock 股版",
           "date": "11/28",
           "tags": []
-        },
-        {
-          "push": "0",
-          "score": 0,
-          "title": "[情報] 主動ETF/外資共同買賣超排行 (11/27)",
-          "url": "https://www.ptt.cc/bbs/Stock/M.1795807836.A.8DA.html",
-          "source": "PTT Stock 股版",
-          "date": "11/28",
-          "tags": []
         }
       ]
     },
@@ -537,9 +586,9 @@
         "rank": 1,
         "ticker": "NVDA",
         "name": "NVIDIA",
-        "mentions": 343,
-        "upvotes": 1219,
-        "momentum24hPct": 56,
+        "mentions": 335,
+        "upvotes": 1312,
+        "momentum24hPct": 112,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24NVDA&sort=hot"
       },
@@ -547,9 +596,9 @@
         "rank": 2,
         "ticker": "SPY",
         "name": "SPDR S&P 500 ETF Trust",
-        "mentions": 208,
-        "upvotes": 659,
-        "momentum24hPct": 82,
+        "mentions": 203,
+        "upvotes": 762,
+        "momentum24hPct": 131,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24SPY&sort=hot"
       },
@@ -557,9 +606,9 @@
         "rank": 3,
         "ticker": "QQQ",
         "name": "Invesco QQQ ETF",
-        "mentions": 102,
-        "upvotes": 361,
-        "momentum24hPct": 36,
+        "mentions": 97,
+        "upvotes": 415,
+        "momentum24hPct": 52,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24QQQ&sort=hot"
       },
@@ -567,39 +616,39 @@
         "rank": 4,
         "ticker": "MU",
         "name": "Micron Technology",
-        "mentions": 56,
-        "upvotes": 107,
-        "momentum24hPct": 24,
+        "mentions": 53,
+        "upvotes": 143,
+        "momentum24hPct": 29,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24MU&sort=hot"
       },
       {
         "rank": 5,
-        "ticker": "SNDK",
-        "name": "Sandisk",
-        "mentions": 52,
-        "upvotes": 149,
-        "momentum24hPct": 30,
+        "ticker": "TSLA",
+        "name": "Tesla",
+        "mentions": 50,
+        "upvotes": 110,
+        "momentum24hPct": 456,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
-        "url": "https://www.reddit.com/search/?q=%24SNDK&sort=hot"
+        "url": "https://www.reddit.com/search/?q=%24TSLA&sort=hot"
       },
       {
         "rank": 6,
-        "ticker": "TSLA",
-        "name": "Tesla",
-        "mentions": 48,
-        "upvotes": 106,
-        "momentum24hPct": 300,
+        "ticker": "SNDK",
+        "name": "Sandisk",
+        "mentions": 47,
+        "upvotes": 131,
+        "momentum24hPct": 74,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
-        "url": "https://www.reddit.com/search/?q=%24TSLA&sort=hot"
+        "url": "https://www.reddit.com/search/?q=%24SNDK&sort=hot"
       },
       {
         "rank": 7,
         "ticker": "AMD",
         "name": "AMD",
-        "mentions": 45,
-        "upvotes": 84,
-        "momentum24hPct": -12,
+        "mentions": 47,
+        "upvotes": 85,
+        "momentum24hPct": 4,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24AMD&sort=hot"
       },
@@ -607,9 +656,9 @@
         "rank": 8,
         "ticker": "DTE",
         "name": "DTE Energy",
-        "mentions": 40,
-        "upvotes": 199,
-        "momentum24hPct": 14,
+        "mentions": 38,
+        "upvotes": 241,
+        "momentum24hPct": 46,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24DTE&sort=hot"
       },
@@ -617,9 +666,9 @@
         "rank": 9,
         "ticker": "PS",
         "name": "Pluralsight",
-        "mentions": 36,
-        "upvotes": 96,
-        "momentum24hPct": 800,
+        "mentions": 37,
+        "upvotes": 108,
+        "momentum24hPct": 825,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24PS&sort=hot"
       },
@@ -627,93 +676,93 @@
         "rank": 10,
         "ticker": "VOO",
         "name": "Vanguard S&P 500 ETF",
-        "mentions": 35,
-        "upvotes": 52,
-        "momentum24hPct": -24,
+        "mentions": 33,
+        "upvotes": 51,
+        "momentum24hPct": -18,
         "source": "Reddit (r/wallstreetbets · r/stocks)",
         "url": "https://www.reddit.com/search/?q=%24VOO&sort=hot"
       }
     ],
     "hackerNews": [
       {
-        "title": "AI made self-hosting fun again",
-        "points": 1055,
-        "comments": 496,
-        "source": "Hacker News (janlukas.blog)",
-        "url": "https://janlukas.blog/posts/ai-self-hosting",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50660180"
-      },
-      {
-        "title": "Group chat where your AI talks behind your back",
-        "points": 643,
-        "comments": 276,
-        "source": "Hacker News (construct22.com)",
-        "url": "https://construct22.com/",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50663595"
-      },
-      {
-        "title": "YouTube Ad Punisher – Auto-reloads YouTube pages when an ad plays",
-        "points": 529,
-        "comments": 637,
-        "source": "Hacker News (github.com)",
-        "url": "https://github.com/antonpictures/youtube-punisher",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657530"
-      },
-      {
-        "title": "Kamil Khan Mumtaz: Pakistani architect, admired at home, almost invisible abroad",
-        "points": 499,
-        "comments": 125,
-        "source": "Hacker News (worksinprogress.co)",
-        "url": "https://worksinprogress.co/issue/the-greatest-architect-youve-never-heard-of-is-in-pakistan/",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50659841"
-      },
-      {
-        "title": "Claude sabotaging ML research tasks?",
-        "points": 486,
-        "comments": 247,
-        "source": "Hacker News (twitter.com)",
-        "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50664325"
-      },
-      {
         "title": "Credit card skimming scripts using WebRTC found on popular shopping sites",
-        "points": 318,
-        "comments": 168,
+        "points": 450,
+        "comments": 234,
         "source": "Hacker News (infohawk.com)",
         "url": "https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50668145"
       },
       {
+        "title": "Michael Nielsen took down his book on neural nets",
+        "points": 411,
+        "comments": 268,
+        "source": "Hacker News (neuralnetworksanddeeplearning.com)",
+        "url": "https://neuralnetworksanddeeplearning.com/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50670757"
+      },
+      {
+        "title": "GPT 6.2 Astra Solves a Historical Mystery",
+        "points": 350,
+        "comments": 224,
+        "source": "Hacker News (generativehistory.substack.com)",
+        "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50643158"
+      },
+      {
         "title": "Show HN: bouncemarket – a live prediction market game for a bouncing ball",
-        "points": 298,
-        "comments": 91,
+        "points": 334,
+        "comments": 115,
         "source": "Hacker News (bouncemarket.minhanhday.com)",
         "url": "https://bouncemarket.minhanhday.com/",
         "hnCommentsUrl": "https://news.ycombinator.com/item?id=50667726"
       },
       {
-        "title": "The need for a formally verifiable mainstream programming language",
-        "points": 289,
-        "comments": 288,
-        "source": "Hacker News (blainehansen.me)",
-        "url": "https://blainehansen.me/post/mainstream-verifiable-language/",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50663089"
+        "title": "States sue SpaceX to stop Grok from generating child sex images, revenge porn",
+        "points": 291,
+        "comments": 158,
+        "source": "Hacker News (oag.state.va.us)",
+        "url": "https://www.oag.state.va.us/media-center/news-releases/jay-jones/3162-attorneys-general-jones-and-rayfield-file-suit-against-spacex-parent-company-of-x-xai-and-grok-over-creation-and-promotion-of-child-exploitation-and-non-consensual-images-on-platform",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50670855"
       },
       {
-        "title": "US Air Force's cloud computing platform hacked",
-        "points": 287,
-        "comments": 189,
-        "source": "Hacker News (news.sky.com)",
-        "url": "https://news.sky.com/story/us-air-forces-cloud-computing-platform-hacked-13617163",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50666375"
+        "title": "Convex skills send the user's app idea to a remote server without telling them",
+        "points": 244,
+        "comments": 76,
+        "source": "Hacker News (github.com)",
+        "url": "https://github.com/convex/convex-backend-skill/issues/64",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50669765"
       },
       {
-        "title": "Michael Nielsen took down his book on neural nets",
-        "points": 208,
-        "comments": 132,
-        "source": "Hacker News (twitter.com)",
-        "url": "https://twitter.com/michael_nielsen/status/2126359767362748777",
-        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50670757"
+        "title": "False computer-checked proofs",
+        "points": 192,
+        "comments": 76,
+        "source": "Hacker News (cr.yp.to)",
+        "url": "https://cr.yp.to/proofs/falseccp.html",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50667989"
+      },
+      {
+        "title": "First images of the impact of DART asteroid deflection experiment",
+        "points": 188,
+        "comments": 57,
+        "source": "Hacker News (arstechnica.com)",
+        "url": "https://arstechnica.com/space/2026/11/europes-hera-mission-returns-to-the-chaotic-scene-of-a-cosmic-smashup/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50657392"
+      },
+      {
+        "title": "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+        "points": 164,
+        "comments": 57,
+        "source": "Hacker News (research.google)",
+        "url": "https://research.google/blog/supercharging-transformer-residual-connections/",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50672565"
+      },
+      {
+        "title": "Citroën Hydraulic System",
+        "points": 144,
+        "comments": 50,
+        "source": "Hacker News (citroenet.org.uk)",
+        "url": "https://www.citroenet.org.uk/miscellaneous/hydraulics/hydraulics-1.html",
+        "hnCommentsUrl": "https://news.ycombinator.com/item?id=50662313"
       }
     ]
   }
